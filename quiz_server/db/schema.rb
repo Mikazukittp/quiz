@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214040752) do
+ActiveRecord::Schema.define(version: 20150214041226) do
+
+  create_table "choices", force: true do |t|
+    t.integer  "question_id",                         null: false
+    t.string   "sentence",            default: "",    null: false
+    t.boolean  "correct_flag",        default: false, null: false
+    t.integer  "choice_number",                       null: false
+    t.integer  "answered_times",                      null: false
+    t.string   "image_url"
+    t.string   "thumbnail_image_url"
+    t.boolean  "is_delete",           default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "events", force: true do |t|
     t.integer  "admin_user_id",                 null: false
