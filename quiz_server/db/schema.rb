@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214042526) do
+ActiveRecord::Schema.define(version: 20150214042835) do
 
   create_table "answerers", force: true do |t|
     t.integer  "event_id",                                  null: false
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20150214042526) do
     t.integer  "total_points",                              null: false
     t.integer  "total_times_answer_correctly",              null: false
     t.integer  "total_answer_time",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "answers", force: true do |t|
+    t.integer  "question_id",                           null: false
+    t.integer  "answerer_id",                           null: false
+    t.integer  "answer_time",                           null: false
+    t.integer  "choice_question_number",                null: false
+    t.boolean  "is_correct",             default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
