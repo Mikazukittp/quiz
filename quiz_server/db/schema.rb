@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214041750) do
+ActiveRecord::Schema.define(version: 20150214042526) do
+
+  create_table "answerers", force: true do |t|
+    t.integer  "event_id",                                  null: false
+    t.string   "name",                         default: "", null: false
+    t.integer  "total_points",                              null: false
+    t.integer  "total_times_answer_correctly",              null: false
+    t.integer  "total_answer_time",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "choices", force: true do |t|
     t.integer  "question_id",                         null: false
