@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214041226) do
+ActiveRecord::Schema.define(version: 20150214041750) do
 
   create_table "choices", force: true do |t|
     t.integer  "question_id",                         null: false
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20150214041226) do
     t.string   "image_url"
     t.string   "thumbnail_image_url"
     t.boolean  "is_delete",           default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "courses", force: true do |t|
+    t.string   "name",         default: "", null: false
+    t.integer  "max_answerer",              null: false
+    t.integer  "max_question",              null: false
+    t.integer  "price",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
