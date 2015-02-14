@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214042835) do
+ActiveRecord::Schema.define(version: 20150214043444) do
 
   create_table "answerers", force: true do |t|
     t.integer  "event_id",                                  null: false
@@ -65,6 +65,16 @@ ActiveRecord::Schema.define(version: 20150214042835) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_delete",     default: false, null: false
+  end
+
+  create_table "payments", force: true do |t|
+    t.integer  "event_id",                   null: false
+    t.datetime "date"
+    t.datetime "limit_date",                 null: false
+    t.integer  "amount"
+    t.boolean  "is_delete",  default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "question_types", force: true do |t|
