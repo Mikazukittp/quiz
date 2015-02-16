@@ -21,4 +21,13 @@ module QuizServer
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :ja
   end
+
+  module DeviseApiUse
+  class Application < Rails::Application
+
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
+  end
+end
 end

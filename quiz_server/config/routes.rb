@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  devise_for :admin_users
+  devise_for :admin_users, controllers: { sessions: "session"  }
   get 'admin/index'
   get 'admin/show'
 
