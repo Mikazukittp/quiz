@@ -32,6 +32,10 @@ angular
         templateUrl: 'views/question.html',
         controller: 'QuestionCtrl'
       })
+     .when('/screen', {
+        templateUrl: 'views/screen.html',
+        controller: 'ScreenCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
