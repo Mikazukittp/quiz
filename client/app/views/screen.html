@@ -1,0 +1,36 @@
+<div ng-controller="ScreenCtrl">
+	<link rel="stylesheet" href="styles/screen.css">
+
+	<h2>問題 {{question.number}}</h2>
+	<div class="panel panel-default" ng-show="checked">
+ 		<div class="panel-body">
+      		{{question.text}}
+  		</div>
+	</div>
+	<div align="center">
+		<img src="{{question.imageUrl._url}}" alt="I'm beckham" class="img-thumbnail">
+	</div>
+
+      <button ng-click="nums.push(nums[nums.length-1]+1)">次の問題</button>
+      <button ng-click="nums.splice(nums.length-1,nums.length)">前の問題</button>
+ 
+	<div class="answer">
+    <div class="row">
+      <div ng-init="nums=[];">
+        <div class="view">
+          <div class="number" ng-repeat="n in nums">
+            <div class="col-md-6">
+              <div class="thumbnail">
+                <div class="caption">
+                  <h3>A. {{question.question}}{{n}}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
