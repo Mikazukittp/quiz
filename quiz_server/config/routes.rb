@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
 
-  devise_for :admin_users, controllers: { sessions: "session"  }
+  devise_for :admin_users, controllers: { sessions: "session",
+   registrations: "registration", confirmations: "confirmation" }
   get 'admin/index'
   get 'admin/show'
 
