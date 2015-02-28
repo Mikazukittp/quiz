@@ -10,7 +10,7 @@ class RegistrationController < Devise::RegistrationsController
   end
 
   def create
-    attr = params.require(:admin_user).permit(:email,:password,:password_confirmation)
+    attr = params.require(:admin_user).permit(:email,:name,:password,:password_confirmation)
 
     if !AdminUser.exists?(email: attr['email'])
       @admin_user = AdminUser.create(attr)
