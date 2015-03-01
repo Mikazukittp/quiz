@@ -3,22 +3,19 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
 
-  # json でのリクエストの場合CSRFトークンの検証をスキップ
-  skip_before_action :verify_authenticity_token,     if: -> {request.format.json?}
-  # トークンによる認証
-  before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
+  # パラメーターからtokenを取得する
+  #before_filter :get_token_from_response
 
-  # 権限無しのリソースにアクセスしようとした場合
-=begin
-  rescue_from CanCan::AccessDenied do |exception|
-    respond_to do |format|
-      format.html { redirect_to main_app.root_url, alert: exception.message }
-      format.json { render json: {message: exception.message}, status: :unauthorized }
-    end
-  end
-=end
+  # => トークンによる認証
+  #before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
 
-  # トークンによる認証
+
+  #　パラメータからtokenを取得するメソッド
+  #def get_token_from_response
+   # params[:authenticity_token] = form_authenticity_token
+  #end
+
+  #トークンによる認証
   def authenticate_user_from_token!
     user = User.find_by(email: params[:email])
     if Devise.secure_compare(user.try(:authentication_token), params[:token])
