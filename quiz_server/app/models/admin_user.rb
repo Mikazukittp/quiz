@@ -3,7 +3,7 @@ class AdminUser < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :lockable
+         :confirmable
 
 
   # 認証トークンはユニークに。ただしnilは許可
