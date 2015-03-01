@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/ishibetatsuya/quiz/client",
+			 "file_exclude_patterns":
+  			[
+  				".bowerrc"
+
+		  	],
+  			"folder_exclude_patterns":
+  			[
+  			"bower_components",
+  			"test",
+  			".sass-cache",
+  			"node_modules",
+  			".tmp"
+  			]	
+
+		}
+	]
+}

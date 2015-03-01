@@ -1,0 +1,237 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fu",
+				"function"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "<div ng-controller=\"ScreenCtrl\">\n	<link rel=\"stylesheet\" href=\"styles/screen.css\">\n\n	<h2>問題 {{question.number}}</h2>\n	<div class=\"panel panel-default\" ng-show=\"checked\">\n 		<div class=\"panel-body\">\n      		{{question.text}}\n  		</div>\n	</div>\n	<div align=\"center\">\n		<img src=\"{{question.imageUrl._url}}\" alt=\"I'm beckham\" class=\"img-thumbnail\">\n	</div>\n\n      <button ng-click=\"nums.push(nums[nums.length-1]+1)\">次の問題</button>\n      <button ng-click=\"nums.splice(nums.length-1,nums.length)\">前の問題</button>\n \n	<div class=\"answer\">\n    <div class=\"row\">\n      <div ng-init=\"nums=[];\">\n        <div class=\"view\">\n          <div class=\"number\" ng-repeat=\"n in nums\">\n            <div class=\"col-md-6\">\n              <div class=\"thumbnail\">\n                <div class=\"caption\">\n                  <h3>A. {{question.question}}{{n}}</h3>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n\n</div>\n",
+			"file": "app/views/screen.html",
+			"file_size": 987,
+			"file_write_time": 1424625633000000,
+			"settings":
+			{
+				"buffer_size": 967,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/screen.js",
+			"settings":
+			{
+				"buffer_size": 1312,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/ishibetatsuya/quiz/client/app/views/main.html",
+		"/Users/ishibetatsuya/quiz/client/app/views/question.html",
+		"/Users/ishibetatsuya/quiz/client/app/index.html",
+		"/Users/ishibetatsuya/quiz/client/app/scripts/app.js",
+		"/Users/ishibetatsuya/quiz/client/app/views/screen.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ng-show",
+			"ni-show",
+			"100018149593",
+			"100023768753",
+			"100023474894",
+			"100023542593",
+			"100023440909",
+			"100022662335",
+			"100022007839",
+			"zIfK4rDDF_M",
+			"videoId",
+			"url",
+			"6o5TpKpZsxY",
+			"videoId",
+			"6o5TpKpZsxY",
+			"videoId",
+			"contentDetails",
+			"@data",
+			"data"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"!\n",
+			"div"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/views/screen.html",
+					"settings":
+					{
+						"buffer_size": 967,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								531,
+								531
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/scripts/controllers/screen.js",
+					"settings":
+					{
+						"buffer_size": 1312,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								999,
+								999
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 19.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
