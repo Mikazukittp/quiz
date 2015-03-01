@@ -1,20 +1,20 @@
 <div ng-controller="ScreenCtrl">
 	<link rel="stylesheet" href="styles/screen.css">
 
-	<h2>問題 {{question.number}}</h2>
-	<div class="panel panel-default" ng-show="checked">
- 		<div class="panel-body">
-      		{{question.text}}
-  		</div>
-	</div>
-	<div align="center">
-		<img src="{{question.imageUrl._url}}" alt="I'm beckham" class="img-thumbnail">
-	</div>
+  <div class="container">
+  <div class="row">
+    <div class="col-md-8">
+        <h2>問題 {{question.number}}</h2>
+  <div class="panel panel-default" ng-show="checked">
+    <div class="panel-body">
+          {{question.text}}
+      </div>
+  </div>
+  <div align="center">
+    <img src="{{question.imageUrl._url}}" alt="I'm beckham" class="img-thumbnail">
+  </div>
 
-      <button ng-click="nums.push(nums[nums.length-1]+1)">次の問題</button>
-      <button ng-click="nums.splice(nums.length-1,nums.length)">前の問題</button>
- 
-	<div class="answer">
+  <div class="answer">
     <div class="row">
       <div ng-init="nums=[];">
         <div class="view">
@@ -32,5 +32,16 @@
     </div>
   </div>
 
+  <div class="btn-group" role="group" aria-label="...">
+    <button  class="btn btn-default" ng-click="nums.splice(nums.length-1,nums.length)">前へ</button>
+    <button  class="btn btn-default" ng-click="nums.push(nums[nums.length-1]+1)">次へ</button>
+  </div>
+
+    </div>
+    <div class="col-md-4">
+      Span8の中身
+    </div>
+  </div>
+</div>
 
 </div>

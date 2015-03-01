@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('ScreenCtrl', function ($scope,Parse) {
+  .controller('ScreenCtrl', function ($scope) {
  
     Parse.initialize('UJbVFp808zweMERrwv5CsVIHNvzfoa5QOegdVdlc', 'nQ47bfljzSbtk7lvk6YfPOBasiahjTS7ORK2sLp4');
     var QuestionClass = Parse.Object.extend('Question');

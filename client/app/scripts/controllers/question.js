@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('QuestionCtrl', function ($scope,Parse) {
+  .controller('QuestionCtrl', function ($scope) {
  
     //TODO parseのテストデータを取得 本来を独自APIを取得する
     Parse.initialize('UJbVFp808zweMERrwv5CsVIHNvzfoa5QOegdVdlc', 'nQ47bfljzSbtk7lvk6YfPOBasiahjTS7ORK2sLp4');
