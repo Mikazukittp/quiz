@@ -1,0 +1,16 @@
+<h2>イベント概要</h2>
+<p>{{event.name}}</p>
+<p>{{event.date}}</p>
+<p>{{event.description}}</p>
+
+<h2>問題一覧</h2>
+<a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>追加</a>
+
+<ol>
+<li ng-repeat="q in questions">
+    <span>{{q.sentence}}</span>
+    <a href="/#/admin/question/{{q.id}}"><span class="glyphicon glyphicon-eye-open"></span></a>
+    <a href=""><span class="glyphicon glyphicon-pencil"></span></a>
+    <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+</li>
+</ol>

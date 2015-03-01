@@ -1,0 +1,9 @@
+<p>イベント一覧</p>
+
+<ul>
+<li ng-repeat="event in events"><a href="/#/admin/event/{{event.id}}">
+    <span>{{event.name}}</span>
+    <span>{{event.date}}</span>
+    <span>{{event.description}}</span>
+</a></li>
+</ul>

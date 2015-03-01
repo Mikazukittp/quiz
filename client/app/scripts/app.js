@@ -28,9 +28,17 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-     .when('/question', {
-        templateUrl: 'views/question.html',
-        controller: 'QuestionCtrl'
+     .when('/admin/question/:id', {
+        templateUrl: 'views/admin.question.html',
+        controller: 'AdminQuestionCtrl'
+      })
+     .when('/admin/user/', {
+        templateUrl: 'views/admin.user.html',
+        controller: 'AdminUserCtrl'
+      })
+     .when('/admin/event/:id', {
+        templateUrl: 'views/admin.event.html',
+        controller: 'AdminEventCtrl'
       })
      .when('/screen', {
         templateUrl: 'views/screen.html',
