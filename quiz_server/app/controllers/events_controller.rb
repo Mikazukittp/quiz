@@ -2,7 +2,8 @@ class EventsController < ApplicationController
     respond_to :json
 
     def index
-        events = Event.find_by(admin_user_id: params[:id])
+        events = Event.where(admin_user_id: params[:id])
+        p events
         render :json => events
     end
 
