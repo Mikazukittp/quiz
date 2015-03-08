@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214155532) do
+ActiveRecord::Schema.define(version: 20150308055839) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150214155532) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_delete"
+    t.string   "authentication_token"
   end
 
   add_index "admin_users", ["confirmation_token"], name: "index_admin_users_on_confirmation_token", unique: true
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150214155532) do
     t.datetime "updated_at"
     t.boolean  "is_delete",     default: false, null: false
     t.integer  "course_id"
+    t.string   "description"
   end
 
   create_table "payments", force: true do |t|
