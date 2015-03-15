@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   get 'events/index/:id' => 'events#index'
   get 'events/show/:id' => 'events#show'
-  get 'quesions/list/:id' => 'quesions#list'
-  get 'quesions/show/:id' => 'quesions#show'
+  get 'questions/list/:id' => 'questions#list'
+  get 'questions/show/:id' => 'questions#show'
   post 'events' => 'events#create'
+  post 'questions' => 'questions#create'
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",
