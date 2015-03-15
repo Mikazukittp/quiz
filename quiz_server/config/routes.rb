@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get 'questions/list/:id' => 'questions#list'
   get 'questions/show/:id' => 'questions#show'
   post 'events' => 'events#create'
+  delete 'events/:id/delete' => 'events#delete'
   post 'questions' => 'questions#create'
+  delete 'questions/:id/delete' => 'questions#delete'
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",

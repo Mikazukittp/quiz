@@ -1,12 +1,12 @@
 class QuestionsController < ApplicationController
 
     def list
-        questions = Question.where(event_id: params[:id])
+        questions = Question.where(event_id: params[:id],is_delete: false)
         render :json => questions
     end
 
     def show
-        questions = Question.find(params[:id])
+        questions = Question.find_by(id: params[:id],is_delete: false)
         render :json => questions
     end
 
@@ -21,4 +21,21 @@ class QuestionsController < ApplicationController
                       :info => "questionの作成に成功しました",
                       }
         end
+
+    def delete
+      question = Question.find(params[:id])
+
+      if question.event.admin_user_id === current_admin_user.id
+        question.update_attributes(:is_delete => true )
+        render :status => 200,
+           :json => { :success => true,
+                      :info => "問題の削除に成功しました",
+                      }
+      else
+        render :status => 401,
+           :json => { :success => false,
+                      :info => "問題の削除に失敗しました",
+                      }
+      end
+    end
 end
