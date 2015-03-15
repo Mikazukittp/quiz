@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'events/show/:id' => 'events#show'
   get 'quesions/list/:id' => 'quesions#list'
   get 'quesions/show/:id' => 'quesions#show'
+  post 'events' => 'events#create'
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",

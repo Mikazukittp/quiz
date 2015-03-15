@@ -13,6 +13,8 @@ class EventsController < ApplicationController
     end
 
     def create
+    p params[:event]
+
         attr = params.require(:event).permit(:admin_user_id,:name,:event_date,
             :limit_date,:time_limit,:url,:course_id,:description)
 
