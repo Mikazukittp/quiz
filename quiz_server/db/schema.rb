@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150308055839) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_delete"
+    t.string   "authentication_token"
   end
 
   add_index "admin_users", ["confirmation_token"], name: "index_admin_users_on_confirmation_token", unique: true
