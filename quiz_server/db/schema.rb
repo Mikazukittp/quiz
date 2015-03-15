@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20150308055839) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_delete"
-    t.string   "authentication_token"
   end
 
   add_index "admin_users", ["confirmation_token"], name: "index_admin_users_on_confirmation_token", unique: true
@@ -86,7 +85,7 @@ ActiveRecord::Schema.define(version: 20150308055839) do
   end
 
   create_table "events", force: true do |t|
-    t.integer  "admin_user_id",                 null: false
+    t.integer  "admin_user_id"
     t.string   "name",          default: "",    null: false
     t.datetime "event_date",                    null: false
     t.datetime "limit_date",                    null: false
