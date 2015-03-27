@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminQuestionCtrl', function ($scope, $routeParams, questions) {
+  .controller('userQuestionCtrl', function ($scope, $routeParams, questions) {
 
     $scope.id = $routeParams.id;
     questions.get($scope.id).then(function(data){

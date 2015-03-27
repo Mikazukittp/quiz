@@ -40,9 +40,13 @@ angular
         templateUrl: 'views/admin.event.html',
         controller: 'AdminEventCtrl'
       })
-     .when('/screen', {
-        templateUrl: 'views/screen.html',
-        controller: 'ScreenCtrl'
+     .when('/admin/screen/:id', {
+        templateUrl: 'views/admin.screen.html',
+        controller: 'AdminScreenCtrl'
+      })
+     .when('/user/question/:id', {
+        templateUrl: 'views/user.question.html',
+        controller: 'userQuestionCtrl'
       })
       .otherwise({
         redirectTo: '/'

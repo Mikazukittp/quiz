@@ -19,7 +19,7 @@
 			"contents": "<div ng-controller=\"ScreenCtrl\">\n	<link rel=\"stylesheet\" href=\"styles/screen.css\">\n\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-md-8\">\n        <h2>問題 {{question.number}}</h2>\n        <div class=\"panel panel-default\" ng-show=\"checked\">\n          <div class=\"panel-body\">\n            {{question.text}}\n          </div>\n        </div>\n        <div align=\"center\">\n          <img src=\"{{question.imageUrl._url}}\" alt=\"I'm beckham\" class=\"img-thumbnail\">\n        </div>\n\n        <div class=\"answer\">\n          <div class=\"row\">\n            <div ng-init=\"nums=[];\">\n              <div class=\"view\">\n                <div class=\"number\" ng-repeat=\"n in nums\">\n                  <div class=\"col-md-6\">\n                    <div class=\"thumbnail\">\n                      <div class=\"caption\">\n                        <h3>A. {{question.question}}{{n}}</h3>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"btn-group\" role=\"group\" aria-label=\"...\">\n          <button  class=\"btn btn-default\" ng-click=\"nums.splice(nums.length-1,nums.length)\">前へ</button>\n          <button  class=\"btn btn-default\" ng-click=\"nums.push(nums[nums.length-1]+1)\">次へ</button>\n        </div>\n\n      </div>\n      <div class=\"col-md-4\">\n        \n\n      </div>\n    </div>\n  </div>\n\n</div>\n",
 			"file": "app/views/screen.html",
 			"file_size": 1263,
-			"file_write_time": 1425195990000000,
+			"file_write_time": 1425218413000000,
 			"settings":
 			{
 				"buffer_size": 1422,
@@ -27,10 +27,13 @@
 			}
 		},
 		{
+			"contents": "'use strict';\n\n/**\n * @ngdoc function\n * @name clientApp.controller:ScreenCtrl\n * @description\n * # ScreenCtrl\n * Controller of the clientApp\n */\nangular.module('clientApp')\n  .controller('AdminScreenCtrl', function ($scope) {\n \n    Parse.initialize('UJbVFp808zweMERrwv5CsVIHNvzfoa5QOegdVdlc', 'nQ47bfljzSbtk7lvk6YfPOBasiahjTS7ORK2sLp4');\n    var QuestionClass = Parse.Object.extend('Question');\n    var query = new Parse.Query(QuestionClass);\n    query.equalTo('question_number', 1);\n    query.find({\n        success: function(results) {\n            console.dir(results);\n            $scope.question = {\n                                'number':results[0].get('question_number'),\n                                'text':results[0].get('question_text'),\n                                'imageUrl':results[0].get('question_image'),\n                                'question1':results[0].get('question1'),\n                                'question2':results[0].get('question2'),\n                                'question3':results[0].get('question3'),\n                                'question4':results[0].get('question4')\n                                };\n            $scope.$apply();\n        },\n        error: function(error) {\n            console.log(error);\n        }\n    });\n    // .directive('ngEnter',function(){\n        \n\n    // });\n});\n",
 			"file": "app/scripts/controllers/screen.js",
+			"file_size": 1339,
+			"file_write_time": 1425218413000000,
 			"settings":
 			{
-				"buffer_size": 1339,
+				"buffer_size": 1344,
 				"line_ending": "Unix"
 			}
 		},
@@ -96,7 +99,31 @@
 			"file": "app/index.html",
 			"settings":
 			{
-				"buffer_size": 3423,
+				"buffer_size": 3810,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/scripts/app.js",
+			"settings":
+			{
+				"buffer_size": 1248,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/user/question.js",
+			"settings":
+			{
+				"buffer_size": 1358,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/admin/screen.js",
+			"settings":
+			{
+				"buffer_size": 1364,
 				"line_ending": "Unix"
 			}
 		}
@@ -137,7 +164,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 99.0,
+		"height": 0.0,
 		"where_history":
 		[
 			""
@@ -190,7 +217,6 @@
 	"groups":
 	[
 		{
-			"selected": 7,
 			"sheets":
 			[
 				{
@@ -216,7 +242,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 201.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -226,15 +252,15 @@
 					"file": "app/scripts/controllers/screen.js",
 					"settings":
 					{
-						"buffer_size": 1339,
+						"buffer_size": 1344,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								693,
-								693
+								194,
+								194
 							]
 						],
 						"settings":
@@ -244,7 +270,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 40.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -4165,7 +4191,7 @@
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 13257.0,
+						"translation.y": 846.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -4188,7 +4214,9 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -4234,8 +4262,8 @@
 						"selection":
 						[
 							[
-								13,
-								13
+								14,
+								14
 							]
 						],
 						"settings":
@@ -4260,8 +4288,8 @@
 						"selection":
 						[
 							[
-								1218,
-								1223
+								386,
+								386
 							]
 						],
 						"settings":
@@ -4270,7 +4298,7 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 4.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -4307,15 +4335,15 @@
 					"file": "app/index.html",
 					"settings":
 					{
-						"buffer_size": 3423,
+						"buffer_size": 3810,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3012,
-								3012
+								0,
+								0
 							]
 						],
 						"settings":
@@ -4326,6 +4354,90 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 1002.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/scripts/app.js",
+					"settings":
+					{
+						"buffer_size": 1248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1178,
+								1178
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 355.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/scripts/controllers/user/question.js",
+					"settings":
+					{
+						"buffer_size": 1358,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								197,
+								213
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "app/scripts/controllers/admin/screen.js",
+					"settings":
+					{
+						"buffer_size": 1364,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								650,
+								650
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
