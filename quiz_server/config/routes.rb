@@ -1,10 +1,21 @@
 Rails.application.routes.draw do
-  devise_for :admin_users
+
+
+  devise_for :admin_users, controllers: { sessions: "session",
+   registrations: "registration", confirmations: "confirmation",
+   passwords: "password" }
+  get 'admin/index'
+  get 'admin/show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  root to: "admin#index"
+
+  devise_scope :admin_user do
+    get '/admin_users/sign_out' => 'session#destroy'
+  end
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -14,6 +25,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+  resource :authentication_token, only: [:update, :destroy]
 
   # Example resource route with options:
   #   resources :products do
