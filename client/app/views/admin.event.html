@@ -1,7 +1,9 @@
 <h2>イベント概要</h2>
+<p>管理者: #{{event.admin_user_id}}</p>
 <p>{{event.name}}</p>
-<p>{{event.date}}</p>
+<p>{{event.event_date | date:'yyyy/MM/dd HH:mm'}}</p>
 <p>{{event.description}}</p>
+<p>url: <a href="{{event.url}}">{{event.url}}</a></p>
 
 <h2>問題一覧</h2>
 <a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>追加</a>

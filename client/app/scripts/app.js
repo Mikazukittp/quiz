@@ -16,9 +16,10 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.bootstrap'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $httpProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -39,6 +40,18 @@ angular
      .when('/admin/event/:id', {
         templateUrl: 'views/admin.event.html',
         controller: 'AdminEventCtrl'
+      })
+     .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
+     .when('/signup', {
+        templateUrl: 'views/signup.html',
+        controller: 'SignupCtrl'
+      })
+     .when('/account/setting', {
+        templateUrl: 'views/settings.html',
+        controller: 'SettingCtrl'
       })
       .otherwise({
         redirectTo: '/'
