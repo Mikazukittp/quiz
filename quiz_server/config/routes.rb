@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'choices/list/:id' => 'choices#list'
   get 'choices/show/:id' => 'choices#show'
   delete 'choices/:id/delete' => 'choices#delete'
+  post 'payments' => 'payments#purchase'
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",
