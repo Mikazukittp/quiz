@@ -22,6 +22,7 @@ angular.module('clientApp')
       get: {
         method: 'GET',
         params: {
+          controller:'me'
         }
       }
 	  });

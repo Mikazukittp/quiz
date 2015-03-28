@@ -8,10 +8,16 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminQuestionCtrl', function ($scope, $routeParams, questions) {
+  .controller('AdminQuestionCtrl', function ($scope, $stateParams, questions, choices) {
 
-    $scope.id = $routeParams.id;
+    $scope.id = $stateParams.id;
     questions.get($scope.id).then(function(data){
+        console.log(data);
         $scope.question = data;
     });
+    choices.findByQuestionId($scope.id).then(function(data){
+        console.log(data);
+        $scope.choices = data;
+    });
+
   });

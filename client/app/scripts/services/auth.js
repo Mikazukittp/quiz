@@ -4,7 +4,8 @@ angular.module('clientApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
     if($cookieStore.get('token')) {
-      currentUser = User.get();
+      // currentUser = User.get();
+      currentUser.id = $cookieStore.get('token');
     }
 
     return {
@@ -30,7 +31,9 @@ angular.module('clientApp')
           'commit': 'Log in'
         }).
         success(function(data) {
-          $cookieStore.put('token', data.token);
+          console.log(data);
+          // $cookieStore.put('token', data.auth_token);
+          $cookieStore.put('token', data.admin_user.id);
           // currentUser = User.get();
           currentUser = data.admin_user;
           deferred.resolve(data);
@@ -76,6 +79,7 @@ angular.module('clientApp')
           },
           'commit': 'Sign up'
         }, function(data) {
+            console.log(data);
             $cookieStore.put('token', data.token);
             // currentUser = User.get();
             currentUser = data.admin_user;

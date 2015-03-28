@@ -8,9 +8,9 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminEventCtrl', function ($scope, $routeParams, events, questions) {
+  .controller('AdminEventCtrl', function ($scope, $stateParams, events, questions) {
 
-    $scope.id = $routeParams.id;
+    $scope.id = $stateParams.id;
     events.get($scope.id).then(function(data){
         $scope.event = data;
     });
