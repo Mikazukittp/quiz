@@ -1,26 +1,33 @@
 class QuestionsController < ApplicationController
 
     def list
-        questions = Question.where(event_id: params[:id],is_delete: false)
+        questions = Question
+        .where(event_id: params[:id],is_delete: false)
         render :json => questions
     end
 
     def show
-        questions = Question.find_by(id: params[:id],is_delete: false)
+        questions = Question
+        .find_by(id: params[:id],is_delete: false)
         render :json => questions
     end
 
     def create
-        attr = params.require(:question).permit(:event_id,:quesion_number,:sentence,
+       attr = params.require(:question).permit(:event_id,:quesion_number,:sentence,
             :points,:type_id)
 
-       Question.create(attr)
+       question = Question.create(attr)
+
+       attr = params.require(:choice).permit(:sentence,:correct_flag,
+            :choice_number,:answered_times)
+
+       question.choices.create(attr)
 
        render :status => 200,
            :json => { :success => true,
                       :info => "questionの作成に成功しました",
                       }
-        end
+    end
 
     def delete
       question = Question.find(params[:id])
