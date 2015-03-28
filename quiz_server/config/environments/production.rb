@@ -1,5 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.action_mailer.default_url_options = { :host => 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/' }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
