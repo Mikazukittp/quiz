@@ -1,7 +1,9 @@
 <h2>イベント概要</h2>
+<p>管理者: #{{event.admin_user_id}}</p>
 <p>{{event.name}}</p>
-<p>{{event.date}}</p>
+<p>{{event.event_date | date:'yyyy/MM/dd HH:mm'}}</p>
 <p>{{event.description}}</p>
+<p>url: <a href="{{event.url}}">{{event.url}}</a></p>
 
 <h2>問題一覧</h2>
 <a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>追加</a>
@@ -9,7 +11,7 @@
 <ol>
 <li ng-repeat="q in questions">
     <span>{{q.sentence}}</span>
-    <a href="/#/admin/question/{{q.id}}"><span class="glyphicon glyphicon-eye-open"></span></a>
+    <a href="/#/admin/question/{{q.id}}/{{$index+1}}"><span class="glyphicon glyphicon-eye-open"></span></a>
     <a href=""><span class="glyphicon glyphicon-pencil"></span></a>
     <a href=""><span class="glyphicon glyphicon-trash"></span></a>
 </li>

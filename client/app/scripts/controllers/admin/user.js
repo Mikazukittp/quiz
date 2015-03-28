@@ -12,5 +12,6 @@ angular.module('clientApp')
     var loginId = 1;
     events.findByUserId(loginId).then(function(data){
         $scope.events = data;
+        console.log(data);
     });
   });

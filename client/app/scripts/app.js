@@ -16,9 +16,10 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.bootstrap'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $httpProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -28,7 +29,7 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-     .when('/admin/question/:id', {
+     .when('/admin/question/:eventId/:questionNumber', {
         templateUrl: 'views/admin.question.html',
         controller: 'AdminQuestionCtrl'
       })
@@ -44,9 +45,25 @@ angular
         templateUrl: 'views/admin.screen.html',
         controller: 'AdminScreenCtrl'
       })
-     .when('/user/question/:id', {
+     .when('/user/question/:eventId/:questionNumber', {
         templateUrl: 'views/user.question.html',
-        controller: 'userQuestionCtrl'
+        controller: 'UserQuestionCtrl'
+      })
+     .when('/user/answer/:eventId/:questionNumber/:answerNumber', {
+        templateUrl: 'views/user.answer.html',
+        controller: 'UserAnswerCtrl'
+      })
+     .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
+     .when('/signup', {
+        templateUrl: 'views/signup.html',
+        controller: 'SignupCtrl'
+      })
+     .when('/account/setting', {
+        templateUrl: 'views/settings.html',
+        controller: 'SettingCtrl'
       })
       .otherwise({
         redirectTo: '/'
