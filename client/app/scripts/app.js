@@ -32,6 +32,10 @@ angular
         templateUrl: 'views/question.html',
         controller: 'QuestionCtrl'
       })
+     .when('/payment', {
+        templateUrl: 'views/admin/payment.html',
+        controller: 'AdminPaymentCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
