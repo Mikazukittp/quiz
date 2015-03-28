@@ -31,7 +31,8 @@ angular.module('clientApp')
         }).
         success(function(data) {
           $cookieStore.put('token', data.token);
-          currentUser = User.get();
+          // currentUser = User.get();
+          currentUser = data.admin_user;
           deferred.resolve(data);
           return cb();
         }).
@@ -76,7 +77,8 @@ angular.module('clientApp')
           'commit': 'Sign up'
         }, function(data) {
             $cookieStore.put('token', data.token);
-            currentUser = User.get();
+            // currentUser = User.get();
+            currentUser = data.admin_user;
             return cb(user);
           },
           function(err) {
@@ -128,13 +130,16 @@ angular.module('clientApp')
        * Waits for currentUser to resolve before checking if user is logged in
        */
       isLoggedInAsync: function(cb) {
+        console.log('isLoggedInAsync');
+        console.log('currentUser:');
+        console.log(currentUser);
         if(currentUser.hasOwnProperty('$promise')) {
           currentUser.$promise.then(function() {
             cb(true);
           }).catch(function() {
             cb(false);
           });
-        } else if(currentUser.hasOwnProperty('role')) {
+        } else if(currentUser.hasOwnProperty('id')) {
           cb(true);
         } else {
           cb(false);

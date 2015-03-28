@@ -13,7 +13,6 @@ angular.module('clientApp')
     $scope.id = $routeParams.id;
     events.get($scope.id).then(function(data){
         $scope.event = data;
-        console.log(data);
     });
     questions.findByEventId($scope.id).then(function(data){
         $scope.questions = data;
