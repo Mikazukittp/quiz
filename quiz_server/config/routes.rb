@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
-
+  get 'events/index/:id' => 'events#index'
+  get 'events/show/:id' => 'events#show'
+  get 'questions/list/:id' => 'questions#list'
+  get 'questions/show/:id' => 'questions#show'
+  post 'events' => 'events#create'
+  post 'events/:id/update' => 'events#update'
+  delete 'events/:id/delete' => 'events#delete'
+  post 'questions' => 'questions#create'
+  delete 'questions/:id/delete' => 'questions#delete'
+  post 'questions/:id/update' => 'questions#update'
+  get 'choices/list/:id' => 'choices#list'
+  get 'choices/show/:id' => 'choices#show'
+  delete 'choices/:id/delete' => 'choices#delete'
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",
