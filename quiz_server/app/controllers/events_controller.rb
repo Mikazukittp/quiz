@@ -13,7 +13,6 @@ class EventsController < ApplicationController
     end
 
     def create
-    p params[:event]
 
         attr = params.require(:event).permit(:admin_user_id,:name,:event_date,
             :limit_date,:time_limit,:url,:course_id,:description)
@@ -24,7 +23,19 @@ class EventsController < ApplicationController
            :json => { :success => true,
                       :info => "eventの作成に成功しました",
                       }
+    end
 
+    def update
+
+        attr = params.require(:event).permit(:admin_user_id,:name,:event_date,
+            :limit_date,:time_limit,:url,:course_id,:description)
+
+        Event.update(params[:id],attr)
+
+        render :status => 200,
+           :json => { :success => true,
+                      :info => "eventの更新に成功しました",
+                      }
     end
 
     def delete
