@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   post 'questions' => 'questions#create'
   delete 'questions/:id/delete' => 'questions#delete'
   post 'questions/:id/update' => 'questions#update'
+  get 'choices/list/:id' => 'choices#list'
+  get 'choices/show/:id' => 'choices#show'
+  delete 'choices/:id/delete' => 'choices#delete'
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",
