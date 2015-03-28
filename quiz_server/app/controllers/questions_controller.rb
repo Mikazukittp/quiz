@@ -18,15 +18,42 @@ class QuestionsController < ApplicationController
 
        question = Question.create(attr)
 
-       attr = params.require(:choice).permit(:sentence,:correct_flag,
-            :choice_number,:answered_times)
+       params[:choices].each do |choice|
+          question.choices.create(choice[1])
 
-       question.choices.create(attr)
+       end
 
        render :status => 200,
            :json => { :success => true,
                       :info => "questionの作成に成功しました",
                       }
+    end
+
+    def update
+
+       attr = params.require(:question).permit(:event_id,:quesion_number,:sentence,
+            :points,:type_id)
+
+       question = Question.find(params[:id])
+       question.update(attr)
+
+
+       params[:choices].each do |choice|
+       p !question.choices.empty?
+       p choice[1][:id] != ""
+          if !question.choices.empty? && choice[1][:id] != ""
+            selectedChoice = question.choices.find(choice[1][:id])
+            selectedChoice.update(choice[1])
+          else
+            question.choices.create(choice[1])
+          end
+       end
+
+       render :status => 200,
+           :json => { :success => true,
+                      :info => "questionの更新に成功しました",
+                      }
+
     end
 
     def delete

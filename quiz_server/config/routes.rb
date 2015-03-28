@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   delete 'events/:id/delete' => 'events#delete'
   post 'questions' => 'questions#create'
   delete 'questions/:id/delete' => 'questions#delete'
+  post 'questions/:id/update' => 'questions#update'
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",
