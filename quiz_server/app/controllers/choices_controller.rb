@@ -14,7 +14,7 @@ class ChoicesController < ApplicationController
 
 
     def delete
-      choice = Choice.find(params[:id])
+      choice = Choice.find_by_id(params[:id])
 
       if choice.question.event.admin_user_id === current_admin_user.id
         choice.update_attributes(:is_delete => true )
@@ -27,6 +27,15 @@ class ChoicesController < ApplicationController
            :json => { :success => false,
                       :info => "選択肢の削除に失敗しました",
                       }
+      end
+    end
+
+    def is_correct
+      if choice = Choice.find_by_id(params[:id])
+        render :status => 200,　
+          :json => { :is_correct => Choice.find_by_id(params[:id]).correct_flag}
+      else
+        render :status => 401,　:json => { :info => "存在しない選択肢です"}
       end
     end
 end
