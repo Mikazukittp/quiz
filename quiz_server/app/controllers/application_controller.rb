@@ -22,4 +22,18 @@ class ApplicationController < ActionController::Base
       sign_in user, store: false
     end
   end
+
+  def render_success(info)
+    render :status => 200,
+           :json => { :success => true,
+                      :info => info,
+                      }
+  end
+
+  def render_fault(info)
+    render :status => 401,
+           :json => { :success => false,
+                      :info => info,
+                    }
+  end
 end
