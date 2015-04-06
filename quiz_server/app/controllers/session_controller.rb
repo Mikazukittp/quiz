@@ -7,6 +7,8 @@ class SessionController < Devise::SessionsController
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
 
+    resource.ensure_authentication_token
+
     render :status => 200,
            :json => { :success => true,
                       :info => "Logged in",
@@ -25,9 +27,6 @@ class SessionController < Devise::SessionsController
   end
 
   def failure
-    render :status => 401,
-           :json => { :success => false,
-                      :info => "Login Credentials Failed"
-          }
+    render_fault("ログインに失敗しました")
   end
 end

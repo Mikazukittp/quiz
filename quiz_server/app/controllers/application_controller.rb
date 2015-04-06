@@ -4,16 +4,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   # パラメーターからtokenを取得する
-  #before_filter :get_token_from_response
+  before_filter :get_token_from_response
 
   # => トークンによる認証
-  #before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
+  before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
 
 
   #　パラメータからtokenを取得するメソッド
-  #def get_token_from_response
-   # params[:authenticity_token] = form_authenticity_token
-  #end
+  def get_token_from_response
+    params[:authenticity_token] = form_authenticity_token
+  end
 
   #トークンによる認証
   def authenticate_user_from_token!
