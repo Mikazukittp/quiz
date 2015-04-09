@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
 
+  skip_before_action :verify_authenticity_token
+
   # パラメーターからtokenを取得する
   before_filter :get_token_from_response
 
@@ -35,5 +37,12 @@ class ApplicationController < ActionController::Base
            :json => { :success => false,
                       :info => info,
                     }
+  end
+
+
+  protected
+
+  def json_request?
+    request.format.json?
   end
 end

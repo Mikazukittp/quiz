@@ -4,11 +4,23 @@ class AnswerersController < ApplicationController
         #ユーザートークンの発行
         user_token = SecureRandom.uuid
         answerer.update_attributes(:user_token => user_token)
-        cookies[:session_key] = { :value => user_token, :expires => 1.days.from_now }
+        set_user_token_cookie(user_token)
         render_success("ユーザーの作成に成功しました")
     end
 
     def update
     end
 
+    def get_question
+        if ck = cookies[:quiz_user_token]
+            user = Answerer.find_by(user_token: ck)
+            render :json => user.event.questions.find_by(is_current: true)
+        else
+            render_fault("問題の取得に失敗しました")
+        end
+    end
+
+    def set_user_token_cookie(user_token)
+        cookies[:quiz_user_token] = { :value => user_token, :expires => 1.days.from_now}
+    end
 end
