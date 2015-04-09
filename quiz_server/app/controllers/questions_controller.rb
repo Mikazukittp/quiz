@@ -13,25 +13,23 @@ class QuestionsController < ApplicationController
     end
 
     def create
-       attr = params.require(:question).permit(:event_id,:quesion_number,:sentence,
+       attr = params.require(:question).permit(:sentence,
             :points,:type_id)
 
-       question = Question.create(attr)
+       event = Event.find_by(id: params[:question][:event_id])
+
+       question = event.questions.create(attr)
+       question.update_attributes(:question_number => (event.questions.order('question_number').last.question_number + 1) )
 
        params[:choices].each do |choice|
           question.choices.create(choice[1])
-
        end
-
-       render :status => 200,
-           :json => { :success => true,
-                      :info => "questionの作成に成功しました",
-                      }
+       render_success("質問の作成に成功しました")
     end
 
     def update
 
-       attr = params.require(:question).permit(:event_id,:quesion_number,:sentence,
+       attr = params.require(:question).permit(:event_id,:sentence,
             :points,:type_id)
 
        question = Question.find(params[:id])
@@ -39,8 +37,6 @@ class QuestionsController < ApplicationController
 
 
        params[:choices].each do |choice|
-       p !question.choices.empty?
-       p choice[1][:id] != ""
           if !question.choices.empty? && choice[1][:id] != ""
             selectedChoice = question.choices.find(choice[1][:id])
             selectedChoice.update(choice[1])
@@ -48,11 +44,7 @@ class QuestionsController < ApplicationController
             question.choices.create(choice[1])
           end
        end
-
-       render :status => 200,
-           :json => { :success => true,
-                      :info => "questionの更新に成功しました",
-                      }
+       render_success("質問の更新に成功しました")
 
     end
 
@@ -61,15 +53,9 @@ class QuestionsController < ApplicationController
 
       if question.event.admin_user_id === current_admin_user.id
         question.update_attributes(:is_delete => true )
-        render :status => 200,
-           :json => { :success => true,
-                      :info => "問題の削除に成功しました",
-                      }
+        render_success("質問の削除に成功しました")
       else
-        render :status => 401,
-           :json => { :success => false,
-                      :info => "問題の削除に失敗しました",
-                      }
+        render_fault("質問の更新に失敗しました")
       end
     end
 end
