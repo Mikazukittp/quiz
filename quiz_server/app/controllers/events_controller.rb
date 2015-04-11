@@ -53,4 +53,30 @@ class EventsController < ApplicationController
                       }
       end
     end
+
+    def next
+      event = Event.find_by(id:params[:id])
+      if question = event.questions.find_by(is_current: true)
+        question.update_attributes(:is_current => false )
+        next_question = event.questions.where("question_number > ?", question.question_number).first
+        next_question.update_attributes(:is_current => true )
+        render :json => next_question
+      else
+        question = event.questions.order(:question_number).first
+        question.update_attributes(:is_current => true )
+        render :json => question
+      end
+=begin
+      if params[:question_number] != nil
+        event.questions.find_by(question_number: params[:question_number]).update_attributes(:is_current => false )
+        question = event.questions.find_by(question_number: params[:question_number].to_i + 1)
+        question.update_attributes(:is_current => true )
+        render :json => question
+      else
+        question = event.questions.where("question_number >= 1").first
+        question.update_attributes(:is_current => true )
+        render :json => question
+      end
+=end
+    end
 end
