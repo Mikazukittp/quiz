@@ -18,7 +18,7 @@ class ChoicesController < ApplicationController
 
       if choice.question.event.admin_user_id === current_admin_user.id
         choice.update_attributes(:is_delete => true )
-        rendre_success("選択肢の削除に成功しました")
+        render_success("選択肢の削除に成功しました")
       else
         render_fault("選択肢の削除に失敗しました")
       end

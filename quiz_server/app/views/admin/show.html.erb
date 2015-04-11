@@ -13,25 +13,42 @@
 </form>
 
 
-<form accept-charset="UTF-8" action="/questions/5/update" method="post">
+<form accept-charset="UTF-8" action="/questions/" method="post">
   <input name="question[event_id]" value="" />
-  <input name="question[question_number]" value="" />
   <input name="question[sentence]" value="" />
   <input name="question[points]" value="" />
   <input name="question[type_id]" value="" /></br>
-  <input name="aaa[choice[id]]" value="" />
-  <input name="aaa[choice[question_id]]" value="" />
-  <input name="aaa[choice[sentence]]" value="" />
-  <input name="aaa[choice[correct_flag]]" value="" />
-  <input name="aaa[choice[choice_number]]" value="" />
-  <input name="aaa[choice[answered_times]]" value="" /></br>
-  <input name="aaa[choice2[id]]" value="" />
-  <input name="aaa[choice2[question_id]]" value="" />
-  <input name="aaa[choice2[sentence]]" value="" />
-  <input name="aaa[choice2[correct_flag]]" value="" />
-  <input name="aaa[choice2[choice_number]]" value="" />
-  <input name="aaa[choice2[answered_times]]" value="" />
+  <input name="choices[choice[question_id]]" value="" />
+  <input name="choices[choice[sentence]]" value="" />
+  <input name="choices[choice[correct_flag]]" value="" />
+  <input name="choices[choice[choice_number]]" value="" />
+  <input name="choices[choice[answered_times]]" value="" /></br>
+  <input name="choices[choice2[question_id]]" value="" />
+  <input name="choices[choice2[sentence]]" value="" />
+  <input name="choices[choice2[correct_flag]]" value="" />
+  <input name="choices[choice2[choice_number]]" value="" />
+  <input name="choices[choice2[answered_times]]" value="" />
   <input name="commit" type="submit" value="Sign up" />
+</form>
+
+
+<form action="/payments" method="post">
+  <script src="https://checkout.webpay.jp/v2/" class="webpay-button" data-key="test_public_bfE7Ot8wo2eo1FA1Uv1tYbOl" data-lang="ja" data-partial="true"></script>
+  <input type="text" name="amount" value="他の情報" />
+  <input type="submit" value="aaa">
+</form>
+
+
+<form action="/answerers" method="post">
+<input name="event_id" value="" />
+<input name="name" value="" />
+<input name="commit" type="submit" value="Sign up" />
+</form>
+
+<form action="/answer" method="post">
+<input name="answer[question_id]" value="" />
+<input name="answer[choice_question_number]" value="" />
+<input name="commit" type="submit" value="Sign up" />
 </form>
 
 <a href="/questions/2/delete" data-method="delete" rel="nofollow">delete</a>
