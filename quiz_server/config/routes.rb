@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'events/show/:id' => 'events#show'
   get 'questions/list/:id' => 'questions#list'
   get 'questions/show/:id' => 'questions#show'
+  get 'events/close/:id' => 'events#close'
   get 'events/next' => 'events#next'
   post 'events' => 'events#create'
   post 'events/:id/update' => 'events#update'
@@ -15,9 +16,8 @@ Rails.application.routes.draw do
   delete 'choices/:id/delete' => 'choices#delete'
   get 'choices/:id/is_correct' => 'choices#is_correct'
   post 'payments' => 'payments#purchase'
-  resource :answerers, only: [:update, :create, :show]
   get 'answerers/get_question' => 'answerers#get_question'
-  get 'answerers/set_user_token_cookie' => 'answerers#set_user_token_cookie'
+  resources :answerers, only: [:update, :create, :show]
 
   resources :answers, only: [:index, :show, :update, :create]
 

@@ -49,13 +49,17 @@ class QuestionsController < ApplicationController
     end
 
     def delete
-      question = Question.find(params[:id])
-
-      if question.event.admin_user_id === current_admin_user.id
-        question.update_attributes(:is_delete => true )
-        render_success("質問の削除に成功しました")
-      else
-        render_fault("質問の更新に失敗しました")
+      begin
+        question = Question.find_by(id: params[:id])
+        if question.event.admin_user_id === current_admin_user.id
+          question.update_attributes(:is_delete => true )
+          render_success("質問の削除に成功しました")
+        else
+          render_fault("管理外のquestionです")
+        end
+      rescue => ex
+        ex.message
+        render_fault("存在しないquestionです")
       end
     end
 end

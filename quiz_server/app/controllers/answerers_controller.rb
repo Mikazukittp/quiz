@@ -12,28 +12,25 @@ class AnswerersController < ApplicationController
     end
 
     def show
-        if ck = cookies[:quiz_user_token]
-            user = Answerer.find_by(user_token: ck)
-            render :json => user
-        else
-            render_fault("解答者の取得に失敗しました")
-        end
+        get_user_info
+        render :json => @user
     end
 
     def get_question
-        if ck = cookies[:quiz_user_token]
-            user = Answerer.find_by(user_token: ck)
-            render :json => user.event.questions.find_by(is_current: true)
-        else
-            render_fault("問題の取得に失敗しました")
-        end
+        get_user_info
+        render :json => @user.event.questions.find_by(is_current: true)
     end
+
+    private
 
     def set_user_token_cookie(user_token)
         cookies[:quiz_user_token] = { :value => user_token, :expires => 1.days.from_now}
     end
 
-    def is_exist_answerer?
-
+    def get_user_info
+        unless @user = Answerer.check(cookies[:quiz_user_token])
+            render_fault("セッションが切れました")
+        end
     end
+
 end

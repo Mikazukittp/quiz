@@ -13,16 +13,13 @@ class EventsController < ApplicationController
     end
 
     def create
-
-        attr = params.require(:event).permit(:admin_user_id,:name,:event_date,
-            :limit_date,:time_limit,:url,:course_id,:description)
-
-       Event.create(attr)
-
-       render :status => 200,
-           :json => { :success => true,
-                      :info => "eventの作成に成功しました",
-                      }
+       attr = params.require(:event).permit(:name,:event_date,
+            :limit_date,:time_limit,:course_id,:description)
+       event = Event.new(attr)
+       event.admin_user_id = current_admin_user.id
+       event.url = ""
+       event.save!
+       render_success("イベントの作成に成功しました")
     end
 
     def update
@@ -66,17 +63,13 @@ class EventsController < ApplicationController
         question.update_attributes(:is_current => true )
         render :json => question
       end
-=begin
-      if params[:question_number] != nil
-        event.questions.find_by(question_number: params[:question_number]).update_attributes(:is_current => false )
-        question = event.questions.find_by(question_number: params[:question_number].to_i + 1)
-        question.update_attributes(:is_current => true )
-        render :json => question
+    end
+
+    def close
+      if current_admin_user.events.exists?(id: params[:id])
+      render :json => "aaaa"
       else
-        question = event.questions.where("question_number >= 1").first
-        question.update_attributes(:is_current => true )
-        render :json => question
+        render_fault("存在しないイベントを参照しようとしています")
       end
-=end
     end
 end
