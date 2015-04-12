@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20150407112518) do
     t.datetime "event_date",                    null: false
     t.datetime "limit_date",                    null: false
     t.integer  "time_limit",    default: 60,    null: false
-    t.string   "url",
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_delete",     default: false, null: false
