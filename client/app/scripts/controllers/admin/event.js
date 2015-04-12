@@ -17,4 +17,8 @@ angular.module('clientApp')
     questions.findByEventId($scope.id).then(function(data){
         $scope.questions = data;
     });
+
+    $scope.deleteQuestion = function(id) {
+      questions.delete(id);
+    }
   });

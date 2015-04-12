@@ -42,7 +42,7 @@ angular
         controller: 'AdminQuestionCtrl',
         authenticate: true
       }).state('user', {
-        url: '/admin/user/',
+        url: '/admin/user',
         templateUrl: 'views/admin.user.html',
         controller: 'AdminUserCtrl',
         authenticate: true

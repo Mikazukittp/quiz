@@ -11,7 +11,7 @@
  .service('choices', function ($resource) {
 
     // var allChoices = [];
-    var DOMAIN = 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com';
+    var DOMAIN = 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api';
     var LIST_URL = DOMAIN + '/choices/list/';
     var SHOW_URL = DOMAIN + '/choices/show/';
 

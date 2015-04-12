@@ -21,7 +21,7 @@ angular.module('clientApp')
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
-        $http.post('http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/admin_users/sign_in', {
+        $http.post('http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/admin_users/sign_in', {
           'admin_user': {
             'email': user.email,
             'password': user.password,
