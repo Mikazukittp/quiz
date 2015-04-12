@@ -18,7 +18,9 @@ class AnswerersController < ApplicationController
 
     def get_question
         get_user_info
-        render :json => @user.event.questions.find_by(is_current: true)
+        question = @user.event.questions.includes(:choices).find_by(is_current: true)
+        render :json => { :question => question,
+                          :choices => question.choices }
     end
 
     private
