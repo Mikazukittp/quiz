@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   # => トークンによる認証
   before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
 
+  # 500エラーが発生した際の制御
+  #rescue_from Exception, with: :rescue500
 
   #　パラメータからtokenを取得するメソッド
   def get_token_from_response
@@ -39,6 +41,14 @@ class ApplicationController < ActionController::Base
                     }
   end
 
+  private
+  def rescue500(e)
+    @exception
+    render :status => 500,
+           :json => { :success => false,
+                      :info => "500エラーです",
+                    }
+  end
 
   protected
 

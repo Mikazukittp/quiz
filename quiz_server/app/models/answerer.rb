@@ -1,5 +1,6 @@
 class Answerer < ActiveRecord::Base
     belongs_to :event
+    has_many :answer
 
     def self.check(token)
         if ck = token
