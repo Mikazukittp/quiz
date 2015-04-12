@@ -1,22 +1,19 @@
 Rails.application.routes.draw do
-  get 'events/index/:id' => 'events#index'
+  get 'events/index' => 'events#index'
   get 'events/show/:id' => 'events#show'
-  get 'questions/list/:id' => 'questions#list'
-  get 'questions/show/:id' => 'questions#show'
   get 'events/close/:id' => 'events#close'
   get 'events/next' => 'events#next'
   post 'events' => 'events#create'
   post 'events/:id/update' => 'events#update'
   delete 'events/:id/delete' => 'events#delete'
-  post 'questions' => 'questions#create'
-  delete 'questions/:id/delete' => 'questions#delete'
-  post 'questions/:id/update' => 'questions#update'
   get 'choices/list/:id' => 'choices#list'
   get 'choices/show/:id' => 'choices#show'
   delete 'choices/:id/delete' => 'choices#delete'
   get 'choices/:id/is_correct' => 'choices#is_correct'
   post 'payments' => 'payments#purchase'
   get 'answerers/get_question' => 'answerers#get_question'
+
+  resources :questions, only: [:index, :show, :create, :delete, :update]
   resources :answerers, only: [:update, :create, :show]
 
   resources :answers, only: [:index, :show, :update, :create]

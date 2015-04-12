@@ -1,30 +1,40 @@
 class QuestionsController < ApplicationController
 
-    def list
+    def index
+      if Event.find_by(id: params[:id]).admin_user_id === current_admin_user.id
         questions = Question
         .where(event_id: params[:id],is_delete: false)
         render :json => questions
+      else
+        render_fault("存在しないeventです")
+      end
     end
 
     def show
+      if Question.find_by(id: params[:id]).event.admin_user_id === current_admin_user.id
         questions = Question
         .find_by(id: params[:id],is_delete: false)
         render :json => questions
+      else
+        render_fault("存在しないquestionです")
+      end
     end
 
     def create
        attr = params.require(:question).permit(:sentence,
             :points,:type_id)
 
-       event = Event.find_by(id: params[:question][:event_id])
-
-       question = event.questions.create(attr)
-       question.update_attributes(:question_number => (event.questions.order('question_number').last.question_number + 1) )
-
-       params[:choices].each do |choice|
-          question.choices.create(choice[1])
+       event = get_event_current_user(params[:question][:event_id])
+       unless event == nil
+         question = event.questions.create(attr)
+         question.update_attributes(:question_number => (event.questions.order('question_number').last.question_number + 1) )
+         params[:choices].each do |choice|
+            question.choices.create(choice[1])
+         end
+         render_success("質問の作成に成功しました")
+       else
+        render_fault("存在しないquestionです")
        end
-       render_success("質問の作成に成功しました")
     end
 
     def update
@@ -60,6 +70,15 @@ class QuestionsController < ApplicationController
       rescue => ex
         ex.message
         render_fault("存在しないquestionです")
+      end
+    end
+
+    private
+
+    def get_event_current_user(event_id)
+      event = Event.find_by(id: event_id)
+      if event.admin_user_id === current_admin_user.id
+        return event
       end
     end
 end
