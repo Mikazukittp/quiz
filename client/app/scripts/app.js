@@ -29,8 +29,8 @@ angular
     $stateProvider
       .state('admin', {
         url: '/',
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+        templateUrl: 'views/admin.user.html',
+        controller: 'AdminUserCtrl',
         authenticate: true
       }).state('about', {
         url: '/about',
