@@ -46,12 +46,12 @@ ActiveRecord::Schema.define(version: 20150407112518) do
   create_table "answerers", force: true do |t|
     t.integer  "event_id",                                  null: false
     t.string   "name",                         default: "", null: false
-    t.integer  "total_points"
-    t.integer  "total_times_answer_correctly"
-    t.integer  "total_answer_time"
+    t.integer  "total_points",                 default: 0
+    t.integer  "total_times_answer_correctly", default: 0
+    t.integer  "total_answer_time",            default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_token"
+    t.string   "user_token",                   default: ""
   end
 
   create_table "answers", force: true do |t|
