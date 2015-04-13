@@ -2,11 +2,15 @@ class SessionController < Devise::SessionsController
 
   #skip_before_filter :verify_authenticity_token,
   #                   :if => Proc.new  { |c| c.request.format == 'application/json' }
- respond_to :json
+
+  prepend_before_filter :require_no_authentication, only: [:new, :create]
+  prepend_before_filter :allow_params_authentication!, only: :create
+  prepend_before_filter :verify_signed_out_user, only: :destroy
+  prepend_before_filter only: [:create, :destroy] { request.env["devise.skip_timeout"] = true }
 
   def create
+    require_no_authentication
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
-
     resource.ensure_authentication_token
 
     render :status => 200,
@@ -29,4 +33,14 @@ class SessionController < Devise::SessionsController
   def failure
     render_fault("ログインに失敗しました")
   end
+
+  private
+
+  def require_no_authentication
+    if current_admin_user
+      render :json => current_admin_user
+      return
+    end
+  end
+
 end
