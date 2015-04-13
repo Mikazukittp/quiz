@@ -1,9 +1,9 @@
 class QuestionsController < ApplicationController
 
     def index
-      if Event.find_by(id: params[:id]).admin_user_id === current_admin_user.id
-        questions = Question
-        .where(event_id: params[:id],is_delete: false)
+      event = Event.find_by(id: params[:event_id])
+      if event != nil && check_admin_has_event(event)
+        questions = event.questions.where(is_delete: false)
         render :json => questions
       else
         render_fault("存在しないeventです")
@@ -11,10 +11,9 @@ class QuestionsController < ApplicationController
     end
 
     def show
-      if Question.find_by(id: params[:id]).event.admin_user_id === current_admin_user.id
-        questions = Question
-        .find_by(id: params[:id],is_delete: false)
-        render :json => questions
+      question = Question.find_by(id: params[:id],is_delete: false)
+      if question !=nil && check_admin_has_question(question)
+        render :json => question
       else
         render_fault("存在しないquestionです")
       end
@@ -24,8 +23,8 @@ class QuestionsController < ApplicationController
        attr = params.require(:question).permit(:sentence,
             :points,:type_id)
 
-       event = get_event_current_user(params[:question][:event_id])
-       unless event == nil
+       event = Event.find_by(id: params[:question][:event_id])
+       if event != nil && check_admin_has_event(event)
          question = event.questions.create(attr)
          question.update_attributes(:question_number => (event.questions.order('question_number').last.question_number + 1) )
          params[:choices].each do |choice|
@@ -38,47 +37,44 @@ class QuestionsController < ApplicationController
     end
 
     def update
-
        attr = params.require(:question).permit(:event_id,:sentence,
             :points,:type_id)
 
        question = Question.find(params[:id])
-       question.update(attr)
-
-
-       params[:choices].each do |choice|
-          if !question.choices.empty? && choice[1][:id] != ""
-            selectedChoice = question.choices.find(choice[1][:id])
-            selectedChoice.update(choice[1])
-          else
-            question.choices.create(choice[1])
-          end
+       if question !=nil && check_admin_has_question(question)
+         question.update(attr)
+         params[:choices].each do |choices|
+           choice = question.choices.find_by(id: choices[1][:id])
+           if choice != nil
+             choice.update(choices[1])
+           else
+             render_fault("存在しないchoicesです")
+             return
+           end
+         end
+         render_success("質問の作成に成功しました")
+       else
+         render_fault("存在しないquestionです")
        end
-       render_success("質問の更新に成功しました")
-
     end
 
-    def delete
-      begin
-        question = Question.find_by(id: params[:id])
-        if question.event.admin_user_id === current_admin_user.id
-          question.update_attributes(:is_delete => true )
-          render_success("質問の削除に成功しました")
-        else
-          render_fault("管理外のquestionです")
-        end
-      rescue => ex
-        ex.message
+    def destroy
+      question = Question.find_by(id: params[:id])
+      if question != nil && check_admin_has_question(question)
+        question.update_attributes(:is_delete => true )
+        render_success("質問の削除に成功しました")
+      else
         render_fault("存在しないquestionです")
       end
     end
 
     private
 
-    def get_event_current_user(event_id)
-      event = Event.find_by(id: event_id)
-      if event.admin_user_id === current_admin_user.id
-        return event
-      end
+    def check_admin_has_event(event)
+      event.admin_user_id === current_admin_user.id
+    end
+
+    def check_admin_has_question(question)
+      question.event.admin_user_id === current_admin_user.id
     end
 end

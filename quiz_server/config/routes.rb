@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post 'payments' => 'payments#purchase'
   get 'answerers/get_question' => 'answerers#get_question'
 
-  resources :questions, only: [:index, :show, :create, :delete, :update]
+  resources :questions, only: [:index, :show, :create, :destroy, :update]
   resources :answerers, only: [:update, :create, :show]
 
   resources :answers, only: [:index, :show, :update, :create]
