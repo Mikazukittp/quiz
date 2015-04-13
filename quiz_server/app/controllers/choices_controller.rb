@@ -1,22 +1,27 @@
 class ChoicesController < ApplicationController
 
-    def list
-        choices = Choice
-        .where(question_id: params[:id],is_delete: false)
+    def index
+      question = Question.find_by(id: params[:question_id])
+      if question != nil && check_admin_has_question(question)
+        choices = question.choices.where(is_delete: false)
         render :json => choices
+      else
+        render_fault("存在しないquestionです")
+      end
     end
 
     def show
-        choices = Choice
-        .find_by(id: params[:id],is_delete: false)
-        render :json => choices
+      choice = Choice.find_by(id: params[:id], is_delete: false)
+      if choice != nil && check_admin_has_choice(choice)
+        render :json => choice
+      else
+        render_fault("存在しないchoiceです")
+      end
     end
 
-
-    def delete
+    def destroy
       choice = Choice.find_by_id(params[:id])
-
-      if choice.question.event.admin_user_id === current_admin_user.id
+      if choice != nil && check_admin_has_choice(choice)
         choice.update_attributes(:is_delete => true )
         render_success("選択肢の削除に成功しました")
       else
@@ -31,5 +36,15 @@ class ChoicesController < ApplicationController
       else
         render_fault("存在しない選択肢です")
       end
+    end
+
+    private
+
+    def check_admin_has_question(question)
+      question.event.admin_user_id === current_admin_user.id
+    end
+
+    def check_admin_has_choice(choice)
+      choice.question.event.admin_user_id === current_admin_user.id
     end
 end
