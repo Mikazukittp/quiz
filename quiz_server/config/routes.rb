@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
-  get 'events/index' => 'events#index'
-  get 'events/show/:id' => 'events#show'
+  resources :events, only: [:index, :show, :create, :destroy, :update]
   get 'events/close/:id' => 'events#close'
   get 'events/next' => 'events#next'
-  post 'events' => 'events#create'
-  post 'events/:id/update' => 'events#update'
-  delete 'events/:id/delete' => 'events#delete'
   get 'choices/list/:id' => 'choices#list'
   get 'choices/show/:id' => 'choices#show'
   delete 'choices/:id/delete' => 'choices#delete'
