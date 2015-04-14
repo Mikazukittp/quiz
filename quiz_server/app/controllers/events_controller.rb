@@ -7,7 +7,6 @@ class EventsController < ApplicationController
     end
 
     def show
-
       event = Event.find_by(id: params[:id],is_delete: false)
       if check_admin_has_event(event)
         render :json => event
@@ -46,16 +45,22 @@ class EventsController < ApplicationController
     end
 
     def next
-      event = Event.find_by(id:params[:id])
-      if question = event.questions.find_by(is_current: true)
-        question.update_attributes(:is_current => false )
-        next_question = event.questions.where("question_number > ?", question.question_number).first
-        next_question.update_attributes(:is_current => true )
-        render :json => next_question
+      p "aaaaaaaaaaaaaaaaa"
+      event = Event.find_by(id: params[:id])
+      p event
+      if event != nil && check_admin_has_event(event)
+        if question = event.questions.find_by(is_current: true)
+          question.update_attributes(:is_current => false )
+          next_question = event.questions.where("question_number > ?", question.question_number).first
+          next_question.update_attributes(:is_current => true )
+          render :json => next_question
+        else
+          question = event.questions.order(:question_number).first
+          question.update_attributes(:is_current => true )
+          render :json => question
+        end
       else
-        question = event.questions.order(:question_number).first
-        question.update_attributes(:is_current => true )
-        render :json => question
+        render_fault("存在しないイベントです")
       end
     end
 
@@ -78,6 +83,7 @@ class EventsController < ApplicationController
     end
 
     def check_admin_has_event(event)
+      p event
       event.admin_user_id === current_admin_user.id
     end
 
@@ -104,7 +110,6 @@ class EventsController < ApplicationController
       arr.sort! do |a,b|
         (b[1][1] <=> a[1][1]).nonzero? || (a[1][0] <=> b[1][0])
       end
-      #arr
     end
 
     def add_name_and_rank(arr,event)
