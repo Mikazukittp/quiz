@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :choices, only: [:index, :show, :destroy]
   resources :payments, only: [:create]
   get 'answerers/get_question' => 'answerers#get_question'
-  get 'answerers/get_event' => 'answerers#get_event'
+  get 'answerers/get_event/:url_token' => 'answerers#get_event'
   resources :questions, only: [:index, :show, :create, :destroy, :update]
   resources :answerers, only: [:create, :show]
   resources :answers, only: [:index, :show, :update, :create]
