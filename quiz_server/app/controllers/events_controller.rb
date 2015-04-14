@@ -45,9 +45,7 @@ class EventsController < ApplicationController
     end
 
     def next
-      p "aaaaaaaaaaaaaaaaa"
       event = Event.find_by(id: params[:id])
-      p event
       if event != nil && check_admin_has_event(event)
         if question = event.questions.find_by(is_current: true)
           question.update_attributes(:is_current => false )

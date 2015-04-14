@@ -13,6 +13,15 @@ class AnswerersController < ApplicationController
         render :json => @user
     end
 
+    def get_event
+        event = Event.find_by(url_token: params[:url_token])
+        if event != nil
+            render :json => event
+        else
+            render_fault("URLが間違っています")
+        end
+    end
+
     def get_question
         question = @user.event.questions.includes(:choices).find_by(is_current: true)
         render :json => { :question => question,

@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :events, only: [:index, :show, :create, :destroy, :update]
   get 'choices/:id/is_correct' => 'choices#is_correct'
   resources :choices, only: [:index, :show, :destroy]
-  post 'payments' => 'payments#purchase'
+  resources :payments, only: [:create]
   get 'answerers/get_question' => 'answerers#get_question'
+  get 'answerers/get_event' => 'answerers#get_event'
   resources :questions, only: [:index, :show, :create, :destroy, :update]
   resources :answerers, only: [:create, :show]
   resources :answers, only: [:index, :show, :update, :create]

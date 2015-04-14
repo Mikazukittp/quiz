@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414135602) do
+ActiveRecord::Schema.define(version: 20150414152456) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20150414135602) do
     t.boolean  "is_delete",     default: false, null: false
     t.integer  "course_id"
     t.string   "description"
+    t.string   "url_token"
   end
 
   create_table "payments", force: true do |t|
