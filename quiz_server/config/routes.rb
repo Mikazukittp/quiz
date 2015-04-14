@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :questions, only: [:index, :show, :create, :destroy, :update]
   resources :answerers, only: [:create, :show]
   resources :answers, only: [:index, :show, :update, :create]
+  resources :courses, only: [:index, :show]
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",
