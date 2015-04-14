@@ -109,7 +109,9 @@ class EventsController < ApplicationController
 
     def add_name_and_rank(arr,event)
       arr.each.with_index(1) do |arr , rank|
-        arr[0] = event.answerers.find_by(id: arr[0]).name
+        answerer = event.answerers.find_by(id: arr[0])
+        answerer.update(rank: rank, total_times_answer_correctly: arr[1][0], total_answer_time: arr[1][1])
+        arr[0] = answerer.name
         arr.unshift(rank)
       end
     end

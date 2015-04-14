@@ -8,8 +8,7 @@ Rails.application.routes.draw do
   get 'answerers/get_question' => 'answerers#get_question'
 
   resources :questions, only: [:index, :show, :create, :destroy, :update]
-  resources :answerers, only: [:update, :create, :show]
-
+  resources :answerers, only: [:create, :show]
   resources :answers, only: [:index, :show, :update, :create]
 
   devise_for :admin_users, controllers: { sessions: "session",
