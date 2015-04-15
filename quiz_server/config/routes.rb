@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
-  resources :events, only: [:index, :show, :create, :destroy, :update]
-  resources :choices, only: [:index, :show, :destroy]
+  #patch 'admin_users' => 'admin_users#update'
   get 'events/close/:id' => 'events#close'
   get 'events/next' => 'events#next'
+  resources :events, only: [:index, :show, :create, :destroy, :update]
   get 'choices/:id/is_correct' => 'choices#is_correct'
-  post 'payments' => 'payments#purchase'
+  resources :choices, only: [:index, :show, :destroy]
+  resources :payments, only: [:create]
   get 'answerers/get_question' => 'answerers#get_question'
-
+  get 'answerers/get_event/:url_token' => 'answerers#get_event'
   resources :questions, only: [:index, :show, :create, :destroy, :update]
-  resources :answerers, only: [:update, :create, :show]
-
+  resources :answerers, only: [:create, :show]
   resources :answers, only: [:index, :show, :update, :create]
+  resources :courses, only: [:index, :show]
 
   devise_for :admin_users, controllers: { sessions: "session",
    registrations: "registration", confirmations: "confirmation",

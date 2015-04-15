@@ -1,4 +1,5 @@
 class AnswerersController < ApplicationController
+    before_filter :get_user_info, :only => [:show, :get_question]
     def create
         answerer = Answerer.create(event_id:params[:event_id],name: params[:name])
         #ユーザートークンの発行
@@ -8,16 +9,20 @@ class AnswerersController < ApplicationController
         render_success("ユーザーの作成に成功しました")
     end
 
-    def update
-    end
-
     def show
-        get_user_info
         render :json => @user
     end
 
+    def get_event
+        event = Event.find_by(url_token: params[:url_token])
+        if event != nil
+            render :json => event
+        else
+            render_fault("URLが間違っています")
+        end
+    end
+
     def get_question
-        get_user_info
         question = @user.event.questions.includes(:choices).find_by(is_current: true)
         render :json => { :question => question,
                           :choices => question.choices }

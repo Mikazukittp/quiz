@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407112518) do
+ActiveRecord::Schema.define(version: 20150414152456) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -46,12 +46,13 @@ ActiveRecord::Schema.define(version: 20150407112518) do
   create_table "answerers", force: true do |t|
     t.integer  "event_id",                                  null: false
     t.string   "name",                         default: "", null: false
-    t.integer  "total_points",                 default: 0
-    t.integer  "total_times_answer_correctly", default: 0
-    t.integer  "total_answer_time",            default: 0
+    t.integer  "total_points"
+    t.integer  "total_times_answer_correctly"
+    t.integer  "total_answer_time"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_token",                   default: ""
+    t.string   "user_token"
+    t.integer  "rank"
   end
 
   create_table "answers", force: true do |t|
@@ -92,12 +93,13 @@ ActiveRecord::Schema.define(version: 20150407112518) do
     t.datetime "event_date",                    null: false
     t.datetime "limit_date",                    null: false
     t.integer  "time_limit",    default: 60,    null: false
-    t.string   "url"
+    t.string   "url",                           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_delete",     default: false, null: false
     t.integer  "course_id"
     t.string   "description"
+    t.string   "url_token"
   end
 
   create_table "payments", force: true do |t|
@@ -126,7 +128,7 @@ ActiveRecord::Schema.define(version: 20150407112518) do
     t.boolean  "is_delete",       default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_current",      default: false
+    t.boolean  "is_current"
   end
 
 end
