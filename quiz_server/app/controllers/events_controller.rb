@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :check_admin_user_exist
 
     def index
-        events = Event.where(admin_user_id: current_admin_user.id,is_delete: false)
+        events = Event.where(admin_user_id: current_admin_user.id)
         render :json => events
     end
 

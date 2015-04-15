@@ -3,15 +3,14 @@ class ChoicesController < ApplicationController
     def index
       question = Question.find_by(id: params[:question_id])
       if question != nil && check_admin_has_question(question)
-        choices = question.choices.where(is_delete: false)
-        render :json => choices
+        render :json => question.choices
       else
         render_fault("存在しないquestionです")
       end
     end
 
     def show
-      choice = Choice.find_by(id: params[:id], is_delete: false)
+      choice = Choice.find_by(id: params[:id])
       if choice != nil && check_admin_has_choice(choice)
         render :json => choice
       else

@@ -7,8 +7,6 @@ respond_to :json
         # WebPay上での顧客の情報を作成
         customer = webpay.customer.create(card: params['webpay-token'])
 
-        p root_url + url_token
-
         # 顧客情報を使って支払い
         webpay.charge.create(
             amount: 10_000,
@@ -16,10 +14,7 @@ respond_to :json
             customer: customer.id
         )
 
-
         set_url_to_event(current_admin_user.id)
-
-
 
         render_sccess("支払いが完了しました")
         rescue WebPay::ErrorResponse::CardError => e
@@ -32,6 +27,4 @@ respond_to :json
         url_token = SecureRandom.urlsafe_base64
         Event.find_by(id: admin_id).update(url_token:url_token)
     end
-
-
 end

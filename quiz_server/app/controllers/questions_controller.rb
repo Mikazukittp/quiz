@@ -3,15 +3,14 @@ class QuestionsController < ApplicationController
     def index
       event = Event.find_by(id: params[:event_id])
       if event != nil && check_admin_has_event(event)
-        questions = event.questions.where(is_delete: false)
-        render :json => questions
+        render :json => event.questions
       else
         render_fault("存在しないeventです")
       end
     end
 
     def show
-      question = Question.find_by(id: params[:id],is_delete: false)
+      question = Question.find_by(id: params[:id])
       if question !=nil && check_admin_has_question(question)
         render :json => question
       else
