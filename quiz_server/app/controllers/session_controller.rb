@@ -5,7 +5,7 @@ class SessionController < Devise::SessionsController
 
   prepend_before_filter :require_no_authentication, only: [:new, :create]
   prepend_before_filter :allow_params_authentication!, only: :create
-  prepend_before_filter :verify_signed_out_user, only: :destroy
+  skip_before_filter :verify_signed_out_user
   prepend_before_filter only: [:create, :destroy] { request.env["devise.skip_timeout"] = true }
 
   def create
@@ -24,10 +24,7 @@ class SessionController < Devise::SessionsController
     warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
     current_admin_user.update_column(:authentication_token, nil)
     sign_out
-    render :status => 200,
-           :json => { :success => true,
-                      :info => "Logged out",
-           }
+    render_success("ログアウトしました")
   end
 
   def failure

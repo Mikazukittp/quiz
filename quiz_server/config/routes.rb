@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #patch 'admin_users' => 'admin_users#update'
   get 'events/close/:id' => 'events#close'
   get 'events/next' => 'events#next'
   resources :events, only: [:index, :show, :create, :destroy, :update]
