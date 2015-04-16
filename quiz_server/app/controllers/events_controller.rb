@@ -66,6 +66,7 @@ class EventsController < ApplicationController
       event = current_admin_user.events
       .includes(:questions).find_by(id: params[:id])
       if event != nil
+        return render_fault("有効期限が切れています ") unless check_limit_date(event)
         question = event.questions.order(:question_number).first
         if question != nil
           question.update_attributes(:is_current => true )
@@ -156,6 +157,12 @@ class EventsController < ApplicationController
         arr[0] = answerer.name
         arr.unshift(rank)
       end
+    end
+
+    def check_limit_date(event)
+      require 'date'
+      day = Date.today
+      event.event_date > day
     end
 
     def event_is_exist?
