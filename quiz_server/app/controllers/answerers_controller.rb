@@ -1,5 +1,13 @@
 class AnswerersController < ApplicationController
     before_filter :get_user_info, :only => [:show, :get_question]
+
+    def index
+        event = current_admin_user.events.find_by(id: params[:event_id])
+        unless event.nil?
+            render :json => event.answerers
+        end
+    end
+
     def create
         answerer = Answerer.create(event_id:params[:event_id],name: params[:name])
         #ユーザートークンの発行
