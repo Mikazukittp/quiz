@@ -91,6 +91,19 @@ class EventsController < ApplicationController
       render :json => arr
     end
 
+    def clear
+        event = current_admin_user.events.find_by(id: params[:id])
+        unless event.nil?
+          event.answerers.each do |answerer|
+            answerer.answers.destroy_all
+          end
+          event.answerers.destroy_all
+          render_success("イベントのclearに成功しました")
+        else
+          render_fault("存在しないイベントです")
+        end
+    end
+
     private
 
     def check_admin_user_exist
@@ -100,7 +113,6 @@ class EventsController < ApplicationController
     end
 
     def check_admin_has_event(event)
-      p event
       event.admin_user_id === current_admin_user.id
     end
 
