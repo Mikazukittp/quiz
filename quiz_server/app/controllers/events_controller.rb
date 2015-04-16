@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     end
 
     def show
-      event = Event.find_by(id: params[:id],is_delete: false)
+      event = Event.find_by(id: params[:id])
       if check_admin_has_event(event)
         render :json => event
       else
@@ -82,6 +82,7 @@ class EventsController < ApplicationController
     def close
       event = current_admin_user.events
       .includes(:answerers, questions: :answers).find_by(id: params[:id])
+      return render_fault("存在しないイベントです") if event.nil?
       h = get_hash_user_rank(event)
       arr = rank_sort(h.to_a)
       add_name_and_rank(arr,event)
@@ -107,24 +108,32 @@ class EventsController < ApplicationController
       h = Hash.new
       event.questions.each do |question|
         question.answers.each do |answer|
-          if answer.is_correct
-            flag = 1
+          unless answer.nil?
+            correct = get_point_answer(answer)
             if h.has_key?(answer.answerer_id)
               time = h[answer.answerer_id][0] + answer.answer_time
-              flag += h[answer.answerer_id][1]
-              h[answer.answerer_id] = [time,flag]
+              correct += h[answer.answerer_id][1]
+              h[answer.answerer_id] = [time,correct]
             else
-              h[answer.answerer_id] = [answer.answer_time,flag]
+              h[answer.answerer_id] = [answer.answer_time,correct]
             end
           end
         end
       end
-      h
+      return h
     end
 
     def rank_sort(arr)
       arr.sort! do |a,b|
         (b[1][1] <=> a[1][1]).nonzero? || (a[1][0] <=> b[1][0])
+      end
+    end
+
+    def get_point_answer(answer)
+      if answer.answer_time < 60 && answer.is_correct
+          correct = 1
+      else
+          correct = 0
       end
     end
 
@@ -135,5 +144,9 @@ class EventsController < ApplicationController
         arr[0] = answerer.name
         arr.unshift(rank)
       end
+    end
+
+    def event_is_exist?
+      Event.find_by(id: params[:id]).exist?
     end
 end

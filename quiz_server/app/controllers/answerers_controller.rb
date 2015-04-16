@@ -24,8 +24,12 @@ class AnswerersController < ApplicationController
 
     def get_question
         question = @user.event.questions.includes(:choices).find_by(is_current: true)
-        render :json => { :question => question,
-                          :choices => question.choices }
+        unless question.nil?
+            render :json => { :question => question,
+                              :choices => question.choices }
+        else
+            render_fault("イベントが開始されておりません")
+        end
     end
 
     private
