@@ -62,6 +62,23 @@ class EventsController < ApplicationController
       end
     end
 
+    def start
+      event = current_admin_user.events
+      .includes(:questions).find_by(id: params[:id])
+      if event != nil
+        question = event.questions.order(:question_number).first
+        if question != nil
+          question.update_attributes(:is_current => true )
+          event.update(is_close: false)
+          render :json => question
+        else
+          render_fault("質問がまだ作成されていません")
+        end
+      else
+        render_fault("存在しないイベントです")
+      end
+    end
+
     def close
       event = current_admin_user.events
       .includes(:answerers, questions: :answers).find_by(id: params[:id])
@@ -69,6 +86,7 @@ class EventsController < ApplicationController
       arr = rank_sort(h.to_a)
       add_name_and_rank(arr,event)
       event.questions.update_all(:is_current => false)
+      event.update(is_close: true)
       render :json => arr
     end
 
