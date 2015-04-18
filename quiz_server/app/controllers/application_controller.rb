@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
-
   skip_before_action :verify_authenticity_token
+  before_filter :restrict_access
 
   # パラメーターからtokenを取得する
   before_filter :get_token_from_response
@@ -63,6 +63,24 @@ class ApplicationController < ActionController::Base
     render :status => 404,
            :json => {:success => false,
                      :info => "routing error"}
+  end
+
+  def render_404_denied
+    render :status => 404,
+           :json => {:success => false,
+                     :info => "denied"}
+  end
+
+  private
+  def restrict_access
+    request.headers.sort.map { |k, v| logger.info "#{k}:#{v}" }
+    #authenticate_or_request_with_http_token do |token, options|
+    #p "aaaaaaaaaa"
+    #  render_404_denied unless ApiKey.exists?(access_token: token)
+    #end
+
+    #api_key = ApiKey.find_by_access_token(params[:access_token])
+    #render_fault("セッションが切れました") unless api_key
   end
 
   protected

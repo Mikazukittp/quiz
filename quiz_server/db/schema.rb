@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416135048) do
+ActiveRecord::Schema.define(version: 20150418062040) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 20150416135048) do
     t.integer  "answer_time",                           null: false
     t.integer  "choice_question_number",                null: false
     t.boolean  "is_correct",             default: true, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "api_keys", force: true do |t|
+    t.string   "access_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
