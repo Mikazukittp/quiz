@@ -86,8 +86,8 @@ class EventsController < ApplicationController
           event.update(is_close: false)
           render :json => { :success => true,
                             :info => "イベントの作成に成功しました",
-                            :next_question => next_question,
-                            :choices => uestion.choices
+                            :question => question,
+                            :choices => question.choices
                           }
         else
           render_fault("質問がまだ作成されていません")
