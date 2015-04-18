@@ -29,7 +29,11 @@ class QuestionsController < ApplicationController
          params[:choices].each do |choice|
             question.choices.create(choice[1])
          end
-         render_success("質問の作成に成功しました")
+         render :json => { :success => true,
+                          :info => "質問の作成に成功しました",
+                          :question => question,
+                          :choices => question.choices
+       }
        else
         render_fault("存在しないイベントです")
        end

@@ -22,7 +22,11 @@ class EventsController < ApplicationController
        event.admin_user_id = current_admin_user.id
        event.url = ""
        event.save!
-       render_success("イベントの作成に成功しました")
+       render :json => { :success => true,
+                          :info => "イベントの作成に成功しました",
+                          :event => event
+       }
+
 
     end
 
@@ -51,11 +55,20 @@ class EventsController < ApplicationController
           question.update_attributes(:is_current => false )
           next_question = event.questions.where("question_number > ?", question.question_number).first
           next_question.update_attributes(:is_current => true )
-          render :json => next_question
+          render :json => { :success => true,
+                            :info => "イベントの作成に成功しました",
+                            :next_question => next_question,
+                            :choices => next_question.choices
+                          }
+
         else
           question = event.questions.order(:question_number).first
           question.update_attributes(:is_current => true )
-          render :json => question
+          render :json => { :success => true,
+                            :info => "イベントの作成に成功しました",
+                            :next_question => next_question,
+                            :choices => uestion.choices
+                          }
         end
       else
         render_fault("存在しないイベントです")
@@ -71,7 +84,11 @@ class EventsController < ApplicationController
         if question != nil
           question.update_attributes(:is_current => true )
           event.update(is_close: false)
-          render :json => question
+          render :json => { :success => true,
+                            :info => "イベントの作成に成功しました",
+                            :next_question => next_question,
+                            :choices => uestion.choices
+                          }
         else
           render_fault("質問がまだ作成されていません")
         end
