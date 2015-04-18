@@ -41,11 +41,6 @@ angular
         templateUrl: 'views/admin.question.html',
         controller: 'AdminQuestionCtrl',
         authenticate: true
-      }).state('user', {
-        url: '/admin/user',
-        templateUrl: 'views/admin.user.html',
-        controller: 'AdminUserCtrl',
-        authenticate: true
       }).state('event', {
         url: '/admin/event/:id',
         templateUrl: 'views/admin.event.html',

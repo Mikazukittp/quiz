@@ -3,7 +3,7 @@
 <div class="container">
   <h2>イベント一覧</h2>
   <a class="btn btn-default" ng-click="createEvent()"><span class="glyphicon glyphicon-plus"></span>追加</a>
-  <table class="table table-hover">
+  <!-- <table class="table table-hover">
     <thead>
       <tr><th>イベント名</th><th>日付</th><th>説明</th></tr>
     </thrad>
@@ -16,6 +16,20 @@
       <td>{{event.description}}</td>
     </tr>
     </tbody>
-  </table>
+  </table> -->
+  <div class="row">
+    <ul class="event-cards col-sm-12 col-md-6">
+      <li class="event-card" ng-repeat="event in events">
+        <a ng-href="/admin/event/{{event.id}}">
+        <p class="event-name big-text">{{event.name}}</p>
+        <p class="event-description">{{event.description}}</p>
+        <p class="event-date">
+          <span class="month">{{event.event_date | date:'MMM'}}</span>
+          <span class="date">{{event.event_date | date:'dd'}}</span>
+          </p>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 <div ng-include="'views/components/footer.html'"></div>
