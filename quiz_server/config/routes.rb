@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   root to: "admin#index"
 
+  devise_scope :admin_user do
+    get '/admin_users/sign_out' => 'session#destroy'
+  end
+
   # You can have the root of your site routed with "root"
 
   # Example of regular route:
