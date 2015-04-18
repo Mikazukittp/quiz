@@ -31,7 +31,7 @@ class QuestionsController < ApplicationController
          end
          render_success("質問の作成に成功しました")
        else
-        render_fault("存在しないquestionです")
+        render_fault("存在しないイベントです")
        end
     end
 

@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     end
 
     def show
-      event = Event.find_by(id: params[:id],is_delete: false)
+      event = Event.find_by(id: params[:id])
       if check_admin_has_event(event)
         render :json => event
       else
@@ -62,14 +62,47 @@ class EventsController < ApplicationController
       end
     end
 
+    def start
+      event = current_admin_user.events
+      .includes(:questions).find_by(id: params[:id])
+      if event != nil
+        return render_fault("有効期限が切れています ") unless check_limit_date(event)
+        question = event.questions.order(:question_number).first
+        if question != nil
+          question.update_attributes(:is_current => true )
+          event.update(is_close: false)
+          render :json => question
+        else
+          render_fault("質問がまだ作成されていません")
+        end
+      else
+        render_fault("存在しないイベントです")
+      end
+    end
+
     def close
       event = current_admin_user.events
       .includes(:answerers, questions: :answers).find_by(id: params[:id])
+      return render_fault("存在しないイベントです") if event.nil?
       h = get_hash_user_rank(event)
       arr = rank_sort(h.to_a)
       add_name_and_rank(arr,event)
       event.questions.update_all(:is_current => false)
+      event.update(is_close: true)
       render :json => arr
+    end
+
+    def clear
+        event = current_admin_user.events.find_by(id: params[:id])
+        unless event.nil?
+          event.answerers.each do |answerer|
+            answerer.answers.destroy_all
+          end
+          event.answerers.destroy_all
+          render_success("イベントのclearに成功しました")
+        else
+          render_fault("存在しないイベントです")
+        end
     end
 
     private
@@ -81,7 +114,6 @@ class EventsController < ApplicationController
     end
 
     def check_admin_has_event(event)
-      p event
       event.admin_user_id === current_admin_user.id
     end
 
@@ -89,24 +121,32 @@ class EventsController < ApplicationController
       h = Hash.new
       event.questions.each do |question|
         question.answers.each do |answer|
-          if answer.is_correct
-            flag = 1
+          unless answer.nil?
+            correct = get_point_answer(answer)
             if h.has_key?(answer.answerer_id)
               time = h[answer.answerer_id][0] + answer.answer_time
-              flag += h[answer.answerer_id][1]
-              h[answer.answerer_id] = [time,flag]
+              correct += h[answer.answerer_id][1]
+              h[answer.answerer_id] = [time,correct]
             else
-              h[answer.answerer_id] = [answer.answer_time,flag]
+              h[answer.answerer_id] = [answer.answer_time,correct]
             end
           end
         end
       end
-      h
+      return h
     end
 
     def rank_sort(arr)
       arr.sort! do |a,b|
         (b[1][1] <=> a[1][1]).nonzero? || (a[1][0] <=> b[1][0])
+      end
+    end
+
+    def get_point_answer(answer)
+      if answer.answer_time < 60 && answer.is_correct
+          correct = 1
+      else
+          correct = 0
       end
     end
 
@@ -117,5 +157,15 @@ class EventsController < ApplicationController
         arr[0] = answerer.name
         arr.unshift(rank)
       end
+    end
+
+    def check_limit_date(event)
+      require 'date'
+      day = Date.today
+      event.event_date > day
+    end
+
+    def event_is_exist?
+      Event.find_by(id: params[:id]).exist?
     end
 end

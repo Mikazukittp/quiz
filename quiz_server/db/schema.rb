@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414152456) do
+ActiveRecord::Schema.define(version: 20150416135048) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20150414152456) do
     t.integer  "course_id"
     t.string   "description"
     t.string   "url_token"
+    t.boolean  "is_close",      default: true
   end
 
   create_table "payments", force: true do |t|

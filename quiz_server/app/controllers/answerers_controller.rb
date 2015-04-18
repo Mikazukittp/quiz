@@ -1,5 +1,13 @@
 class AnswerersController < ApplicationController
     before_filter :get_user_info, :only => [:show, :get_question]
+
+    def index
+        event = current_admin_user.events.find_by(id: params[:event_id])
+        unless event.nil?
+            render :json => event.answerers
+        end
+    end
+
     def create
         answerer = Answerer.create(event_id:params[:event_id],name: params[:name])
         #ユーザートークンの発行
@@ -24,8 +32,12 @@ class AnswerersController < ApplicationController
 
     def get_question
         question = @user.event.questions.includes(:choices).find_by(is_current: true)
-        render :json => { :question => question,
-                          :choices => question.choices }
+        unless question.nil?
+            render :json => { :question => question,
+                              :choices => question.choices }
+        else
+            render_fault("イベントが開始されておりません")
+        end
     end
 
     private
