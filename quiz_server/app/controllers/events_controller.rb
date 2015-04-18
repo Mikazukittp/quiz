@@ -51,24 +51,23 @@ class EventsController < ApplicationController
     def next
       event = Event.find_by(id: params[:id])
       if event != nil && check_admin_has_event(event)
-        if question = event.questions.find_by(is_current: true)
+        question = event.questions.find_by(is_current: true)
+        if question.nil?
+          render :json => { :info => "event is over"}
+        else
           question.update_attributes(:is_current => false )
           next_question = event.questions.where("question_number > ?", question.question_number).first
-          next_question.update_attributes(:is_current => true )
-          render :json => { :success => true,
-                            :info => "イベントの作成に成功しました",
-                            :next_question => next_question,
-                            :choices => next_question.choices
+          if next_question.nil?
+            render :json => { :is_last => true
                           }
-
-        else
-          question = event.questions.order(:question_number).first
-          question.update_attributes(:is_current => true )
-          render :json => { :success => true,
-                            :info => "イベントの作成に成功しました",
-                            :next_question => next_question,
-                            :choices => uestion.choices
-                          }
+          else
+            number = event.questions.where("question_number < ?", next_question.question_number).count + 1
+            next_question.update_attributes(:is_current => true )
+            render :json => { :next_question => next_question,
+                            :choices => next_question.choices,
+                            :number => number
+                            }
+          end
         end
       else
         render_fault("存在しないイベントです")
@@ -84,9 +83,7 @@ class EventsController < ApplicationController
         if question != nil
           question.update_attributes(:is_current => true )
           event.update(is_close: false)
-          render :json => { :success => true,
-                            :info => "イベントの作成に成功しました",
-                            :question => question,
+          render :json => { :question => question,
                             :choices => question.choices
                           }
         else
