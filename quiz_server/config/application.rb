@@ -1,10 +1,12 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require File.dirname(__FILE__) + "/../lib/middlewares/error_handler.rb"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
 
 module QuizServer
   class Application < Rails::Application
@@ -20,6 +22,12 @@ module QuizServer
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :ja
+    #config.middleware.insert(0, RackMiddlewares::ErrorHandler)
+    config.middleware.use ErrorHandler
+    #config.middleware.use MyRackMiddelware
+    #config.autoload_paths << "#{config.root}/lib/middlewares"
+
+
   end
 
   module DeviseApiUse

@@ -84,7 +84,8 @@ class EventsController < ApplicationController
           question.update_attributes(:is_current => true )
           event.update(is_close: false)
           render :json => { :question => question,
-                            :choices => question.choices
+                            :choices => question.choices,
+                            :number => 1
                           }
         else
           render_fault("質問がまだ作成されていません")

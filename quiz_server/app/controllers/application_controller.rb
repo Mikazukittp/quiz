@@ -11,13 +11,6 @@ class ApplicationController < ActionController::Base
   # => トークンによる認証
   before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
 
-  # 500エラーが発生した際の制御
-  rescue_from Exception, with: :handle_500
-
-  # 404エラーが発生した際の制御
-  rescue_from ActionController::RoutingError, with: :handle_404
-  rescue_from ActiveRecord::RecordNotFound,   with: :handle_404
-
   #　パラメータからtokenを取得するメソッド
   def get_token_from_response
     params[:authenticity_token] = form_authenticity_token
@@ -45,20 +38,6 @@ class ApplicationController < ActionController::Base
                     }
   end
 
-  def handle_500(exception = nil)
-    logger.info "Rendering 500 with exception: #{exception.message}" if exception
-    render :status => 500,
-           :json => {:success => false,
-                     :info => exception.message}
-  end
-
-  def handle_404(exception = nil)
-    logger.info "Rendering 404 with exception: #{exception.message}" if exception
-    render :status => 404,
-           :json => {:success => false,
-                     :info => "routing error"}
-  end
-
   def render_404
     render :status => 404,
            :json => {:success => false,
@@ -73,8 +52,8 @@ class ApplicationController < ActionController::Base
 
   private
   def restrict_access
-    #api_key = ApiKey.find_by_access_token(request.headers[:HTTP_ACCESS_TOKEN])
-    #render_fault("") unless api_key
+    api_key = ApiKey.find_by_access_token(request.headers[:HTTP_ACCESS_TOKEN])
+    render_404_denied unless api_key
   end
 
   protected

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'events/start/:id' => 'events#start'
   get 'events/close/:id' => 'events#close'
   delete 'events/clear/:id' => 'events#clear'
-  get 'events/next' => 'events#next'
+  get 'events/next/:id' => 'events#next'
   resources :events, only: [:index, :show, :create, :destroy, :update]
   get 'choices/:id/is_correct' => 'choices#is_correct'
   resources :choices, only: [:index, :show, :destroy]

@@ -48,8 +48,8 @@ Answer.create(question_id: 3,answerer_id: 1, answer_time: 40, choice_question_nu
 Answer.create(question_id: 1,answerer_id: 2, answer_time: 40, choice_question_number: 2, is_correct: false)
 Answer.create(question_id: 2,answerer_id: 2, answer_time: 40, choice_question_number: 1, is_correct: false)
 Answer.create(question_id: 3,answerer_id: 2, answer_time: 40, choice_question_number: 1, is_correct: true)
-Answer.create(question_id: 1,answerer_id: 2, answer_time: 70, choice_question_number: 1, is_correct: false)
-Answer.create(question_id: 2,answerer_id: 2, answer_time: 40, choice_question_number: 1, is_correct: false)
-Answer.create(question_id: 3,answerer_id: 2, answer_time: 40, choice_question_number: 1, is_correct: true)
+Answer.create(question_id: 1,answerer_id: 3, answer_time: 70, choice_question_number: 1, is_correct: false)
+Answer.create(question_id: 2,answerer_id: 3, answer_time: 40, choice_question_number: 1, is_correct: false)
+Answer.create(question_id: 3,answerer_id: 3, answer_time: 40, choice_question_number: 1, is_correct: true)
 
 QuestionType.create(name: '四択')
