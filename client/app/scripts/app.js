@@ -24,7 +24,7 @@ angular
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
-
+    $httpProvider.defaults.headers.common.ACCESS_TOKEN='c915c196a170e2158607b68e3a728191';
 
     $stateProvider
       .state('admin', {
