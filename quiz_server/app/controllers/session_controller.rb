@@ -8,6 +8,11 @@ class SessionController < Devise::SessionsController
   skip_before_filter :verify_signed_out_user
   prepend_before_filter only: [:create, :destroy] { request.env["devise.skip_timeout"] = true }
 
+  def new
+    super
+    #render_404
+  end
+
   def create
     require_no_authentication
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")

@@ -9,6 +9,7 @@ class AnswerersController < ApplicationController
     end
 
     def create
+        return render_fault("same name arleady used") if Answerer.exists?(name: params[:name])
         answerer = Answerer.create(event_id:params[:event_id],name: params[:name])
         #ユーザートークンの発行
         user_token = SecureRandom.uuid
