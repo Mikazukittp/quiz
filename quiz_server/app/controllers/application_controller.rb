@@ -59,6 +59,12 @@ class ApplicationController < ActionController::Base
                      :info => "routing error"}
   end
 
+  def render_404
+    render :status => 404,
+           :json => {:success => false,
+                     :info => "routing error"}
+  end
+
   protected
 
   def json_request?
