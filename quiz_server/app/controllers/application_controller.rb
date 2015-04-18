@@ -73,14 +73,13 @@ class ApplicationController < ActionController::Base
 
   private
   def restrict_access
-    request.headers.sort.map { |k, v| logger.info "#{k}:#{v}" }
     #authenticate_or_request_with_http_token do |token, options|
     #p "aaaaaaaaaa"
     #  render_404_denied unless ApiKey.exists?(access_token: token)
     #end
 
-    #api_key = ApiKey.find_by_access_token(params[:access_token])
-    #render_fault("セッションが切れました") unless api_key
+    api_key = ApiKey.find_by_access_token(request.headers[:HTTP_ACCESS_TOKEN])
+    render_fault("セッションが切れました") unless api_key
   end
 
   protected
