@@ -35,7 +35,11 @@ class SessionController < Devise::SessionsController
 
   def require_no_authentication
     if current_admin_user
-      render :json => current_admin_user
+      render :status => 200,
+             :json => { :success => true,
+                      :info => "Logged in",
+                      :admin_user => current_admin_user,
+                      :auth_token => current_admin_user.authentication_token }
       return
     end
   end
