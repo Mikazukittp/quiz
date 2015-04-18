@@ -11,13 +11,13 @@ angular.module('clientApp')
   .controller('AdminQuestionCtrl', function ($scope, $stateParams, questions, choices) {
 
     $scope.id = $stateParams.id;
-    questions.get($scope.id).then(function(data){
-        console.log(data);
-        $scope.question = data;
+    questions.get({id: $scope.id}, function(data){
+      console.log(data);
+      $scope.question = data;
     });
-    choices.findByQuestionId($scope.id).then(function(data){
-        console.log(data);
-        $scope.choices = data;
+    choices.findByQuestionId({question_id: $scope.id}, function(data){
+      console.log(data);
+      $scope.choices = data;
     });
 
   });
