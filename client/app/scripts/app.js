@@ -36,11 +36,11 @@ angular
         url: '/about',
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
-      }).state('question', {
+      }).state('adminQuestion', {
         url: '/admin/question/:eventId/:questionNumber',
         templateUrl: 'views/admin.question.html',
         controller: 'AdminQuestionCtrl',
-        authenticate: true
+        // authenticate: true
       }).state('user', {
         url: '/admin/user',
         templateUrl: 'views/admin.user.html',
@@ -64,9 +64,13 @@ angular
         templateUrl: 'views/user.login.html',
         controller: 'UserLoginCtrl'
       }).state('userQuestion', {
-        url: '/user/question/:eventId/:questionNumber',
+        url: '/user/question/:questionNumber',
         templateUrl: 'views/user.question.html',
         controller: 'UserQuestionCtrl'
+      }).state('userAnswer', {
+        url: '/user/answer/:questionNumber/:questionId/:answerNumber',
+        templateUrl: 'views/user.answer.html',
+        controller: 'UserAnswerCtrl'
       }).state('setting', {
         url: '/account/setting',
         templateUrl: 'views/settings.html',

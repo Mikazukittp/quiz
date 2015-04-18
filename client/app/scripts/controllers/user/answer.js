@@ -8,15 +8,12 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('UserAnswerCtrl', function ($scope, $stateParams,questions) {
+  .controller('UserAnswerCtrl', function ($scope, $stateParams,questions,$cookieStore) {
 
-    $scope.id     = $routeParams.eventId;
-    $scope.answer = $routeParams.answerNumber;
-    var questionNumber = Number($routeParams.questionNumber);
+  	$scope.questionNumber = Number($stateParams.questionNumber) + 1;
+  	$scope.name = $cookieStore.get('anwerer');
+
+    $scope.id     = $stateParams.questionId;
+    $scope.answer = $stateParams.answerNumber;
    
-    questions.get(questionNumber).then(function(data){
-        $scope.question = data;
-    });
-    $scope.number = questionNumber + 1;
-
   });

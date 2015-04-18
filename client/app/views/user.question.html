@@ -7,18 +7,18 @@
 
 	<!-- $scope.myValue がtrueの場合 (要素は表示されます) -->
 	<div ng-show="myValue">
-		<h2>問題 {{number}}</h2>
+		<h2>問題 {{data.question.question_number}}</h2>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				{{question.sentence}}
+				{{data.question.sentence}}
 			</div>
 		</div>
 		<h2>回答</h2>
 
 		<section>
 			<ul class="list-group quizTable" >
-				<li class="list-group-item" ng-repeat="c in question.choices">
-					<a href="/#/user/answer/{{id}}/{{number}}/{{$index}}">{{c}}</a>
+				<li class="list-group-item" ng-repeat="c in data.choices">
+					<a href="/#/user/answer/{{number}}/{{c.question_id}}/{{c.choice_number}}">{{c.sentence}}</a>
 				</li>
 			</ul>
 		</section>

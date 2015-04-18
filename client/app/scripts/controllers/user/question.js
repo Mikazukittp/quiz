@@ -10,15 +10,24 @@
 angular.module('clientApp')
   .controller('UserQuestionCtrl', function ($scope, $stateParams, questions, $location,$cookieStore) {
 
-    $scope.id = $stateParams.eventId;
     $scope.number = $stateParams.questionNumber;
     $scope.name = $cookieStore.get('anwerer');
     
     questions.answerersQuestions().then(function(data){
-      $scope.question = data;
+      $scope.data = data;
+      $scope.myValue = true;
+
       console.log(data);
+  
+      //主催者が開始を指定していない時の挙動
+      if ($scope.number == data.question.question_number) {
+        $scope.myValue = false;
+        $scope.message = "クイズが開始されていません。司会者の誘導に従ってください";
+      };
+
     },function(error){
       console.log(error);
+      $scope.myValue = false;
       $scope.message = error.data.info
     });
 
