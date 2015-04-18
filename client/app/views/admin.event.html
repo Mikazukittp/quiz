@@ -10,7 +10,7 @@
   </table>
 
   <h2>問題一覧</h2>
-  <a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>追加</a>
+  <a class="btn btn-default" ng-click="createQuestion()"><span class="glyphicon glyphicon-plus"></span>追加</a>
 
   <table class="table table-hover">
     <thead>
@@ -29,3 +29,41 @@
     </tbody>
   </table>
 </div>
+
+<script type="text/ng-template" id="createQuestion.html">
+  <div class="modal-header">
+      <h3 class="modal-title">新規問題を作成</h3>
+  </div>
+  <div class="modal-body">
+    正解:{{answer}}
+    <form>
+      <input type="text" ng-model="sentence" tabindex="1"> <br>
+      <input type="radio" name="answer" ng-model="answer" value="1" tabindex="6">
+      <input type="text" ng-model="c1" tabindex="2"> <br>
+      <input type="radio" name="answer" ng-model="answer" value="2" tabindex="7">
+      <input type="text" ng-model="c2" tabindex="3"> <br>
+      <input type="radio" name="answer" ng-model="answer" value="3" tabindex="8">
+      <input type="text" ng-model="c3" tabindex="4"> <br>
+      <input type="radio" name="answer" ng-model="answer" value="4" tabindex="9">
+      <input type="text" ng-model="c4" tabindex="5"> <br>
+    </form>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="deleteQuestion.html">
+  <div class="modal-header">
+      <h3 class="modal-title">問題を削除</h3>
+  </div>
+  <div class="modal-body">
+  この問題を削除していいですか？<br>
+  <small>この操作は取り消すことができません。</small>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
