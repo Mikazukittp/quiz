@@ -4,7 +4,8 @@ angular.module('clientApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
     if($cookieStore.get('token')) {
-      currentUser = User.get();
+      // currentUser = User.get();
+      currentUser.id = $cookieStore.get('token');
     }
 
     return {
@@ -19,8 +20,8 @@ angular.module('clientApp')
       login: function(user, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
-
-        $http.post('http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/admin_users/sign_in', {
+        $http.post('http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/admin_users/sign_in',
+         {
           'admin_user': {
             'email': user.email,
             'password': user.password,
@@ -30,8 +31,11 @@ angular.module('clientApp')
           'commit': 'Log in'
         }).
         success(function(data) {
-          $cookieStore.put('token', data.token);
-          currentUser = User.get();
+          console.log(data);
+          // $cookieStore.put('token', data.auth_token);
+          $cookieStore.put('token', data.admin_user.id);
+          // currentUser = User.get();
+          currentUser = data.admin_user;
           deferred.resolve(data);
           return cb();
         }).
@@ -44,6 +48,38 @@ angular.module('clientApp')
 
         return deferred.promise;
       },
+       /**
+       * Authenticate customer
+       *
+       * @param  {Object}   user     - login info
+       * @param  {Function} callback - optional
+       * @return {Promise}
+       */
+      userLogin: function(user, callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+        $cookieStore.put('anwerer', user.name);
+
+        $http.post('http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/answerers/', 
+        {
+          'name':user.name,
+          'event_id':user.id,
+        }
+      ).
+        success(function(data) {
+          console.log(data);
+          deferred.resolve(data);
+          return cb();
+        }).
+        error(function(err) {
+          console.log(err);
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
+      },
+
 
       /**
        * Delete access token and user info
@@ -75,8 +111,10 @@ angular.module('clientApp')
           },
           'commit': 'Sign up'
         }, function(data) {
+            console.log(data);
             $cookieStore.put('token', data.token);
-            currentUser = User.get();
+            // currentUser = User.get();
+            currentUser = data.admin_user;
             return cb(user);
           },
           function(err) {
@@ -128,13 +166,16 @@ angular.module('clientApp')
        * Waits for currentUser to resolve before checking if user is logged in
        */
       isLoggedInAsync: function(cb) {
+        console.log('isLoggedInAsync');
+        console.log('currentUser:');
+        console.log(currentUser);
         if(currentUser.hasOwnProperty('$promise')) {
           currentUser.$promise.then(function() {
             cb(true);
           }).catch(function() {
             cb(false);
           });
-        } else if(currentUser.hasOwnProperty('role')) {
+        } else if(currentUser.hasOwnProperty('id')) {
           cb(true);
         } else {
           cb(false);

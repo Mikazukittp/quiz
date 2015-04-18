@@ -8,25 +8,23 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('UserQuestionCtrl', function ($scope, $routeParams, questions, $location) {
+  .controller('UserQuestionCtrl', function ($scope, $stateParams, questions, $location,$cookieStore) {
 
-    $scope.id = $routeParams.eventId;
-    $scope.number = $routeParams.questionNumber;
+    $scope.id = $stateParams.eventId;
+    $scope.number = $stateParams.questionNumber;
+    $scope.name = $cookieStore.get('anwerer');
     
-    questions.get($scope.number).then(function(data){
-        $scope.question = data;
-        if (!data){
-          $scope.myValue = false;
-        }else{
-          $scope.myValue = true;
-        }
+    questions.answerersQuestions().then(function(data){
+      $scope.question = data;
+      console.log(data);
+    },function(error){
+      console.log(error);
+      $scope.message = error.data.info
     });
 
     $scope.postAnswer = function(answer, id, number, index){
         $location.path('/#/user/answer/'+id+'/'+number+'/'+index, {'value':answer});
     };
-
-
-  });
+});
 
 

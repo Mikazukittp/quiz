@@ -14,58 +14,107 @@ angular
     'ngCookies',
     'ngMessages',
     'ngResource',
-    'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ui.router',
     'ui.bootstrap'
   ])
-  .config(function ($routeProvider, $httpProvider) {
-    $routeProvider
-      .when('/', {
+  .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+
+    $urlRouterProvider.otherwise('/');
+    $locationProvider.html5Mode(true);
+    $httpProvider.interceptors.push('authInterceptor');
+
+
+    $stateProvider
+      .state('admin', {
+        url: '/',
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
+        controller: 'MainCtrl',
+        authenticate: true
+      }).state('about', {
+        url: '/about',
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
-      })
-     .when('/admin/question/:eventId/:questionNumber', {
+      }).state('question', {
+        url: '/admin/question/:eventId/:questionNumber',
         templateUrl: 'views/admin.question.html',
-        controller: 'AdminQuestionCtrl'
-      })
-     .when('/admin/user/', {
+        controller: 'AdminQuestionCtrl',
+        authenticate: true
+      }).state('user', {
+        url: '/admin/user',
         templateUrl: 'views/admin.user.html',
-        controller: 'AdminUserCtrl'
-      })
-     .when('/admin/event/:id', {
+        controller: 'AdminUserCtrl',
+        authenticate: true
+      }).state('event', {
+        url: '/admin/event/:id',
         templateUrl: 'views/admin.event.html',
-        controller: 'AdminEventCtrl'
-      })
-     .when('/admin/screen/:id', {
-        templateUrl: 'views/admin.screen.html',
-        controller: 'AdminScreenCtrl'
-      })
-     .when('/user/question/:eventId/:questionNumber', {
-        templateUrl: 'views/user.question.html',
-        controller: 'UserQuestionCtrl'
-      })
-     .when('/user/answer/:eventId/:questionNumber/:answerNumber', {
-        templateUrl: 'views/user.answer.html',
-        controller: 'UserAnswerCtrl'
-      })
-     .when('/login', {
+        controller: 'AdminEventCtrl',
+        authenticate: true
+      }).state('login', {
+        url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
-      })
-     .when('/signup', {
+      }).state('signup', {
+        url: '/signup',
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
-      })
-     .when('/account/setting', {
+      }).state('userLogin', {
+        url: '/user/login/:eventId',
+        templateUrl: 'views/user.login.html',
+        controller: 'UserLoginCtrl'
+      }).state('userQuestion', {
+        url: '/user/question/:eventId/:questionNumber',
+        templateUrl: 'views/user.question.html',
+        controller: 'UserQuestionCtrl'
+      }).state('setting', {
+        url: '/account/setting',
         templateUrl: 'views/settings.html',
         controller: 'SettingCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
       });
+
+  })
+
+  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+    return {
+      // Add authorization token to headers
+      request: function (config) {
+        config.headers = config.headers || {};
+        if ($cookieStore.get('token')) {
+          config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+        }
+        return config;
+      },
+
+      // Intercept 401s and redirect you to login
+      responseError: function(response) {
+        if(response.status === 401) {
+          console.log('interceptor');
+          console.log();
+          // APIの返り値が401の場合を一旦escapeしている
+          if(!/.*json.*/.test(response.config.headers.Accept)){
+            $location.path('/login');
+          }
+          // remove any stale tokens
+          $cookieStore.remove('token');
+          return $q.reject(response);
+        } else {
+          return $q.reject(response);
+        }
+      }
+    };
+  })
+
+  .run(function ($rootScope, $location, Auth) {
+    // Redirect to login if route requires auth and you're not logged in
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+      Auth.isLoggedInAsync(function(loggedIn) {
+        console.log('isLoggedInAsync callback: loggedIn='+loggedIn);
+        console.log('next.authenticate: '+next.authenticate);
+        if (next.authenticate && !loggedIn) {
+          console.log('redirect!');
+          $location.path('/login');
+        }
+      });
+    });
   });

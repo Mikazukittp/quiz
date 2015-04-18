@@ -8,10 +8,17 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminUserCtrl', function ($scope, events) {
-    var loginId = 1;
+  .controller('AdminUserCtrl', function ($scope, events, Auth) {
+    // var loginId = 1;
+    var loginId = Auth.getCurrentUser().id;
     events.findByUserId(loginId).then(function(data){
         $scope.events = data;
         console.log(data);
     });
+    $scope.createEvent = function() {
+      events.create().then(function(data){
+        console.log(data);
+        $scope.$apply();
+      });
+    };
   });

@@ -2,7 +2,7 @@
 	<link rel="stylesheet" href="styles/question.css">
 
 	<ol class="breadcrumb">
-		<li>回答者名:Tatsuya Ishibe</li>
+		<li>回答者名:{{name}}</li>
 	</ol>
 
 	<!-- $scope.myValue がtrueの場合 (要素は表示されます) -->
@@ -26,7 +26,7 @@
 
 	<!-- $scope.myValue がfalseの場合 (要素は隠されます) -->
 	<div ng-hide="myValue">
-		<p>終わり</p>
+		<p>{{message}}</p>
 	</div>
 
 	

@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('UserAnswerCtrl', function ($scope, $routeParams,questions) {
+  .controller('UserAnswerCtrl', function ($scope, $stateParams,questions) {
 
     $scope.id     = $routeParams.eventId;
     $scope.answer = $routeParams.answerNumber;

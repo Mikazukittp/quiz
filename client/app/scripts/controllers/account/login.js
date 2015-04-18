@@ -14,10 +14,12 @@ angular.module('clientApp')
         password: $scope.user.password
       })
       .then( function() {
+          console.log('login success');
           // Logged in, redirect to home
-          $location.path('/');
+          $location.path('/admin/user');
         })
       .catch( function(err) {
+          console.log('login failed');
         $scope.errors.other = err.message;
       });
     }
