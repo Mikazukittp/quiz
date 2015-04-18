@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
   before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
 
   # 500エラーが発生した際の制御
-  #rescue_from Exception, with: :rescue500
+  rescue_from Exception, with: :handle_500
+
+  # 404エラーが発生した際の制御
+  rescue_from ActionController::RoutingError, with: :handle_404
+  rescue_from ActiveRecord::RecordNotFound,   with: :handle_404
 
   #　パラメータからtokenを取得するメソッド
   def get_token_from_response
@@ -41,13 +45,18 @@ class ApplicationController < ActionController::Base
                     }
   end
 
-  private
-  def rescue500(e)
-    @exception
+  def handle_500(exception = nil)
+    logger.info "Rendering 500 with exception: #{exception.message}" if exception
     render :status => 500,
-           :json => { :success => false,
-                      :info => "500エラーです",
-                    }
+           :json => {:success => false,
+                     :info => exception.message}
+  end
+
+  def handle_404(exception = nil)
+    logger.info "Rendering 404 with exception: #{exception.message}" if exception
+    render :status => 404,
+           :json => {:success => false,
+                     :info => "routing error"}
   end
 
   protected
