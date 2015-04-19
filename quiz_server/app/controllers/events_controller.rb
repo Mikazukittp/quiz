@@ -63,7 +63,7 @@ class EventsController < ApplicationController
           else
             number = event.questions.where("question_number < ?", next_question.question_number).count + 1
             next_question.update_attributes(:is_current => true )
-            render :json => { :next_question => next_question,
+            render :json => { :question => next_question,
                             :choices => next_question.choices,
                             :number => number
                             }

@@ -7,8 +7,8 @@ module QuizServer
       def call(env)
         begin
         @app.call(env)
-        rescue Exception
-            handle_500
+        #rescue Exception
+        #    handle_500
         rescue ActionController::RoutingError
             handle_404
         rescue ActiveRecord::RecordNotFound
@@ -18,14 +18,12 @@ module QuizServer
       end
 
       def handle_500
-        logger.info "Rendering 500 with exception"
         render :status => 500,
            :json => {:success => false,
                      :info => "Internal Server Error"}
       end
 
       def handle_404
-        logger.info "Rendering 404 with exception"
         render :status => 404,
            :json => {:success => false,
                      :info => "routing error"}
