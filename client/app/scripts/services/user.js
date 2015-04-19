@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('clientApp')
-  .factory('User', function ($resource) {
-    var API_DOMAIN = 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/admin_users';
-    return $resource(API_DOMAIN + '/:id/:controller', {
+  .factory('User', function ($resource, API_DOMAIN) {
+    return $resource(API_DOMAIN + 'admin_users/:id/:controller', {
       id: '@_id'
     },
     {

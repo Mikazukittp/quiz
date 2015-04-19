@@ -37,10 +37,10 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       }).state('adminQuestion', {
-        url: '/admin/question/:eventId/:questionNumber',
+        url: '/admin/question/:eventId',
         templateUrl: 'views/admin.question.html',
         controller: 'AdminQuestionCtrl',
-        // authenticate: true
+        authenticate: true
       }).state('user', {
         url: '/admin/user',
         templateUrl: 'views/admin.user.html',
@@ -64,11 +64,11 @@ angular
         templateUrl: 'views/user.login.html',
         controller: 'UserLoginCtrl'
       }).state('userQuestion', {
-        url: '/user/question/:questionNumber',
+        url: '/user/question',
         templateUrl: 'views/user.question.html',
         controller: 'UserQuestionCtrl'
       }).state('userAnswer', {
-        url: '/user/answer/:questionNumber/:questionId/:answerNumber',
+        url: '/user/answer/:answerNumber',
         templateUrl: 'views/user.answer.html',
         controller: 'UserAnswerCtrl'
       }).state('setting', {
@@ -121,4 +121,6 @@ angular
         }
       });
     });
-  });
+  })
+
+  .constant('API_DOMAIN', 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/');

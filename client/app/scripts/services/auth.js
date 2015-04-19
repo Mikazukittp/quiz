@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
+  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q, API_DOMAIN) {
     var currentUser = {};
     if($cookieStore.get('token')) {
       // currentUser = User.get();
@@ -20,8 +20,8 @@ angular.module('clientApp')
       login: function(user, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
-        $http.post('http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/admin_users/sign_in',
-         {
+
+        $http.post(API_DOMAIN+'admin_users/sign_in', {
           'admin_user': {
             'email': user.email,
             'password': user.password,
@@ -60,7 +60,7 @@ angular.module('clientApp')
         var deferred = $q.defer();
         $cookieStore.put('anwerer', user.name);
 
-        $http.post('http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/answerers/', 
+        $http.post(API_DOMAIN + 'answerers/', 
         {
           'name':user.name,
           'event_id':user.id,

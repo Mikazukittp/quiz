@@ -8,28 +8,27 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminQuestionCtrl', function ($scope, $stateParams, questions, choices) {
+  .controller('AdminQuestionCtrl', function ($scope, $stateParams, events, choices) {
 
-    $scope.id = $routeParams.eventId;
-    $scope.number = $routeParams.questionNumber;
+    $scope.id = $stateParams.eventId;
 
-    questions.get($scope.number).then(function(data){
-
-        $scope.question = data;
-
-        if (!data) {
-        	$scope.finish = true;
-                questions.winnerList($scope.id).then(function(win){
-                $scope.winnerList = win[0];
-                console.log(win);
-            });
-        }else {
-        	$scope.finish = false;
-        }
+    events.start({id: $scope.id}, function(data){
+      console.log(data);
+      $scope.data = data;
     });
-    choices.findByQuestionId($scope.id).then(function(data){
-        console.log(data);
-        $scope.choices = data;
-    });
+
+    $scope.next = function(form) {
+        $scope.showAnswer = false;
+        events.next({id: $scope.id}, function(data){
+        $scope.data = data;
+        if (data.is_last == true) {
+          $scope.finish = true;
+        };
+     });
+    };
+
+    $scope.answer = function() {
+      $scope.showAnswer = true;
+    }
 
   });

@@ -16,7 +16,7 @@ angular.module('clientApp')
       .then( function() {
           console.log('login success');
           // Logged in, redirect to home
-          $location.path('/user/question/0');
+          $location.path('/user/question');
         })
       .catch( function(err) {
           console.log('login failed');

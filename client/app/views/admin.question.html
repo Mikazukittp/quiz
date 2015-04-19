@@ -2,31 +2,29 @@
 	<link rel="stylesheet" href="styles/screen.css">
 
 	<div ng-show="finish">
-		<div ng-repeat="w in winnerList.winner">
-			<h3>{{w}}</h3>
-		</div>
+		おわりーーーーーーー
 	</div>
 
 	<div ng-hide="finish">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
-					<h2>問題 {{number}}</h2>
+					<h2>問題 {{data.question.question_number}}</h2>
 
 					<div class="panel panel-default">
 						<div class="panel-body">
-							{{question.sentence}}
+							{{data.question.sentence}}
 						</div>
 					</div>
 					<div class="answer">
 						<div class="row">
 							<div ng-init="nums=[];">
 								<div class="view">
-									<div class="number" ng-repeat="c in question.choices">
+									<div class="number" ng-repeat="c in data.choices">
 										<div class="col-md-6">
 											<div class="thumbnail">
 												<div class="caption">
-													<h3>{{c}}</h3>
+													<h3 ng-class="{red: c.correct_flag && showAnswer}">{{c.sentence}}</h3>
 												</div>
 											</div>
 										</div>
@@ -37,9 +35,14 @@
 					</div>
 
 					<div class="btn-group" role="group" aria-label="...">
-						<a href="/#/admin/question/{{id}}/{{number*1-1}}" class="btn btn-primary" ng-show="{{number > 1}}">前の問題</a>
-						<a href="/#/admin/question/{{id}}/{{number*1+1}}" class="btn btn-primary">次の問題</a>
+
+					<form class="form" name="form" ng-submit="next(form)" novalidate>
+      				 <input type="submit" class="btn btn-primary" ng-show="{{number > 1}}"　value="前の問題へ"/>
+      				 <input type="submit" class="btn btn-primary" value="次の問題へ"/>
+      				 </form>
+      				 <button ng-click="answer()" class="btn btn-primary">回答</button>
 					</div>
+
 				</div>
 			</div>
 		</div>
