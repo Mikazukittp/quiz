@@ -22,6 +22,12 @@ angular.module('clientApp')
          controller:'get_question'
        }
     },
+    choice: {
+       method: 'GET',
+       params: {
+        id:'choice_question_number'
+       }
+    },
    });
 });
 
