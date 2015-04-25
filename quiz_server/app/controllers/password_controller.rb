@@ -19,10 +19,6 @@ class PasswordController < Devise::PasswordsController
 
     extend Devise
 
-    p resource
-
-    p resource.errors
-
     if resource.errors.empty?
       resource.unlock_access! if unlockable?(resource)
       render_success("パスワードの更新が完了しました")
