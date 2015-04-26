@@ -19,7 +19,6 @@ Rails.application.routes.draw do
    registrations: "registration", confirmations: "confirmation",
    passwords: "password" }
   get 'admin/index'
-  get 'admin/show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
