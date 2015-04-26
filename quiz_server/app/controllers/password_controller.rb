@@ -7,15 +7,9 @@ class PasswordController < Devise::PasswordsController
     yield resource if block_given?
 
     if successfully_sent?(resource)
-       render :status => 200,
-            :json => { :success => true,
-                          :info => "メール送りました",
-                        }
+       render_success("パスワードの再送が完了しました")
     else
-        render :status => 401,
-               :json => { :success => false,
-                          :info => "メールアドレスが一致しません"
-              }
+        render_fault("パスワードの再送に失敗しました")
     end
   end
 
@@ -27,16 +21,9 @@ class PasswordController < Devise::PasswordsController
 
     if resource.errors.empty?
       resource.unlock_access! if unlockable?(resource)
-      render :status => 200,
-            :json => { :success => true,
-                          :info => "パスワードの変更完了",
-                        }
-
+      render_success("パスワードの更新が完了しました")
     else
-    render :status => 401,
-               :json => { :success => false,
-                          :info => "tokenの値が正しくありません"
-              }
+    render_fault("パスワードの更新に失敗しました")
     end
   end
 end

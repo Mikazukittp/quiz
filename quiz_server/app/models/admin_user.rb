@@ -5,6 +5,7 @@ class AdminUser < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
+  has_many :events, dependent: :destroy
 
   # 認証トークンはユニークに。ただしnilは許可
   validates:authentication_token, uniqueness: true, allow_nil: true
