@@ -11,12 +11,12 @@ angular.module('clientApp')
   .controller('AdminUserCtrl', function ($scope, events, Auth) {
     // var loginId = 1;
     var loginId = Auth.getCurrentUser().id;
-    events.findByUserId(loginId).then(function(data){
-        $scope.events = data;
-        console.log(data);
+    events.findByUserId({user_id: loginId}, function(data){
+      console.log(data);
+      $scope.events = data;
     });
     $scope.createEvent = function() {
-      events.create().then(function(data){
+      events.create({}, function(data){
         console.log(data);
         $scope.$apply();
       });

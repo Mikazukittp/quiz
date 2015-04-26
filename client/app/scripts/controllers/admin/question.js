@@ -8,16 +8,27 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminQuestionCtrl', function ($scope, $stateParams, questions, choices) {
+  .controller('AdminQuestionCtrl', function ($scope, $stateParams, events, choices) {
 
-    $scope.id = $stateParams.id;
-    questions.get($scope.id).then(function(data){
-        console.log(data);
-        $scope.question = data;
+    $scope.id = $stateParams.eventId;
+
+    events.start({id: $scope.id}, function(data){
+      console.log(data);
+      $scope.data = data;
     });
-    choices.findByQuestionId($scope.id).then(function(data){
-        console.log(data);
-        $scope.choices = data;
-    });
+
+    $scope.next = function(form) {
+        $scope.showAnswer = false;
+        events.next({id: $scope.id}, function(data){
+        $scope.data = data;
+        if (data.is_last == true) {
+          $scope.finish = true;
+        };
+     });
+    };
+
+    $scope.answer = function() {
+      $scope.showAnswer = true;
+    }
 
   });

@@ -24,7 +24,7 @@ angular
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
-
+    $httpProvider.defaults.headers.common.ACCESS_TOKEN='c915c196a170e2158607b68e3a728191';
 
     $stateProvider
       .state('admin', {
@@ -36,8 +36,8 @@ angular
         url: '/about',
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
-      }).state('question', {
-        url: '/admin/question/:id',
+      }).state('adminQuestion', {
+        url: '/admin/question/:eventId',
         templateUrl: 'views/admin.question.html',
         controller: 'AdminQuestionCtrl',
         authenticate: true
@@ -54,6 +54,18 @@ angular
         url: '/signup',
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
+      }).state('userLogin', {
+        url: '/user/login/:eventId',
+        templateUrl: 'views/user.login.html',
+        controller: 'UserLoginCtrl'
+      }).state('userQuestion', {
+        url: '/user/question',
+        templateUrl: 'views/user.question.html',
+        controller: 'UserQuestionCtrl'
+      }).state('userAnswer', {
+        url: '/user/answer/:answerNumber',
+        templateUrl: 'views/user.answer.html',
+        controller: 'UserAnswerCtrl'
       }).state('setting', {
         url: '/account/setting',
         templateUrl: 'views/settings.html',
@@ -76,7 +88,12 @@ angular
       // Intercept 401s and redirect you to login
       responseError: function(response) {
         if(response.status === 401) {
-          $location.path('/login');
+          console.log('interceptor');
+          console.log();
+          // APIの返り値が401の場合を一旦escapeしている
+          if(!/.*json.*/.test(response.config.headers.Accept)){
+            $location.path('/login');
+          }
           // remove any stale tokens
           $cookieStore.remove('token');
           return $q.reject(response);
@@ -99,4 +116,6 @@ angular
         }
       });
     });
-  });
+  })
+
+  .constant('API_DOMAIN', 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/');
