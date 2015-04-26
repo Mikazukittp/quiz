@@ -55,7 +55,11 @@ class QuestionsController < ApplicationController
              return
            end
          end
-         render_success("質問の作成に成功しました")
+         render :json => { :success => true,
+                          :info => "質問の更新に成功しました",
+                          :question => question,
+                          :choices => question.choices
+         }
        else
          render_fault("存在しないquestionです")
        end
