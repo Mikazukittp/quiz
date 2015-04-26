@@ -23,12 +23,30 @@ angular.module('clientApp')
         $scope.data = data;
         if (data.is_last == true) {
           $scope.finish = true;
+          events.close({},function(data){
+            console.log(data);
+          });
         };
      });
     };
 
     $scope.answer = function() {
       $scope.showAnswer = true;
+    }
+    $scope.countDown = function() {
+      jQuery(function($){
+        var i = 10;
+        $('#countDownBox').flipcountdown({
+          tick:function(){
+            $('#countDownBox').show();
+            if (i == -1) {
+              $('#countDownBox').hide();
+              return;
+            };  
+            return i--;
+          }
+        });
+})
     }
 
   });

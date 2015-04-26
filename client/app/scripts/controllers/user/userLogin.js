@@ -19,8 +19,8 @@ angular.module('clientApp')
           $location.path('/user/question');
         })
       .catch( function(err) {
-          console.log('login failed');
-        $scope.errors.other = err.message;
+          console.log(err);
+        $scope.errors.other = err;
       });
     }
   };

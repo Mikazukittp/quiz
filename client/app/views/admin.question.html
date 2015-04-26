@@ -1,5 +1,9 @@
 <div ng-controller="AdminQuestionCtrl">
   <link rel="stylesheet" href="styles/screen.css">
+  <link rel="stylesheet" type="text/css" href="views/util/jquery.flipcountdown.css" />
+  <link rel="stylesheet" type="text/css" href="views/util/jquery.flipcountdown.css" />
+  <script type="text/javascript" src="views/util/jquery.min.js"></script>
+  <script type="text/javascript" src="views/util/jquery.flipcountdown.js"></script>
 
   <div ng-show="finish">
     おわりーーーーーーー
@@ -33,9 +37,8 @@
  </div>
 </div>
 </div>
-<video ng-src="/resouces/count_down.mp4" autoplay muted loop>
- <p>動画を再生するにはvideoタグをサポートしたブラウザが必要です。</p>
-</video>
+
+<div id="countDownBox"></div>
 
 <div class="btn-group" role="group" aria-label="...">
 
@@ -44,6 +47,7 @@
    <input type="submit" class="btn btn-primary" value="次の問題へ"/>
  </form>
  <button ng-click="answer()" class="btn btn-primary">回答</button>
+ <button ng-click="countDown()" class="btn btn-primary">回答開始</button>
 </div>
 
 </div>

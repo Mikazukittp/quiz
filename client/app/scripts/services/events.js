@@ -37,8 +37,14 @@
         params: {
           controller:'next'
         }
+      },
+      close: {
+        method: 'GET',
+        params: {
+          controller:'events',
+          id:'index',
+        }
       }
-
     });
 
 });
