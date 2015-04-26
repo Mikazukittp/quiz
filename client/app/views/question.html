@@ -1,35 +1,5 @@
-<div ng-controller="QuestionCtrl">
-	<link rel="stylesheet" href="styles/question.css">
+<p>{{question.sentence}}</p>
 
-	<ol class="breadcrumb">
- 	 <li>回答者名:Tatsuya Ishibe</li>
-	</ol>
-
-	<div align="center">
-		<img src="{{question.imageUrl._url}}" alt="I'm beckham" class="img-thumbnail">
-	</div>
- 
-	<h2>問題 {{question.number}}</h2>
-	<div class="panel panel-default">
- 	  <div class="panel-body">
-      {{question.text}}
-  	</div>
-  </div>
-	<h2>回答</h2>
-
-	<section>
-    	<ul class="list-group quizTable" >
-  			<li class="list-group-item"><a href="">A. {{question.question1}}</a</li>
-  			<li class="list-group-item"><a href="">B. {{question.question2}}</a></li>
- 			<li class="list-group-item"><a href="">C. {{question.question3}}</a></li>
-  			<li class="list-group-item"><a href="">D. {{question.question4}}</a></li>
-		</ul>
-	</section>
-
-	<nav>
-  		<ul class="pager">
-    		<li><a href="#">Previous</a></li>
-    		<li><a href="#">Next</a></li>
-  		</ul>
-	</nav>
-</div>
+<ol>
+    <li ng-repeat="c in question.choices">{{c}}</li>
+</ol>
