@@ -38,6 +38,18 @@ class ApplicationController < ActionController::Base
                     }
   end
 
+  def handle_500
+    render :status => 500,
+           :json => {:success => false,
+                     :info => "Internal Server Error"}
+  end
+
+  def handle_404
+    render :status => 404,
+           :json => {:success => false,
+                     :info => "routing error"}
+  end
+
   def render_404
     render :status => 404,
            :json => {:success => false,
