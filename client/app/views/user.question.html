@@ -1,0 +1,34 @@
+<div ng-controller="UserQuestionCtrl">
+	<link rel="stylesheet" href="styles/question.css">
+
+	<ol class="breadcrumb">
+		<li>回答者名:{{name}}</li>
+	</ol>
+
+	<!-- $scope.myValue がtrueの場合 (要素は表示されます) -->
+	<div ng-show="myValue">
+		<h2>問題 {{data.question.question_number}}</h2>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				{{data.question.sentence}}
+			</div>
+		</div>
+		<h2>回答</h2>
+
+		<section>
+			<ul class="list-group quizTable" >
+				<li class="list-group-item" ng-repeat="c in data.choices">
+					<a href="/#/user/answer/{{c.choice_number}}">{{c.sentence}}</a>
+				</li>
+			</ul>
+		</section>
+	</div>
+
+	<!-- $scope.myValue がfalseの場合 (要素は隠されます) -->
+	<div ng-hide="myValue">
+		<p>{{message}}</p>
+	</div>
+
+	
+
+</div>
