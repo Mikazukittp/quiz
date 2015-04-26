@@ -50,13 +50,7 @@ class ApplicationController < ActionController::Base
                      :info => "routing error"}
   end
 
-  def render_404
-    render :status => 404,
-           :json => {:success => false,
-                     :info => "routing error"}
-  end
-
-  def render_404_denied
+  def handle_404_denied
     render :status => 404,
            :json => {:success => false,
                      :info => "denied"}
@@ -65,7 +59,7 @@ class ApplicationController < ActionController::Base
   private
   def restrict_access
     api_key = ApiKey.find_by_access_token(request.headers[:HTTP_ACCESS_TOKEN])
-    render_404_denied unless api_key
+    handle_404_denied unless api_key
   end
 
   protected
