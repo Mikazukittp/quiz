@@ -8,7 +8,10 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminUserCtrl', function ($scope, events, Auth, $modal) {
+  .controller('AdminUserCtrl', function ($scope, $modal, events, Auth) {
+
+    // $scope.paramEventId = $stateParams.id;
+
     // var loginId = 1;
     var loginId = Auth.getCurrentUser().id;
     events.findByUserId({user_id: loginId}, function(data){
