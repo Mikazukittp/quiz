@@ -10,7 +10,7 @@
  angular.module('clientApp')
  .service('questions', function ($resource, API_DOMAIN) {
 
-   return $resource(API_DOMAIN + 'questions/:controller/:id',
+   return $resource(API_DOMAIN + 'questions/:id/:controller',
    {
      controller:'',
      id: ''

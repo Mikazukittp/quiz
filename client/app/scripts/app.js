@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'mgcrea.ngStrap.datepicker'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
 
@@ -81,9 +82,9 @@ angular
       // Intercept 401s and redirect you to login
       responseError: function(response) {
         if(response.status === 401) {
-          $location.path('/login');
+          // $location.path('/login');
           // remove any stale tokens
-          $cookieStore.remove('token');
+          // $cookieStore.remove('token');
           return $q.reject(response);
         } else {
           return $q.reject(response);
