@@ -10,7 +10,7 @@
  angular.module('clientApp')
  .service('events', function ($resource, API_DOMAIN) {
 
-    return $resource(API_DOMAIN + 'events/:controller/:id',
+    return $resource(API_DOMAIN + 'events/:id/:controller',
     {
       controller:'',
       id: ''

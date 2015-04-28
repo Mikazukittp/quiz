@@ -10,7 +10,7 @@
   </table>
 
   <h2>問題一覧</h2>
-  <a class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>追加</a>
+  <a class="btn btn-default" ng-click="upsertQuestion()"><span class="glyphicon glyphicon-plus"></span>追加</a>
 
   <table class="table table-hover">
     <thead>
@@ -23,9 +23,62 @@
       <tr ng-repeat="q in questions">
           <td>{{q.sentence}}</td>
           <td><a href="/#/admin/question/{{q.id}}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-          <td><a href><span class="glyphicon glyphicon-pencil"></span></a></td>
-          <td><a href ng-click="deleteQuestion(q.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
+          <td><a href ng-click="upsertQuestion($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td><a href ng-click="deleteQuestion($index)"><span class="glyphicon glyphicon-trash"></span></a></td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<script type="text/ng-template" id="upsertQuestion.html">
+  <div class="modal-header">
+      <h3 class="modal-title">{{title}}</h3>
+  </div>
+  <div class="modal-body">
+    <form class="row">
+      <div class="form-group col-sm-12">
+        <label class="control-label" for="sentence">問題文</label>
+        <input type="text" id="sentence" class="form-control" ng-model="sentence" tabindex="1">
+      </div>
+      <div class="form-group form-inline col-sm-6">
+        <input type="radio" class="" name="answer" ng-model="answer" value="1" tabindex="6">
+        1:
+        <input type="text" class="form-control" ng-model="c1" tabindex="2"> <br>
+      </div>
+      <div class="form-group form-inline col-sm-6">
+        <input type="radio" class="" name="answer" ng-model="answer" value="2" tabindex="7">
+        2:
+        <input type="text" class="form-control" ng-model="c2" tabindex="3"> <br>
+      </div>
+      <div class="form-group form-inline col-sm-6">
+        <input type="radio" class="" name="answer" ng-model="answer" value="3" tabindex="8">
+        3:
+        <input type="text" class="form-control" ng-model="c3" tabindex="4"> <br>
+      </div>
+      <div class="form-group form-inline col-sm-6">
+        <input type="radio" class="" name="answer" ng-model="answer" value="4" tabindex="9">
+        4:
+        <input type="text" class="form-control" ng-model="c4" tabindex="5"> <br>
+      </div>
+    </form>
+    正解:{{answer}}
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="deleteQuestion.html">
+  <div class="modal-header">
+      <h3 class="modal-title">問題を削除</h3>
+  </div>
+  <div class="modal-body">
+  この問題を削除していいですか？<br>
+  <small>この操作は取り消すことができません。</small>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
