@@ -1,2 +1,56 @@
 <h1>Admin#show</h1>
 <p>Find me in app/views/admin/show.html.erb</p>
+
+<form accept-charset="UTF-8" action="/events/1/update" method="post">
+  <input name="event[admin_user_id]" value="" />
+  <input name="event[name]" value="" />
+  <input name="event[event_date]" value="" />
+  <input name="event[limit_date]" value="" />
+  <input name="event[url]" value="" />
+  <input name="event[course_id]" value="" />
+  <input name="event[description]" value="" />
+  <input name="commit" type="submit" value="Sign up" />
+</form>
+
+
+<form accept-charset="UTF-8" action="/questions/" method="post">
+  <input name="question[event_id]" value="" />
+  <input name="question[sentence]" value="" />
+  <input name="question[points]" value="" />
+  <input name="question[type_id]" value="" /></br>
+  <input name="choices[choice[question_id]]" value="" />
+  <input name="choices[choice[sentence]]" value="" />
+  <input name="choices[choice[correct_flag]]" value="" />
+  <input name="choices[choice[choice_number]]" value="" />
+  <input name="choices[choice[answered_times]]" value="" /></br>
+  <input name="choices[choice2[question_id]]" value="" />
+  <input name="choices[choice2[sentence]]" value="" />
+  <input name="choices[choice2[correct_flag]]" value="" />
+  <input name="choices[choice2[choice_number]]" value="" />
+  <input name="choices[choice2[answered_times]]" value="" />
+  <input name="commit" type="submit" value="Sign up" />
+</form>
+
+
+<form action="/payments" method="post">
+  <script src="https://checkout.webpay.jp/v2/" class="webpay-button" data-key="test_public_2ecaKkbXjbwC12D5xjdAu1wE" data-lang="ja" data-partial="true"></script>
+  <input type="text" name="event_id" value="" />
+  <input type="submit" value="aaa">
+</form>
+
+
+<form action="/answerers" method="post">
+<input name="event_id" value="" />
+<input name="name" value="" />
+<input name="commit" type="submit" value="Sign up" />
+</form>
+
+<form action="/answer" method="post">
+<input name="answer[question_id]" value="" />
+<input name="answer[choice_question_number]" value="" />
+<input name="commit" type="submit" value="Sign up" />
+</form>
+
+<a href="/questions/2/delete" data-method="delete" rel="nofollow">delete</a>
+
+<a href="/events/3/delete" data-method="delete" rel="nofollow">delete</a>
