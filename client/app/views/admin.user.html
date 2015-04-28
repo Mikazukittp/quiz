@@ -1,33 +1,41 @@
-<div ng-include="'views/components/navbar.html'"></div>
+<h2>イベント一覧</h2>
+<!-- イベント一覧 -->
+<div class="row">
+  <ul class="event-cards col-xs-12 col-sm-6 col-md-5 col-lg-4">
+    <li class="event-card" ng-repeat="event in events" ng-class="{active: event.id == paramEventId}">
+      <a class="visible-xs-inline" ng-href="/admin/event/{{event.id}}">
+        <!-- カレンダー風アイコン -->
+        <p class="event-date">
+          <span class="month">{{event.event_date | date:'MMM'}}</span>
+          <span class="date">{{event.event_date | date:'dd'}}</span>
+        </p>
 
-<div class="container">
-  <h2>イベント一覧</h2>
-  <!-- イベント一覧 -->
-  <div class="row">
-    <ul class="event-cards col-sm-12 col-md-6">
-      <li class="event-card" ng-repeat="event in events">
-        <a ng-href="/admin/event/{{event.id}}">
-          <!-- カレンダー風アイコン -->
-          <p class="event-date">
-            <span class="month">{{event.event_date | date:'MMM'}}</span>
-            <span class="date">{{event.event_date | date:'dd'}}</span>
-          </p>
+        <p class="event-name big-text">{{event.name}}</p>
+        <p class="event-description">{{event.description}}</p>
+      </a>
+      <a class="hidden-xs" ui-sref="admin.detail({id:{{event.id}}})">
+        <!-- カレンダー風アイコン -->
+        <p class="event-date">
+          <span class="month">{{event.event_date | date:'MMM'}}</span>
+          <span class="date">{{event.event_date | date:'dd'}}</span>
+        </p>
 
-          <p class="event-name big-text">{{event.name}}</p>
-          <p class="event-description">{{event.description}}</p>
-        </a>
-      </li>
+        <p class="event-name big-text">{{event.name}}</p>
+        <p class="event-description">{{event.description}}</p>
+      </a>
+    </li>
 
-      <!-- 新規イベント作成 -->
-      <li class="event-card text-center">
-        <a href ng-click="upsertEvent()">
-          <span class="glyphicon glyphicon-plus"></span>
-          新規イベント作成
-        </a>
-      </li>
+    <!-- 新規イベント作成 -->
+    <li class="event-card text-center">
+      <a href ng-click="upsertEvent()">
+        <span class="glyphicon glyphicon-plus"></span>
+        新規イベント作成
+      </a>
+    </li>
 
-    </ul>
-  </div>
+  </ul>
+
+  <div ui-view class="hidden-xs col-sm-6 col-md-7 col-lg-8"></div>
 </div>
 
 <script type="text/ng-template" id="upsertEvent.html">

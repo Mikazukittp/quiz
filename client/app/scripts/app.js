@@ -33,6 +33,11 @@ angular
         templateUrl: 'views/admin.user.html',
         controller: 'AdminUserCtrl',
         authenticate: true
+      }).state('admin.detail', {
+        url: '/event/detail/:id',
+        templateUrl: 'views/admin.event.html',
+        controller: 'AdminEventCtrl',
+        authenticate: true
       }).state('about', {
         url: '/about',
         templateUrl: 'views/about.html',
