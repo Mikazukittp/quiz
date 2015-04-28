@@ -2,7 +2,6 @@
 
 <div class="container">
   <h2>イベント一覧</h2>
-
   <!-- イベント一覧 -->
   <div class="row">
     <ul class="event-cards col-sm-12 col-md-6">
@@ -21,7 +20,7 @@
 
       <!-- 新規イベント作成 -->
       <li class="event-card text-center">
-        <a href ng-click="createEvent()">
+        <a href ng-click="upsertEvent()">
           <span class="glyphicon glyphicon-plus"></span>
           新規イベント作成
         </a>
@@ -29,7 +28,48 @@
 
     </ul>
   </div>
-
-
 </div>
-<div ng-include="'views/components/footer.html'"></div>
+
+<script type="text/ng-template" id="upsertEvent.html">
+  <div class="modal-header">
+      <h3 class="modal-title">{{title}}</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group form-inline">
+        <label class="control-label">イベント名: </label>
+        <input type="text" class="form-control" ng-model="name">
+      </div>
+
+      <div class="form-group form-inline" ng-class="{'has-error': datepickerForm.date.$invalid}">
+        <label class="control-label" for="event-date">イベント日付: </label>
+        <input type="text" id="event-date" class="form-control" name="date" ng-model="selectedDate" data-date-format="yyyy MM/dd" data-min-date="today" data-autoclose="true" bs-datepicker>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">説明: </label>
+        <textarea type="text" class="form-control" ng-model="description"></textarea>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="deleteEvent.html">
+  <div class="modal-header">
+      <h3 class="modal-title">イベントを削除</h3>
+  </div>
+  <div class="modal-body">
+  このイベントを削除していいですか？<br>
+  <small>この操作は取り消すことができません。</small>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>

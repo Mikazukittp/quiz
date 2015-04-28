@@ -21,5 +21,12 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: mysql_production
+  pool: 5
+  username: quiz_admin
+  password: quiz_admin1
+  socket: /var/lib/mysql/mysql.sock
+  host: 54.64.240.244

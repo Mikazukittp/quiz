@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217134611) do
+ActiveRecord::Schema.define(version: 20150418062040) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -46,11 +46,13 @@ ActiveRecord::Schema.define(version: 20150217134611) do
   create_table "answerers", force: true do |t|
     t.integer  "event_id",                                  null: false
     t.string   "name",                         default: "", null: false
-    t.integer  "total_points",                              null: false
-    t.integer  "total_times_answer_correctly",              null: false
-    t.integer  "total_answer_time",                         null: false
+    t.integer  "total_points"
+    t.integer  "total_times_answer_correctly"
+    t.integer  "total_answer_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_token"
+    t.integer  "rank"
   end
 
   create_table "answers", force: true do |t|
@@ -59,6 +61,12 @@ ActiveRecord::Schema.define(version: 20150217134611) do
     t.integer  "answer_time",                           null: false
     t.integer  "choice_question_number",                null: false
     t.boolean  "is_correct",             default: true, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "api_keys", force: true do |t|
+    t.string   "access_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -86,7 +94,7 @@ ActiveRecord::Schema.define(version: 20150217134611) do
   end
 
   create_table "events", force: true do |t|
-    t.integer  "admin_user_id",                 null: false
+    t.integer  "admin_user_id"
     t.string   "name",          default: "",    null: false
     t.datetime "event_date",                    null: false
     t.datetime "limit_date",                    null: false
@@ -96,6 +104,9 @@ ActiveRecord::Schema.define(version: 20150217134611) do
     t.datetime "updated_at"
     t.boolean  "is_delete",     default: false, null: false
     t.integer  "course_id"
+    t.string   "description"
+    t.string   "url_token"
+    t.boolean  "is_close",      default: true
   end
 
   create_table "payments", force: true do |t|
@@ -109,9 +120,10 @@ ActiveRecord::Schema.define(version: 20150217134611) do
   end
 
   create_table "question_types", force: true do |t|
-    t.string   "name",       default: "", null: false
+    t.string   "name",        default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "question_id"
   end
 
   create_table "questions", force: true do |t|
@@ -123,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150217134611) do
     t.boolean  "is_delete",       default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_current"
   end
 
 end

@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'mgcrea.ngStrap.datepicker'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
 
@@ -88,14 +89,12 @@ angular
       // Intercept 401s and redirect you to login
       responseError: function(response) {
         if(response.status === 401) {
-          console.log('interceptor');
-          console.log();
           // APIの返り値が401の場合を一旦escapeしている
           if(!/.*json.*/.test(response.config.headers.Accept)){
             $location.path('/login');
           }
           // remove any stale tokens
-          $cookieStore.remove('token');
+          // $cookieStore.remove('token');
           return $q.reject(response);
         } else {
           return $q.reject(response);
@@ -118,4 +117,4 @@ angular
     });
   })
 
-  .constant('API_DOMAIN', 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/api/');
+  .constant('API_DOMAIN', 'http://quiz.party/api/');

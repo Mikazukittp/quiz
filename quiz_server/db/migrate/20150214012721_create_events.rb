@@ -7,6 +7,7 @@ class CreateEvents < ActiveRecord::Migration
         t.datetime :limit_date, null: false
         t.integer  :time_limit, null: false, default: 60
         t.string   :url, null: false
+        t.belongs_to :admin_user
 
       t.timestamps
     end
