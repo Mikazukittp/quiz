@@ -21,14 +21,37 @@ angular.module('clientApp')
         $scope.showAnswer = false;
         events.next({id: $scope.id}, function(data){
         $scope.data = data;
+        
         if (data.is_last == true) {
           $scope.finish = true;
+          events.close({id: $scope.id}, function(data){
+            $scope.result = data.map(
+              function(e){
+                return{number:e[0], name:e[1]}
+              });
+          });
         };
      });
     };
 
     $scope.answer = function() {
       $scope.showAnswer = true;
+    }
+
+    $scope.countDown = function() {
+      jQuery(function($){
+        var i = 10;
+        $('#countDownBox').flipcountdown({
+          tick:function(){
+            $('#countDownBox').show();
+            if (i == -1) {
+              $('#countDownBox').hide();
+              return;
+            };  
+            return i--;
+          }
+        });
+})
     }
 
   });

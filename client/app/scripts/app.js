@@ -69,7 +69,7 @@ angular
         templateUrl: 'views/user.question.html',
         controller: 'UserQuestionCtrl'
       }).state('userAnswer', {
-        url: '/user/answer/:answerNumber',
+        url: '/user/answer',
         templateUrl: 'views/user.answer.html',
         controller: 'UserAnswerCtrl'
       }).state('setting', {

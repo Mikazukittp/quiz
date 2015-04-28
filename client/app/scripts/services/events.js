@@ -37,8 +37,14 @@
         params: {
           controller:'next'
         }
+      },
+      close: {
+        method: 'GET',
+        isArray: true,
+        params: {
+          controller:'close'
+        }
       }
-
     });
 
 });

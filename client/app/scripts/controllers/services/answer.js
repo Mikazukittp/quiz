@@ -8,18 +8,18 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
- .service('answerers', function ($resource, API_DOMAIN) {
+ .service('answer', function ($resource, API_DOMAIN) {
 
-   return $resource(API_DOMAIN + 'answerers/:controller/:id',
+   return $resource(API_DOMAIN + 'answer/:controller/:id',
    {
      controller:'',
      id: ''
    },
-   {
-     answerersQuestions: {
+    choice: {
        method: 'GET',
        params: {
-         controller:'get_question'
+        id:'question_id',
+        id:'choice_question_number'
        }
     },
    });
