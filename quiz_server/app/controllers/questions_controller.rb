@@ -10,9 +10,11 @@ class QuestionsController < ApplicationController
     end
 
     def show
-      question = Question.find_by(id: params[:id])
+      question = Question.includes(:choices).find_by(id: params[:id])
       if question !=nil && check_admin_has_question(question)
-        render :json => question
+        render :json => {:question => question,
+                         :choices => question.choices
+                         }
       else
         render_fault("存在しないquestionです")
       end
