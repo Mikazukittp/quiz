@@ -35,7 +35,10 @@ class EventsController < ApplicationController
             :limit_date,:time_limit,:course_id,:description)
         event = current_admin_user.events.find_by(id: params[:id])
         event.update(attr)
-        render_success("イベントの更新に成功しました")
+        render :json => { :success => true,
+                          :info => "イベントの更新に成功しました",
+                          :event => event
+       }
     end
 
     def destroy
