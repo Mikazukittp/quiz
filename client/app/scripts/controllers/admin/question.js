@@ -21,10 +21,14 @@ angular.module('clientApp')
         $scope.showAnswer = false;
         events.next({id: $scope.id}, function(data){
         $scope.data = data;
+        
         if (data.is_last == true) {
           $scope.finish = true;
-          events.close({},function(data){
-            console.log(data);
+          events.close({id: $scope.id}, function(data){
+            $scope.result = data.map(
+              function(e){
+                return{number:e[0], name:e[1]}
+              });
           });
         };
      });
@@ -33,6 +37,7 @@ angular.module('clientApp')
     $scope.answer = function() {
       $scope.showAnswer = true;
     }
+
     $scope.countDown = function() {
       jQuery(function($){
         var i = 10;

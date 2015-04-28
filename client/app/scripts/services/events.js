@@ -40,9 +40,9 @@
       },
       close: {
         method: 'GET',
+        isArray: true,
         params: {
-          controller:'events',
-          id:'index',
+          controller:'close'
         }
       }
     });

@@ -16,7 +16,9 @@ angular.module('clientApp')
       $scope.data = data;
       $scope.myValue = true;
       console.log(data);
-
+      if ($scope.data.is_last) {
+        console.log("aa");
+      }
     },function(error){
       console.log(error);
       $scope.myValue = false;

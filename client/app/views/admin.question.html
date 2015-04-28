@@ -7,6 +7,9 @@
 
   <div ng-show="finish">
     おわりーーーーーーー
+    <div ng-repeat="r in result">
+      順位:{{r.number}}名前:{{r.name}}
+    </div>
   </div>
 
   <div ng-hide="finish">
