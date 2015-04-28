@@ -35,13 +35,18 @@ class AnswerersController < ApplicationController
         question = @user.event.questions.includes(:choices).find_by(is_current: true)
         unless question.nil?
             render :json => { :question => question,
-                              :choices => question.choices }
+                              :choices => question.choices,
+                              :is_last => !is_last?(question)  }
         else
             render_fault("イベントが開始されておりません")
         end
     end
 
     private
+
+    def is_last?(question)
+        @user.event.questions.where("id > ?",question.id).exists?
+    end
 
     def set_user_token_cookie(user_token)
         cookies[:quiz_user_token] = { :value => user_token, :expires => 1.days.from_now}
