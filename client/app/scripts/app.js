@@ -30,8 +30,8 @@ angular
     $stateProvider
       .state('admin', {
         url: '/',
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+        templateUrl: 'views/admin.user.html',
+        controller: 'AdminUserCtrl',
         authenticate: true
       }).state('about', {
         url: '/about',
@@ -41,11 +41,6 @@ angular
         url: '/admin/question/:eventId',
         templateUrl: 'views/admin.question.html',
         controller: 'AdminQuestionCtrl',
-        authenticate: true
-      }).state('user', {
-        url: '/admin/user',
-        templateUrl: 'views/admin.user.html',
-        controller: 'AdminUserCtrl',
         authenticate: true
       }).state('event', {
         url: '/admin/event/:id',

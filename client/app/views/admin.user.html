@@ -1,23 +1,33 @@
+<div ng-include="'views/components/navbar.html'"></div>
 
 <div class="container">
   <h2>イベント一覧</h2>
-  <a class="btn btn-default" ng-click="upsertEvent()"><span class="glyphicon glyphicon-plus"></span>追加</a>
-  <table class="table table-hover">
-    <thead>
-      <tr><th>イベント名</th><th>日付</th><th>説明</th><th></th><th></th></tr>
-    </thrad>
-    <tbody>
-    <tr ng-repeat="event in events">
-      <td><a href="/#/admin/event/{{event.id}}">
-        {{event.name}}
-      </a></td>
-      <td>{{event.event_date | date:'yyyy/MM/dd HH:mm'}}</td>
-      <td>{{event.description}}</td>
-      <td><a href ng-click="upsertEvent($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
-      <td><a href ng-click="deleteEvent($index)"><span class="glyphicon glyphicon-trash"></span></a></td>
-    </tr>
-    </tbody>
-  </table>
+  <!-- イベント一覧 -->
+  <div class="row">
+    <ul class="event-cards col-sm-12 col-md-6">
+      <li class="event-card" ng-repeat="event in events">
+        <a ng-href="/admin/event/{{event.id}}">
+          <!-- カレンダー風アイコン -->
+          <p class="event-date">
+            <span class="month">{{event.event_date | date:'MMM'}}</span>
+            <span class="date">{{event.event_date | date:'dd'}}</span>
+          </p>
+
+          <p class="event-name big-text">{{event.name}}</p>
+          <p class="event-description">{{event.description}}</p>
+        </a>
+      </li>
+
+      <!-- 新規イベント作成 -->
+      <li class="event-card text-center">
+        <a href ng-click="createEvent()">
+          <span class="glyphicon glyphicon-plus"></span>
+          新規イベント作成
+        </a>
+      </li>
+
+    </ul>
+  </div>
 </div>
 
 <script type="text/ng-template" id="upsertEvent.html">

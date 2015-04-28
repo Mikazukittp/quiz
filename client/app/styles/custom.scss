@@ -11,3 +11,66 @@
     }
 }
 
+
+.event-card {
+  display: block;
+  position: relative;
+  margin: 8px 0;
+  padding:16px 16px 16px 16px;
+  font-size: 12px;
+  line-height: 12px;
+  background-color: #eee;
+  background: linear-gradient(#f8f8f8, #eee);
+  box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  list-style: none;
+  a {
+    display: block;
+    color: #333;
+    &:hover {
+      text-decoration: none;
+    }
+
+    p{
+      margin-bottom: 8px;
+      &.big-text {
+        font-size: 16px;
+      }
+    }
+
+    .event-date {
+      display: block;
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #333;
+      border-top: 16px solid #333;
+      border-radius: 2px;
+      .month {
+        position: absolute;
+        left: 9px;
+        top: -14px;
+        font-size: 8px;
+        color: #fff;
+      }
+      .date {
+        position: absolute;
+        left: 10px;
+        top: 4px;
+        font-size: 16px;
+      }
+    }
+
+    .event-name, .event-description {
+      position: relative;
+      left: 64px;
+    }
+
+    .event-description {
+      margin-bottom: 0;
+    }
+
+  }
+}
