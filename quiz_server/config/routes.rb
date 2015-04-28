@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'answerers/get_question' => 'answerers#get_question'
   get 'answerers/get_event/:url_token' => 'answerers#get_event'
   resources :questions, only: [:index, :show, :create, :destroy, :update]
+  get 'answerers/score' => 'answerers#show'
   resources :answerers, only: [:index, :create, :show]
   resources :answers, only: [:index, :show, :update, :create]
   resources :courses, only: [:index, :show]
