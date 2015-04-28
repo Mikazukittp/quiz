@@ -36,7 +36,7 @@ class AnswerersController < ApplicationController
         unless question.nil?
             render :json => { :question => question,
                               :choices => question.choices,
-                              :is_last => !is_last?(question)  }
+                              :is_last => is_last?(question)  }
         else
             render_fault("イベントが開始されておりません")
         end
@@ -45,7 +45,7 @@ class AnswerersController < ApplicationController
     private
 
     def is_last?(question)
-        @user.event.questions.where("id > ?",question.id).exists?
+        !@user.event.questions.where("id > ?",question.id).exists?
     end
 
     def set_user_token_cookie(user_token)
