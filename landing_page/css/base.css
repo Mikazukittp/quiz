@@ -1,0 +1,253 @@
+
+/* contents */
+#contents{
+  padding-bottom: 60px;
+}
+
+/* footer */
+footer{
+  height: 80px;
+  min-width: 100%;
+  background-image: url(../img/footer_bg.png);
+  background-size: contain;
+  background-repeat: repeat;
+  padding-top: 30px;
+  box-shadow: 0 -5px 2px -5px #999;
+}
+
+footer #footerMenu ul{
+  list-style: none;
+  float: left;
+}
+
+footer #footerMenu ul li{
+  float: left;
+  margin: 0 30px 0 10px;
+}
+
+footer #footerMenu ul li a{
+  color: #666;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer #copyright p{
+  color: #666;
+  margin-left: 10px;
+  margin-top: 20px;
+  font-size: 85%;
+}
+
+/* login modal */
+.coverAll{
+  position: fixed;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  display: none;
+}
+
+#loginWindow{
+  height:260px;
+  width: 400px;
+  position: fixed;
+  margin:auto;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background-color: #fff;
+  border: 5px solid #f4f4f4;
+  box-shadow: 0px 0px 10px #000000;
+  border-radius: 3px;
+  z-index:3;
+
+  display: none;
+}
+
+#loginWindow .loginInfo{
+  font-size:16px;
+  line-height:2;
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+#loginWindow .inputText{
+  height: 18pt;
+  border-radius: 3px;
+  -webkit-moz-border-radius: 3px;
+  -moz-moz-border-radius: 3px;
+  -ms-moz-border-radius: 3px;
+  -o-moz-border-radius: 3px;
+  border-style: none;
+  border: 1px solid #aaa;
+  margin-right: 6px;
+}
+
+#loginWindow #loginButton{
+  display:block;
+  margin: 30px auto;
+}
+
+/* user drop down menu */
+#userDropDown{
+  height: 180px;
+  width: 200px;
+  float:right;
+  right: -10px;
+
+  z-index: 3;
+
+  background-color: #fff;
+  border: 2px solid #ccc;
+  position: absolute;
+
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+
+  text-align: right;
+}
+#userDropDown li{
+  display: block;
+  height: 60px;
+  width: 180px;
+  margin: 0;
+  padding-right: 20px;
+  cursor: pointer;
+}
+#userDropDown a{
+  text-decoration: none;
+  color: #999;
+}
+#userDropDown li:hover{
+  background-color: #eee;
+  color: #44f;
+}
+
+
+
+/* parts */
+pre {
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
+    line-height: 1.5;
+    font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', Meiryo, 'メイリオ', sans-serif;
+}
+
+.clearfix:after{
+  content: "";
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+
+.smallButton{
+  background-color: #ad9e95;
+  padding: 10px 16px;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  border-style: none;
+  font-size: 13px;
+  width: 56px;
+
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+
+  border: 2px solid #ad9e95;
+}
+
+.confirmButton{
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  background-color: #ad9e95;
+  padding: 10px 16px;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  border-style: none;
+  font-size: 16px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  min-width: 100px;
+  max-width: 200px;
+  border: 2px solid #ad9e95;
+}
+
+.redButton{
+  background-color: #d87070;
+  border: 2px solid #d87070;
+}
+
+.blueButton{
+  background-color: #5398cb;
+  border: 2px solid #5398cb;
+}
+
+
+h1{
+  font-size: 16pt;
+  margin: 24px 0 15px 12px;
+  color: #444;
+}
+
+h2{
+  font-size: 18pt;
+  color: #222;
+}
+
+
+/* hover */
+.hoverChangeOpacity:hover{
+  opacity: 0.7;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.redButton:hover{
+  background-color: #fff;
+  color:#d87070;
+  border: 2px solid #d87070;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.blueButton:hover{
+  background-color: #fff;
+  color:#5398cb;
+  border: 2px solid #5398cb;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+#errorMessages{
+  color: red;
+  margin-top: 20px;
+  margin-left: 20px;
+  line-height: 1.8;
+}
