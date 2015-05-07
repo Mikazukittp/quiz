@@ -21,7 +21,14 @@ angular.module('clientApp')
        params: {
          controller:'get_question'
        }
-    },
+      },
+      answerersResult: {
+       method: 'GET',
+       params: {
+         controller:'show'
+       }
+      }
+
    });
 });
 

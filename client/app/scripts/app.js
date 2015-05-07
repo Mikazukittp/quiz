@@ -65,13 +65,17 @@ angular
         templateUrl: 'views/user.login.html',
         controller: 'UserLoginCtrl'
       }).state('userQuestion', {
-        url: '/user/question',
+        url: '/user/question/:beforeQuestionNumber',
         templateUrl: 'views/user.question.html',
         controller: 'UserQuestionCtrl'
       }).state('userAnswer', {
-        url: '/user/answer',
+        url: '/user/answer/:beforeQuestionNumber',
         templateUrl: 'views/user.answer.html',
         controller: 'UserAnswerCtrl'
+      }).state('userResult', {
+        url: '/user/result',
+        templateUrl: 'views/user.result.html',
+        controller: 'UserResultCtrl'
       }).state('setting', {
         url: '/account/setting',
         templateUrl: 'views/settings.html',
@@ -122,4 +126,4 @@ angular
     });
   })
 
-  .constant('API_DOMAIN', 'http://quiz.party/api/');
+  .constant('API_DOMAIN', 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/');
