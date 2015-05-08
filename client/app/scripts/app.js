@@ -65,11 +65,11 @@ angular
         templateUrl: 'views/user.login.html',
         controller: 'UserLoginCtrl'
       }).state('userQuestion', {
-        url: '/user/question/:beforeQuestionNumber',
+        url: '/user/question/:questionNumber',
         templateUrl: 'views/user.question.html',
         controller: 'UserQuestionCtrl'
       }).state('userAnswer', {
-        url: '/user/answer/:beforeQuestionNumber',
+        url: '/user/answer/:questionNumber',
         templateUrl: 'views/user.answer.html',
         controller: 'UserAnswerCtrl'
       }).state('userResult', {

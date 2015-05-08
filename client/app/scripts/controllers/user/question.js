@@ -12,38 +12,39 @@ angular.module('clientApp')
 
     $rootScope.noHeader = true;
     $scope.name = $cookieStore.get('anwerer');
-    var questionNumber = $stateParams.beforeQuestionNumber
+    var questionNumber = $stateParams.questionNumber
 
     answerers.answerersQuestions({},function(data){
-      $scope.data = data;
-      $scope.myValue = true;
+      $scope.question = data.question
+      $scope.choices = data.choices
+ 
+      $scope.errorFlag = true;
       console.log(data);
       
       if (data.is_last) {
         $scope.result = false;
       }else if(questionNumber >= data.question.question_number) {
-        $scope.myValue = false;
+        $scope.errorFlag = false;
         $scope.message = "司会者の指示に従い再読み込みしてください。";
       }
     },function(error){
       console.log(error);
-      $scope.myValue = false;
+      $scope.errorFlag = false;
       $scope.message = error.data.info
     });
 
     $scope.choice = function(choice){
       console.log(choice);
-      var question_id = $scope.data.question.id;
+      var question_id = $scope.question.id;
       answer.choice({},{'question_id': question_id,'choice_question_number': choice},function(data){
-      console.log(data);
       if ($scope.result == false) {
         $location.path('/user/result');
       } else {
-        $location.path('/user/answer/'+ $scope.data.question.question_number);
+        $location.path('/user/answer/'+ $scope.question.question_number);
       }
     },function(error){
       console.log(error);
-      $scope.myValue = false;
+      $scope.errorFlag = false;
       $scope.message = error.data.info
     });
     
