@@ -20,7 +20,7 @@ angular.module('clientApp')
         })
       .catch( function(err) {
           console.log(err);
-        $scope.errors.other = err;
+          $scope.errors.other = err;
       });
     }
   };

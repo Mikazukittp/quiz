@@ -126,4 +126,4 @@ angular
     });
   })
 
-  .constant('API_DOMAIN', 'http://ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com/');
+  .constant('API_DOMAIN', 'http://quiz.party/api/');
