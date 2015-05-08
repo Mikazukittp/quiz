@@ -11,4 +11,5 @@ angular.module('clientApp')
   .controller('UserAnswerCtrl', function ($scope, $stateParams,questions,$cookieStore, $location,answer) {
 
   	$scope.name = $cookieStore.get('anwerer');
+  	$scope.number = $stateParams.questionNumber
    });

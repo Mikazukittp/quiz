@@ -19,7 +19,7 @@ angular.module('clientApp')
     });
 
     $scope.upsertQuestion = function(questionIndex) {
-      var modalInstance;
+    var modalInstance;
 
       // 引数でidが渡されていれば既存の問題の修正
       if(questionIndex >= 0) {
