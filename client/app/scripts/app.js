@@ -26,6 +26,9 @@ angular
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
     $httpProvider.defaults.headers.common.ACCESS_TOKEN='c915c196a170e2158607b68e3a728191';
+    $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;application/x-www-form-urlencoded;charset=utf-8';
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
     $stateProvider
       .state('admin', {
@@ -34,7 +37,7 @@ angular
         controller: 'AdminUserCtrl',
         authenticate: true
       }).state('admin.detail', {
-        url: '/event/detail/:id',
+        url: 'event/detail/:id',
         templateUrl: 'views/admin.event.html',
         controller: 'AdminEventCtrl',
         authenticate: true
@@ -116,10 +119,7 @@ angular
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
-        console.log('isLoggedInAsync callback: loggedIn='+loggedIn);
-        console.log('next.authenticate: '+next.authenticate);
         if (next.authenticate && !loggedIn) {
-          console.log('redirect!');
           $location.path('/login');
         }
       });
