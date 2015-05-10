@@ -126,4 +126,4 @@ angular
     });
   })
 
-  .constant('API_DOMAIN', 'http://quiz.party/');
+  .constant('API_DOMAIN', 'http://quiz.party/api/');
