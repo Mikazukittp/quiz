@@ -1,24 +1,11 @@
-<div class="col-md-7 col-lg-7 col-sm-6 text-center">
-  <h1>クイズ!!</h1>
-  <p class="lead">イベントでクイズを楽しく実施するためのシステムです</p>
-</div>
-<div class="jumbotron col-md-5 col-lg-5 col-sm-6">
-  <form class="form" name="form" ng-submit="login(form)" novalidate>
-
-    <div class="form-group">
-      <label>名前</label>
-
-      <input name="name" class="form-control" ng-model="user.name" required>
-    </div>
-
-    <div>
-      <button class="btn btn-inverse btn-lg btn-login" type="submit">
-        ログイン
-      </button>
-    </div>
-
-  </form>
-</div>
-
-<div class="container">
+<div class="row">
+  <div class="jumbotron col-sm-12">
+    <form class="form form-inline" name="form" ng-submit="login(form)" novalidate>
+      <div class="form-group">
+       <label for="name">名前</label>
+       <input id="name" name="name" class="form-control" ng-model="user.name" required>
+     </div>
+     <button class="btn btn-inverse btn-lg btn-login" type="submit"> ログイン </button>
+   </form>
+ </div>
 </div>
