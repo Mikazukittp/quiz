@@ -18,8 +18,9 @@ angular.module('clientApp')
       answerers.answerersResult({},function(data){
       console.log(data);
       if (data.rank == null) {
-        
+        $rootScope.$broadcast('error-message', {message: '司会者の指示をお待ちください。'});
       } else {
+        //TODO 
         $scope.result = false;
         $scope.rank = data.rank;
       }
