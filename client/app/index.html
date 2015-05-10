@@ -22,7 +22,7 @@
     <![endif]-->
 
     <div ng-include="'views/components/navbar.html'" ng-hide="$root.noHeader"></div>
-    <div class="message-bar clearfix bg-danger" ng-controller="MessageCtrl" ng-show="isShow">
+    <div class="message-bar clearfix bg-{{type}}" ng-controller="MessageCtrl" ng-show="isShow">
       <div class="message">{{message}}</div>
       <span id="close-btn" class="glyphicon glyphicon-remove-circle" ng-click="closeMessage()"></span>
     </div>

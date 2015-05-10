@@ -15,6 +15,8 @@
   <tr><td>URL</td><td><a href="{{event.url}}">{{event.url}}</a></td></tr>
 </table>
 
+<div class="btn btn-default" ng-click="clearEventData(event.id)">イベントの登録済みユーザを削除</div>
+
 <h3>問題一覧</h3>
 <a class="btn btn-default" ng-click="upsertQuestion()"><span class="glyphicon glyphicon-plus"></span>追加</a>
 
