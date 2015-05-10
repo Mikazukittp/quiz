@@ -37,7 +37,7 @@ angular.module('clientApp')
       }else {
         return Auth.isAdmin();
       }
-    }
+    };
 
     $scope.logout = function() {
       Auth.logout();

@@ -11,6 +11,26 @@
     }
 }
 
+.message-bar {
+  position: absolute;
+  width: 100%;
+  padding: 10px 15px;
+  z-index: 99;
+  .message {
+    float: left;
+  }
+  #close-btn {
+    float: right;
+  }
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
 
 .event-card {
   display: block;
@@ -38,6 +58,7 @@
       margin-bottom: 8px;
       &.big-text {
         font-size: 16px;
+        line-height: 16px;
       }
     }
 

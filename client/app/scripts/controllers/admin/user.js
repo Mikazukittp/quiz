@@ -8,8 +8,9 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminUserCtrl', function ($scope, $modal, events, Auth) {
+  .controller('AdminUserCtrl', function ($rootScope, $scope, $modal, events, Auth) {
 
+    // $rootScope.noHeader=true;
     // $scope.paramEventId = $stateParams.id;
 
     // var loginId = 1;
