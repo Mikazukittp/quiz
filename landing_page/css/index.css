@@ -20,61 +20,55 @@ button, input[type="submit"]{
 
 /* wrapper */
 .wrapper{
-  width: 1200px;
+  width: 1000px;
   margin: 0 auto;
 }
 
 /* header */
 header{
   height: 60px;
-  background-color: white;
   min-width: 100%;
   position: fixed !important;
   position: absolute;
   top: 0;
   left: 0;
   display: none;
+  text-align: center;
+  background-color: rgb(41,176,226);
 }
 
-
-/*nav*/
-header{
+.shadow{
   box-shadow: 0 1px 1px 1px rgba(0,0,0,0.3);
 }
 
-header #logo{
-  float:left;
-  line-height:60px;
+#header{
+  text-align: center;
+  width: 900px;
+  margin: 10px auto 0;
 }
 
-header #logo span{
-  font-family: 'Sniglet', cursive;
-  color: rgb(41,176,226);
-  font-weight: 900;
-  font-size: 44px;
+#header ul{
+  list-style-type: none;
 }
 
-header nav{
-  line-height: 60px;
-  float: right;
-}
-
-header nav li{
+#header ul li{
   float: left;
-  margin:0 30px;
+  width: 300px;
 }
 
-header nav li a{
+#header ul li a{
   text-decoration: none;
+  text-align: center;
   font-family: 'Londrina Outline', cursive;
-  color: rgb(50,50,50);
-  font-size: 30px;
+  color: white;
+  font-size: 36px;
+  font-weight: 900;
 }
 
 
 /* banner */
 #banner{
-  height: 640px;
+  height: 620px;
   background-color: rgb(41,176,226);
   min-width: 100%;
   margin-bottom: 40px;
@@ -226,6 +220,7 @@ h2{
   font-family: 'Londrina Outline', cursive;
   font-size: 60px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 p{
@@ -237,9 +232,14 @@ p{
 }
 
 .catch{
+  text-align: center;
   font-weight: 900;
   font-size: 24px;
   margin-bottom: 12px;
+}
+
+.explanation{
+  margin-left: 60px;
 }
 
 .blue{
@@ -251,18 +251,32 @@ p{
 }
 
 .detail_left{
+  width: 300px;
   float: left;
 }
 
 .detail_left img{
+  width: 240px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  margin-left: 40px;
+}
+
+.detail_right{
+  padding: 10px 0 0 60px;
   display: inline-block;
   vertical-align: middle;
 }
 
-.detail_right{
-  margin-left: 60px;
-  display: inline-block;
-  vertical-align: middle;
+.steps{
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 2;
+}
+
+.step_detail{
+  line-height: 2;
 }
 
 .clearfix:after{
@@ -273,15 +287,31 @@ p{
   visibility: hidden;
 }
 
+#fin{
+  margin-top: 60px;
+  text-align: center;
+}
+
+#fin p{
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 2;
+}
 
 /* table */
 #price{
-  background-color: rgb(237,251,255);
+  background-color: #f8f8f8;
 }
 
 table{
   width: 500px;
-  margin-left: 200px;
+  margin: 0 auto;
+}
+
+th{
+  text-align: center;
+  vertical-align: middle;
+  font-size: 24px;
 }
 
 tr{
@@ -293,26 +323,53 @@ tr:first-child, tr:last-child{
   border-bottom: solid 1px gray;
 }
 
-th,td{
-  text-align: right;
+td{
+  text-align: center;
   vertical-align: middle;
   font-size: 24px;
+}
+
+#blank{
+  height: 80px;
 }
 
 .small{
   font-size: 16px;
 }
 
+/*topButton*/
+#topButton{
+  position: fixed;
+  bottom: -20px;
+  right: 30px;
+  width: 80px;
+  height: 60px;
+  background-color: #808080;
+  text-align: center;
+  border-radius: 10px;
+  border: 3px solid #e8e8e8;
+  cursor:pointer;
+  display: none;
+}
+
+#topButton p{
+  margin-top: 5px;
+  font-family: 'Londrina Outline', cursive;
+  color: white;
+  font-size: 24px;
+  font-weight: 900;
+}
 
 /*footer*/
 footer{
   height:100px;
-  background-color: #f4f4f4;
+  background-color:rgb(41,176,226);
 }
 
 #copyright{
   text-align: center;
   padding-top: 40px;
+  color: white;
 }
 
 /*parts*/

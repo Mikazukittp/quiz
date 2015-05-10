@@ -12,19 +12,13 @@
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 </head>
 <body>
-	<header id="header">
-		<div class="wrapper">
-			<div id="logo">
-				<span>Quiz Party</span>
-			</div>
-			<nav class="clearfix">
-				<ul>
-					<li><a class="whatsLink" href="#">What's Quiz Party ?</a></li>
-					<li><a class="priceLink" href="#">Price</a></li>
-					<li><a class="faqLink" href="#">FAQ</a></li>
-					<li class='button' id='topButton'><a href="#">TOP</a></li>
-				</ul>
-			</nav>
+	<header>
+		<div id = "header" class="clearfix">
+			<ul>
+				<li><a class="whatsLink" href="#">What's Quiz Party ?</a></li>
+				<li><a class="priceLink" href="#">Price</a></li>
+				<li><a class="faqLink" href="#">FAQ</a></li>
+			</ul>
 		</div>
 	</header>
 	<div id="banner">
@@ -51,27 +45,58 @@
 				<h2>What's Quiz Party ?</h2>
 				<div>
 					<p class="catch">余興の王様、<span class='blue'>全員参加のクイズ</span>でパーティを盛り上げよう！</p>
-					<p>
-						結婚式の二次会、会社の忘年会や打ち上げ、友達の誕生日パーティ。どんな余興でみんなに楽しんでもらおう？<br>
-						考えるのも一苦労ですよね。でも、そんな時に問答無用で楽しめるのが、全員参加のクイズです！<br>
-						プロジェクターとパソコンさえあれば、その場はクイズ会場に様変わり！Quiz Partyでテレビにも負けないようなクイズ大会を開催しましょう！
+					<p class="explanation">
+						結婚式の二次会、会社の忘年会や打ち上げ、友達の誕生日パーティ。余興を考えるのも一苦労ですよね。<br>
+						Quiz Partyなら、プロジェクターとパソコンさえあれば、その場はクイズ会場に様変わり！<br>
+						参加者の皆さんにはスマホで答えてもらえて、その場で集計も可能！<br>
+						ライブ感たっぷりのクイズ大会を演出できます！
+						Quiz Partyでテレビ番組にも負けないようなクイズ大会を開催しましょう！
 					</p>
 				</div>
 				<div class="details clearfix">
 					<div class="detail_left">
-						<img src="img/sample.png" height="400" width="640" alt="hoge">
+						<img src="img/sample_icon.png" width="300" alt="">
 					</div>
-					<p class="detail_right">
-						ほげほげほげほげほげほげ<br>ほげほげほげほげほげほげほげ<br>ほげほげほげほげほげほげほげほげ
-					</p>
+					<div class="detail_right">
+						<p class="steps blue">
+							まずはクイズ作成！
+						</p>
+						<p class="step_detail">
+							まずはあなたのオリジナルの４択問題クイズを作りましょう！<br>
+							何問でも作ることが出来て、<br>
+							パーティ当日までいくらでも編集可能です！
+						</p>
+					</div>
 				</div>
 				<div class="details clearfix">
 					<div class="detail_left">
-						<img src="img/sample.png" height="400" width="640" alt="hoge">
+						<img src="img/2.svg" width = "300" alt="">
 					</div>
-					<p class="detail_right">
-						ほげほげほげほげほげほげ<br>ほげほげほげほげほげほげほげ<br>ほげほげほげほげほげほげほげほげ
-					</p>
+					<div class="detail_right">
+						<p class="steps blue">
+							そしてQRコードを発行！
+						</p>
+						<p class="step_detail">
+							クイズが完成したらクレジット決済をして、QRコードを発行します。<br>
+							パーティ当日はこのQRコードを配布してください！<br>
+							参加者の皆さんには、スマホを使って回答をしてもらいます！
+						</p>
+					</div>
+				</div>
+				<div class="details clearfix">
+					<div class="detail_left">
+						<img src="img/sample_icon.png" width="300" alt="">
+					</div>
+					<div class="detail_right">
+						<p class="steps blue">
+							あとは当日楽しむだけ！
+						</p>
+						<p class="step_detail">
+							QRコードを参加者に配布し、クイズを投影すればクイズ大会のはじまり！<br>
+							参加者の回答はその場で集計され、正解／不正解の判定がすぐにできます。<br>
+							ライブ感たっぷりのクイズ大会でパーティを盛り上げましょう！<br>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -84,7 +109,7 @@
 					<p class="catch">
 						人数に合わせて料金が決まるから<span class='blue'>見積もり不要！</span>人が多ければ多いほどお得！
 					</p>
-					<p>
+					<p class="explanation">
 						クイズの作成は無料です！自分が納得のいくものが出来上がるまではいくらでも調整可能です。<br>
 						パーティ当日にQRコードを発行する際に、お支払いをして頂きます！<br>
 						人数が多ければ多いほどお得になる７つのプランをご用意しました！
@@ -127,6 +152,7 @@
 					</table>
 				</div>
 			</div>
+			<p>　</p>
 		</div>
 	</div>
 	<div class="contents" id="faq">
@@ -161,7 +187,10 @@
 			</form>
 			<span>または<span id="loginLink">ログイン</span></span>	
 		</div>
-	</div>	
+	</div>
+	<div id="topButton">
+		<p>↑ TOP ↑</p>
+	</div>
 	<footer>
 		<div class="wrapper">
 			<div id="copyright">
