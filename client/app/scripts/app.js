@@ -35,7 +35,7 @@ angular
         url: '/',
         templateUrl: 'views/admin.user.html',
         controller: 'AdminUserCtrl',
-        // authenticate: true
+        authenticate: true
       }).state('admin.detail', {
         url: 'event/detail/:id',
         templateUrl: 'views/admin.event.html',
