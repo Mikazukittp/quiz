@@ -7,24 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-    <nav>
-    <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
-    <% if admin_user_signed_in? %>
-      <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
-      <!-- *_path はUserモデルを作成したときに、
-        deviseにより自動で作成されてますので、rake routesで確認できます -->
-      Logged in as <strong><%= current_admin_user.email %></strong>.
-      <%= link_to 'プロフィール変更', edit_admin_user_registration_path %> |
-      <%= link_to "ログアウト", destroy_admin_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "サインイン", new_admin_user_registration_path %> |
-      <%= link_to "ログイン", new_admin_user_session_path %>
-    <% end %>
-  </nav>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+  <header class="hero-unit login-hero" id="banner">
+  <div class="container">
+    <div class="jumbotron col-md-12 col-lg-12 col-sm-12">
+      <div class="yeild-info">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</header>
 
-<%= yield %>
+<div class="container">
+</div>
+  <div class="container-fluid">
 
+  </div>
 </body>
 </html>

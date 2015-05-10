@@ -68,13 +68,17 @@ angular
         templateUrl: 'views/user.login.html',
         controller: 'UserLoginCtrl'
       }).state('userQuestion', {
-        url: '/user/question',
+        url: '/user/question/:questionNumber',
         templateUrl: 'views/user.question.html',
         controller: 'UserQuestionCtrl'
       }).state('userAnswer', {
-        url: '/user/answer/:answerNumber',
+        url: '/user/answer/:questionNumber',
         templateUrl: 'views/user.answer.html',
         controller: 'UserAnswerCtrl'
+      }).state('userResult', {
+        url: '/user/result',
+        templateUrl: 'views/user.result.html',
+        controller: 'UserResultCtrl'
       }).state('setting', {
         url: '/account/setting',
         templateUrl: 'views/settings.html',

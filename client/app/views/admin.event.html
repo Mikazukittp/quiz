@@ -28,7 +28,7 @@
   <tbody>
     <tr ng-repeat="q in questions">
         <td>{{q.sentence}}</td>
-        <td><a href="/#/admin/question/{{q.id}}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+        <td><a href="/#/admin/question/{{id}}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
         <td><a href ng-click="upsertQuestion($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
         <td><a href ng-click="deleteQuestion($index)"><span class="glyphicon glyphicon-trash"></span></a></td>
     </tr>

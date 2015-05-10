@@ -1,26 +1,33 @@
 <div ng-controller="AdminQuestionCtrl">
   <link rel="stylesheet" href="styles/screen.css">
+  <link rel="stylesheet" type="text/css" href="views/util/jquery.flipcountdown.css" />
+  <link rel="stylesheet" type="text/css" href="views/util/jquery.flipcountdown.css" />
+  <script type="text/javascript" src="views/util/jquery.min.js"></script>
+  <script type="text/javascript" src="views/util/jquery.flipcountdown.js"></script>
 
   <div ng-show="finish">
     おわりーーーーーーー
+    <div ng-repeat="r in result">
+      順位:{{r.number}} 名前:{{r.name}}
+    </div>
   </div>
 
   <div ng-hide="finish">
     <div class="container">
      <div class="row">
       <div class="col-md-8">
-       <h2>問題 {{data.question.question_number}}</h2>
+       <h2>問題 {{question.question_number}}</h2>
 
        <div class="panel panel-default">
         <div class="panel-body">
-         {{data.question.sentence}}
+         {{question.sentence}}
        </div>
      </div>
      <div class="answer">
       <div class="row">
        <div ng-init="nums=[];">
         <div class="view">
-         <div class="number" ng-repeat="c in data.choices">
+         <div class="number" ng-repeat="c in choices">
           <div class="col-md-6">
            <div class="thumbnail">
             <div class="caption">
@@ -33,9 +40,8 @@
  </div>
 </div>
 </div>
-<video ng-src="/resouces/count_down.mp4" autoplay muted loop>
- <p>動画を再生するにはvideoタグをサポートしたブラウザが必要です。</p>
-</video>
+
+<div id="countDownBox"></div>
 
 <div class="btn-group" role="group" aria-label="...">
 
@@ -44,6 +50,7 @@
    <input type="submit" class="btn btn-primary" value="次の問題へ"/>
  </form>
  <button ng-click="answer()" class="btn btn-primary">回答</button>
+ <button ng-click="countDown()" class="btn btn-primary">回答開始</button>
 </div>
 
 </div>
