@@ -22,6 +22,11 @@
     <![endif]-->
 
     <div ng-include="'views/components/navbar.html'" ng-hide="$root.noHeader"></div>
+    <div class="message-bar clearfix bg-danger" ng-controller="MessageCtrl" ng-show="isShow">
+      <div class="message">{{message}}</div>
+      <span id="close-btn" class="glyphicon glyphicon-remove-circle" ng-click="closeMessage()"></span>
+    </div>
+
     <div class="container-fluid">
       <!-- Add your site or application content here -->
       <div ui-view=""></div>
@@ -91,6 +96,7 @@
         <script src="scripts/controllers/navbar.js"></script>
         <script src="scripts/controllers/footer.js"></script>
         <script src="scripts/controllers/user/answer.js"></script>
+        <script src="scripts/controllers/message.js"></script>
         <script src="scripts/services/events.js"></script>
         <script src="scripts/services/questions.js"></script>
         <script src="scripts/services/choices.js"></script>
