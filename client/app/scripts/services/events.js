@@ -44,6 +44,12 @@
         params: {
           controller:'close'
         }
+      },
+      clear: {
+        method: 'DELETE',
+        params: {
+          controller: 'clear'
+        }
       }
     });
 
