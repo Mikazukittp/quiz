@@ -59,7 +59,6 @@ angular.module('clientApp')
         var cb = callback || angular.noop;
         var deferred = $q.defer();
         $cookieStore.put('anwerer', user.name);
-
         $http.post(API_DOMAIN + 'answerers/', 
         {
           'name':user.name,

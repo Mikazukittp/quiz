@@ -16,8 +16,13 @@ angular.module('clientApp')
 
     $scope.result = function(){
       answerers.answerersResult({},function(data){
-      $scope.result = false;
-      $scope.rank = data.rank;
+      console.log(data);
+      if (data.rank == null) {
+        
+      } else {
+        $scope.result = false;
+        $scope.rank = data.rank;
+      }
     },function(error){
       console.log(error);
     });

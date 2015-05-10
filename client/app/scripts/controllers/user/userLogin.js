@@ -11,7 +11,7 @@ angular.module('clientApp')
     if(form.$valid) {
       Auth.userLogin({
         name: $scope.user.name,
-        id:$scope.user.id,
+        id:$scope.id,
       })
       .then( function() {
           console.log('login success');
