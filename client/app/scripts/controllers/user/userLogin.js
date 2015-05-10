@@ -21,7 +21,7 @@ angular.module('clientApp')
       .catch( function(err) {
         console.log(err);
         $scope.errors.other = err;
-        $rootScope.$broadcast('error-message', {message: err.info});
+        $rootScope.$broadcast('show-message', {message: err.info, type: 'danger'});
       });
     }
   };

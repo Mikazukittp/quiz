@@ -88,7 +88,7 @@ angular.module('clientApp')
     $scope.clearEventData = function(eventId) {
       events.clear({id: eventId}, function(data){
         console.log(data);
-        $rootScope.$broadcast('info-message', {message: data.info});
+        $rootScope.$broadcast('show-message', {message: data.info, type: 'success'});
       });
     }
 
