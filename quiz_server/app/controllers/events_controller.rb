@@ -51,6 +51,12 @@ class EventsController < ApplicationController
       end
     end
 
+    def show_with_token
+      event = Event.find_by(url_token: params[:url_token])
+      return render_fault("存在しないイベントです") if event.nil?
+      render :json => event
+    end
+
     def next
       event = Event.find_by(id: params[:id])
       if event != nil && check_admin_has_event(event)

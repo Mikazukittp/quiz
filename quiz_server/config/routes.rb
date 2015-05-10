@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   #patch 'admin_users' => 'admin_users#update'
+  get 'events/show_with_token/:url_token' => 'events#show_with_token'
   get 'events/start/:id' => 'events#start'
   get 'events/close/:id' => 'events#close'
   delete 'events/clear/:id' => 'events#clear'
