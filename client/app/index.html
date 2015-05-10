@@ -21,7 +21,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div ng-include="'views/components/navbar.html'"></div>
+    <div ng-include="'views/components/navbar.html'" ng-hide="$root.noHeader"></div>
     <div class="container-fluid">
       <!-- Add your site or application content here -->
       <div ui-view=""></div>
