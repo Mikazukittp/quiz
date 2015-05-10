@@ -18,8 +18,8 @@ angular.module('clientApp')
       $scope.choices = data.choices
     });
 
-    $scope.next = function(form) {
-        $scope.showAnswer = false;
+    $scope.next = function() {
+      $scope.showAnswer = false;
         events.next({id: $scope.id}, function(data){
           $scope.question = data.question
           $scope.choices = data.choices
@@ -34,7 +34,7 @@ angular.module('clientApp')
           });
         };
      });
-    };
+    }
 
     $scope.answer = function() {
       $scope.showAnswer = true;
@@ -53,7 +53,7 @@ angular.module('clientApp')
             return i--;
           }
         });
-})
+      })
     }
 
   });
