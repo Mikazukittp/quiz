@@ -10,7 +10,7 @@
  angular.module('clientApp')
  .service('events', function ($resource, API_DOMAIN) {
 
-    return $resource(API_DOMAIN + 'events/:id/:controller',
+    return $resource(API_DOMAIN + 'events/:controller/:id',
     {
       controller:'',
       id: ''
@@ -37,8 +37,14 @@
         params: {
           controller:'next'
         }
+      },
+      close: {
+        method: 'GET',
+        isArray: true,
+        params: {
+          controller:'close'
+        }
       }
-
     });
 
 });

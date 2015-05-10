@@ -92,3 +92,25 @@ body {
     border-bottom: 0;
   }
 }
+
+.hero-unit {
+    position: relative;
+    padding: 30px 15px;
+    color: #F5F5F5;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    background: #4393B9;
+    background: #16A6B6;
+
+    .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline{
+        margin-left: 0px;
+    }
+}
+
+.yeild-info {
+    color: #888888;
+    p {
+        font-size: 32px;
+    }
+}
+
+

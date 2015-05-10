@@ -16,11 +16,11 @@ angular.module('clientApp')
       .then( function() {
           console.log('login success');
           // Logged in, redirect to home
-          $location.path('/user/question');
+          $location.path('/user/question/0');
         })
       .catch( function(err) {
-          console.log('login failed');
-        $scope.errors.other = err.message;
+          console.log(err);
+        $scope.errors.other = err;
       });
     }
   };

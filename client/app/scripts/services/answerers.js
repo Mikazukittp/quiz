@@ -21,13 +21,14 @@ angular.module('clientApp')
        params: {
          controller:'get_question'
        }
-    },
-    choice: {
+      },
+      answerersResult: {
        method: 'GET',
        params: {
-        id:'choice_question_number'
+         controller:'show'
        }
-    },
+      }
+
    });
 });
 

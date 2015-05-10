@@ -33,6 +33,11 @@ angular
         templateUrl: 'views/admin.user.html',
         controller: 'AdminUserCtrl',
         authenticate: true
+      }).state('admin.detail', {
+        url: '/event/detail/:id',
+        templateUrl: 'views/admin.event.html',
+        controller: 'AdminEventCtrl',
+        authenticate: true
       }).state('about', {
         url: '/about',
         templateUrl: 'views/about.html',
@@ -60,13 +65,17 @@ angular
         templateUrl: 'views/user.login.html',
         controller: 'UserLoginCtrl'
       }).state('userQuestion', {
-        url: '/user/question',
+        url: '/user/question/:questionNumber',
         templateUrl: 'views/user.question.html',
         controller: 'UserQuestionCtrl'
       }).state('userAnswer', {
-        url: '/user/answer/:answerNumber',
+        url: '/user/answer/:questionNumber',
         templateUrl: 'views/user.answer.html',
         controller: 'UserAnswerCtrl'
+      }).state('userResult', {
+        url: '/user/result',
+        templateUrl: 'views/user.result.html',
+        controller: 'UserResultCtrl'
       }).state('setting', {
         url: '/account/setting',
         templateUrl: 'views/settings.html',
@@ -117,4 +126,4 @@ angular
     });
   })
 
-  .constant('API_DOMAIN', 'http://quiz.party/api/');
+  .constant('API_DOMAIN', 'http://quiz.party/');
