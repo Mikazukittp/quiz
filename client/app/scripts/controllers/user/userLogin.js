@@ -11,7 +11,7 @@ angular.module('clientApp')
     $scope.eventId = data.id;
   },function(error){
     console.log(error);
-    $rootScope.$broadcast('error-message', {message: error.data.info});
+    $rootScope.$broadcast('show-message', {message: error.data.info, type: 'danger'});
   });
 
   $scope.login = function(form) {
@@ -29,7 +29,7 @@ angular.module('clientApp')
       .catch( function(err) {
         console.log(err);
         $scope.errors.other = err;
-        $rootScope.$broadcast('error-message', {message: err.info});
+        $rootScope.$broadcast('show-message', {message: err.info, type: 'danger'});
       });
     }
   };

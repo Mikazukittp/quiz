@@ -51,5 +51,11 @@
           controller:'show_with_token'
         }
       },
+      clear: {
+        method: 'DELETE',
+        params: {
+          controller: 'clear'
+        }
+      }
     });
 });

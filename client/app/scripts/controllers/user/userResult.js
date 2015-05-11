@@ -18,9 +18,9 @@ angular.module('clientApp')
       answerers.answerersResult({},function(data){
       console.log(data);
       if (data.rank == null) {
-        $rootScope.$broadcast('error-message', {message: '司会者の指示をお待ちください。'});
+        $rootScope.$broadcast('show-message', {message: '司会者の指示をお待ちください。',type: 'danger'});
       } else {
-        //TODO 
+        $rootScope.$broadcast('hide-message', {message: '司会者の指示をお待ちください。'});
         $scope.result = false;
         $scope.rank = data.rank;
       }
