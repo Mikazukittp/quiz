@@ -11,7 +11,7 @@ angular.module('clientApp')
   .controller('UserQuestionCtrl', function ($rootScope, $scope, $stateParams, answerers, $location,$cookieStore,answer) {
 
     $rootScope.noHeader = true;
-    $scope.name = $cookieStore.get('anwerer');
+    $scope.name = $cookieStore.get('answerer');
     var questionNumber = $stateParams.questionNumber
 
     answerers.answerersQuestions({},function(data){

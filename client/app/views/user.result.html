@@ -1,22 +1,20 @@
 <div ng-controller="UserResultCtrl">
-	<link rel="stylesheet" href="styles/question.css">
+  <ol class="breadcrumb">
+    <li>回答者名:{{name}}</li>
+  </ol>
 
-	<ol class="breadcrumb">
-		<li>回答者名:{{name}}</li>
-	</ol>
-	
-	<div ng-show="result">
-		<p><input type="button" class="form-control" value="ランキングをみる"
-			ng-click="result()" /></p>
-		</div>
+  <div ng-show="result">
+    <p><input type="button" class="form-control" value="ランキングをみる"
+      ng-click="result()" /></p>
+    </div>
 
 
-		<div ng-hide="result">
-			<div class="circle-logo">
-				　　			<div class="circle-info">
-					　　				<h1>{{rank}}位</h1>
-				　　</div>
-			</div>
-			<p class="rank-info">あなたは{{rank}}位です！！</p>
-		</div>
-	</div>
+    <div ng-hide="result">
+      <div class="circle-logo">
+        <div class="circle-info">
+          <h1>{{rank}}</h1>
+        </div>
+      </div>
+      <p class="rank-info">あなたは{{rank}}です！！</p>
+    </div>
+  </div>

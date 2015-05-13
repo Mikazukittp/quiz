@@ -9,6 +9,7 @@ angular.module('clientApp')
   events.checkToken({id: $scope.id}, function(data){
     console.log(data);
     $scope.eventId = data.id;
+    $scope.eventName = data.name;
   },function(error){
     console.log(error);
     $rootScope.$broadcast('show-message', {message: error.data.info, type: 'danger'});
