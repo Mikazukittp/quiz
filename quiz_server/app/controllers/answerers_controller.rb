@@ -15,7 +15,7 @@ class AnswerersController < ApplicationController
         answerer = event.answerers.create(name: params[:name])
         #ユーザートークンの発行
         user_token = SecureRandom.uuid
-        answerer.update_attributes(:user_token => user_token)
+        answerer.update_attributes(:user_token => user_token, :rank => -1)
         set_user_token_cookie(user_token)
         render_success("ユーザーの作成に成功しました")
     end

@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :check_admin_user_exist
+  before_action :check_admin_user_exist, except: :show_with_token
 
     def index
         events = Event.where(admin_user_id: current_admin_user.id)
