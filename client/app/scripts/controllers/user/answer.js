@@ -10,6 +10,6 @@
 angular.module('clientApp')
   .controller('UserAnswerCtrl', function ($scope, $stateParams,questions,$cookieStore, $location,answer) {
 
-  	$scope.name = $cookieStore.get('anwerer');
+  	$scope.name = $cookieStore.get('answerer');
   	$scope.number = $stateParams.questionNumber
    });
