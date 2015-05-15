@@ -108,6 +108,7 @@ class EventsController < ApplicationController
       event = current_admin_user.events
       .includes(:answerers, questions: :answers).find_by(id: params[:id])
       return render_fault("存在しないイベントです") if event.nil?
+      event.answerers.update_all(:rank => -1)
       h = get_hash_user_rank(event)
       arr = rank_sort(h.to_a)
       add_name_and_rank(arr,event)
