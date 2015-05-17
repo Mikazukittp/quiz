@@ -26,6 +26,7 @@ angular.module('clientApp')
       }
     },function(error){
       console.log(error);
+      $rootScope.$broadcast('show-message', {message: '司会者の指示をお待ちください。',type: 'danger'});
     });
     
     }
