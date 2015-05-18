@@ -44,7 +44,18 @@
         params: {
           controller:'close'
         }
+      },
+      checkToken: {
+        method: 'GET',
+        params: {
+          controller:'show_with_token'
+        }
+      },
+      clear: {
+        method: 'DELETE',
+        params: {
+          controller: 'clear'
+        }
       }
     });
-
 });

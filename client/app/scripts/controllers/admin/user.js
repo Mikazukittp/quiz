@@ -85,6 +85,13 @@ angular.module('clientApp')
       return limitStr;
     }
 
+    $scope.clearEventData = function(eventId) {
+      events.clear({id: eventId}, function(data){
+        console.log(data);
+        $rootScope.$broadcast('show-message', {message: data.info, type: 'success'});
+      });
+    }
+
   })
   .controller('UpsertEventModalCtrl', function ($scope, $modalInstance, target) {
     $scope.title = '新規イベントを作成';

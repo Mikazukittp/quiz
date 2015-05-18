@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :check_admin_user_exist
+  before_action :check_admin_user_exist, except: :show_with_token
 
     def index
         events = Event.where(admin_user_id: current_admin_user.id)
@@ -49,6 +49,12 @@ class EventsController < ApplicationController
       else
         render_fault("存在しないイベントです")
       end
+    end
+
+    def show_with_token
+      event = Event.find_by(url_token: params[:url_token])
+      return render_fault("存在しないイベントです") if event.nil?
+      render :json => event
     end
 
     def next

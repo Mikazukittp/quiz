@@ -104,3 +104,74 @@
 
   }
 }
+
+ul.quizTable a {
+ display: block;
+ text-decoration:none;
+ color:#0e2236;
+}
+
+
+.circle-logo {
+ /* サイズ指定 */        
+ width:175px;
+ height:175px;
+ /* 背景色 */
+ background-color:#34ac98;
+ /* 角を丸くする */
+ border-radius: 50%;
+ -webkit-border-radius: 50%;
+ -moz-border-radius: 50%;
+ margin: 0 auto;  
+
+}
+
+.circle-info {
+  padding-top: 68px; /* 真ん中にまで文字を下ろす */
+}
+
+.circle-logo h1,
+.circle-logo p {
+ text-align: center; /* 中央寄せ */
+ color: #fff; /* 文字を白色に */
+ margin: 0; /* h1とpの余白をリセット */
+}
+
+/* あとは文字サイズや太字を指定 */
+.circle-logo h1 {font-size:40px;}
+.circle-logo p {font-size:10px; font-weight:bold;}
+
+.rank-info {
+ text-align:center;
+ margin-top:10px;
+}
+
+l {
+  counter-reset:num; /*カウントリセット*/
+  }
+.rank {
+  list-style:none; /*デフォルトナンバリングを消す*/
+  position:relative;
+  margin-top:25px;
+  padding:0;
+  line-height:15px; /*行間*/
+  *list-style-type: decimal; /*IE7用ハック*/
+  }
+.rank:before {
+  content:counter(num); /*カウンターのインデックスを挿入*/
+  counter-increment:num; /*ナンバリングを生成*/
+ 
+  /* ここから番号のスタイル */
+  position:absolute;
+  top:-15px; /*コンテンツの上へ*/
+  width:20px; /*幅*/
+  color:#fff; /*文字色*/
+  background:url(/views/util/img/ico_rank.png) no-repeat; /*背景*/
+  font-family: 'Federo', sans-serif; /*webフォント*/
+  font-size:80%;
+  text-align:center;
+  }
+
+.red{
+    color: red;
+}
