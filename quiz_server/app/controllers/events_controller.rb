@@ -108,17 +108,13 @@ class EventsController < ApplicationController
       event = current_admin_user.events
       .includes(:answerers, questions: :answers).find_by(id: params[:id])
       return render_fault("存在しないイベントです") if event.nil?
-      event.update(is_close: true)
+      event.answerers.update_all(:rank => -1)
+      h = get_hash_user_rank(event)
+      arr = rank_sort(h.to_a)
+      add_name_and_rank(arr,event)
       event.questions.update_all(:is_current => false)
-
-      aggregate_answers(event) #解答者の回答を集計する
-
-      answerers = event.answerers.order(total_times_answer_correctly: :desc)
-      .order(total_answer_time: :asc)
-
-      add_rank(answerers)#点数順に並び替えた解答者にランクを付与する
-
-      render :json => answerers
+      event.update(is_close: true)
+      render :json => arr
     end
 
     def clear
@@ -146,32 +142,45 @@ class EventsController < ApplicationController
       event.admin_user_id === current_admin_user.id
     end
 
-    def aggregate_answers(event)
-      event.answerers.each {|answerer|
-        answers = event.answers.where(answerer_id: answerer.id)
-        points = 0
-        time = 0
-        answers.each do |answer|
-          p get_point_answer(answer)
-          points += get_point_answer(answer)
-          time += answer.answer_time
+    def get_hash_user_rank(event)
+      h = Hash.new
+      event.questions.each do |question|
+        question.answers.each do |answer|
+          unless answer.nil?
+            correct = get_point_answer(answer)
+            if h.has_key?(answer.answerer_id)
+              time = h[answer.answerer_id][0] + answer.answer_time
+              correct += h[answer.answerer_id][1]
+              h[answer.answerer_id] = [time,correct]
+            else
+              h[answer.answerer_id] = [answer.answer_time,correct]
+            end
+          end
         end
-        answerer.update(total_times_answer_correctly: points, total_answer_time: time)
-      }
+      end
+      return h
+    end
+
+    def rank_sort(arr)
+      arr.sort! do |a,b|
+        (b[1][1] <=> a[1][1]).nonzero? || (a[1][0] <=> b[1][0])
+      end
     end
 
     def get_point_answer(answer)
-      answer.answer_time < 60 && answer.is_correct ? 1 : 0
+      if answer.answer_time < 60 && answer.is_correct
+          correct = 1
+      else
+          correct = 0
+      end
     end
 
-    def add_rank(answerers)
-      lowest_rank = answerers.where('total_times_answer_correctly >= 1').count + 1
-      answerers.each.with_index(1) do |answerer,index|
-        if answerer.total_times_answer_correctly == 0
-          answerer.update(rank: lowest_rank)
-        else
-          answerer.update(rank: index)
-        end
+    def add_name_and_rank(arr,event)
+      arr.each.with_index(1) do |arr , rank|
+        answerer = event.answerers.find_by(id: arr[0])
+        answerer.update(rank: rank, total_times_answer_correctly: arr[1][0], total_answer_time: arr[1][1])
+        arr[0] = answerer.name
+        arr.unshift(rank)
       end
     end
 
