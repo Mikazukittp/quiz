@@ -107,7 +107,9 @@ class EventsController < ApplicationController
     def close
       event = current_admin_user.events
       .includes(:answerers, questions: :answers).find_by(id: params[:id])
+
       return render_fault("存在しないイベントです") if event.nil?
+
       event.update(is_close: true)
       event.questions.update_all(:is_current => false)
 
@@ -116,7 +118,7 @@ class EventsController < ApplicationController
       answerers = event.answerers.order(total_times_answer_correctly: :desc)
       .order(total_answer_time: :asc)
 
-      add_rank(answerers)#点数順に並び替えた解答者にランクを付与する
+      give_rank(answerers)#点数順に並び替えた解答者にランクを付与する
 
       render :json => answerers
     end
@@ -147,30 +149,31 @@ class EventsController < ApplicationController
     end
 
     def aggregate_answers(event)
-      event.answerers.each {|answerer|
-        answers = event.answers.where(answerer_id: answerer.id)
-        points = 0
-        time = 0
-        answers.each do |answer|
-          p get_point_answer(answer)
-          points += get_point_answer(answer)
-          time += answer.answer_time
+      event.answerers.each do |answerer|
+        points = time = 0
+
+        answerer.answers.each do |answer|
+          if is_correct_answer?(answer)
+            points += 1
+            time += answer.answer_time
+          end
         end
-        answerer.update(total_times_answer_correctly: points, total_answer_time: time)
-      }
+
+        answerer.update(total_times_answer_correctly: points, total_answer_time: points>0? time/points : -1)
+      end
     end
 
-    def get_point_answer(answer)
-      answer.answer_time < 60 && answer.is_correct ? 1 : 0
+    def is_correct_answer?(answer)
+      answer.answer_time < 60 && answer.is_correct
     end
 
-    def add_rank(answerers)
-      lowest_rank = answerers.where('total_times_answer_correctly >= 1').count + 1
+    def give_rank(answerers)
+      lowest_rank = answerers.where('total_times_answer_correctly > 0').count + 1
       answerers.each.with_index(1) do |answerer,index|
-        if answerer.total_times_answer_correctly == 0
-          answerer.update(rank: lowest_rank)
-        else
+        if answerer.total_times_answer_correctly > 0
           answerer.update(rank: index)
+        else
+          answerer.update(rank: lowest_rank)
         end
       end
     end
@@ -178,10 +181,7 @@ class EventsController < ApplicationController
     def check_limit_date(event)
       require 'date'
       day = Date.today
-      event.event_date > day
+      event.limit_date > day
     end
 
-    def event_is_exist?
-      Event.find_by(id: params[:id]).exist?
-    end
 end
