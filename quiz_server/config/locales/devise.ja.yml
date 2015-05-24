@@ -43,6 +43,10 @@ ja:
     session:
       signed_in: "ログインしました。"
       signed_out: "ログアウトしました。"
+    sessions:
+      quiz_administrator:
+        signed_in: "ログインしました。"
+        signed_out: "ログアウトしました。"
     unlocks:
       send_instructions: "アカウントのロックを解除する方法をメールでご連絡します。"
       send_paranoid_instructions: "アカウントが存在する場合、ロックを解除する方法をメールでご連絡します。"

@@ -9,7 +9,7 @@ class AdminUser < ActiveRecord::Base
 
   # 認証トークンはユニークに。ただしnilは許可
   validates:authentication_token, uniqueness: true, allow_nil: true
-  has_many :notes
+  #has_many :notes
 
   # 認証トークンが無い場合は作成
   def ensure_authentication_token

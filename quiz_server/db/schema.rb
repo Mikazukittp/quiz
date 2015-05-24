@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418062040) do
+ActiveRecord::Schema.define(version: 20150524091759) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -44,11 +44,11 @@ ActiveRecord::Schema.define(version: 20150418062040) do
   add_index "admin_users", ["unlock_token"], name: "index_admin_users_on_unlock_token", unique: true
 
   create_table "answerers", force: true do |t|
-    t.integer  "event_id",                                  null: false
-    t.string   "name",                         default: "", null: false
+    t.integer  "event_id",                         null: false
+    t.string   "name",                default: "", null: false
     t.integer  "total_points"
-    t.integer  "total_times_answer_correctly"
-    t.integer  "total_answer_time"
+    t.integer  "correct_answers"
+    t.integer  "avarage_answer_time"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_token"
@@ -70,6 +70,24 @@ ActiveRecord::Schema.define(version: 20150418062040) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "api_users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "api_users", ["email"], name: "index_api_users_on_email", unique: true
+  add_index "api_users", ["reset_password_token"], name: "index_api_users_on_reset_password_token", unique: true
 
   create_table "choices", force: true do |t|
     t.integer  "question_id",                         null: false
@@ -109,6 +127,46 @@ ActiveRecord::Schema.define(version: 20150418062040) do
     t.boolean  "is_close",      default: true
   end
 
+  create_table "oauth_access_grants", force: true do |t|
+    t.integer  "resource_owner_id", null: false
+    t.integer  "application_id",    null: false
+    t.string   "token",             null: false
+    t.integer  "expires_in",        null: false
+    t.text     "redirect_uri",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "revoked_at"
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true
+
+  create_table "oauth_access_tokens", force: true do |t|
+    t.integer  "resource_owner_id"
+    t.integer  "application_id"
+    t.string   "token",             null: false
+    t.string   "refresh_token"
+    t.integer  "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at",        null: false
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true
+
+  create_table "oauth_applications", force: true do |t|
+    t.string   "name",                      null: false
+    t.string   "uid",                       null: false
+    t.string   "secret",                    null: false
+    t.text     "redirect_uri",              null: false
+    t.string   "scopes",       default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
+
   create_table "payments", force: true do |t|
     t.integer  "event_id",                   null: false
     t.datetime "date"
@@ -127,15 +185,30 @@ ActiveRecord::Schema.define(version: 20150418062040) do
   end
 
   create_table "questions", force: true do |t|
-    t.integer  "event_id",                        null: false
-    t.integer  "question_number", default: 1,     null: false
-    t.string   "sentence",        default: "",    null: false
-    t.integer  "points",          default: 1,     null: false
-    t.integer  "type_id",                         null: false
-    t.boolean  "is_delete",       default: false, null: false
+    t.integer  "event_id",                         null: false
+    t.integer  "question_number",  default: 1,     null: false
+    t.string   "sentence",         default: "",    null: false
+    t.integer  "points",           default: 1,     null: false
+    t.integer  "question_type_id",                 null: false
+    t.boolean  "is_delete",        default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_current"
   end
+
+  create_table "quiz_administrators", force: true do |t|
+    t.string   "email",               default: "", null: false
+    t.string   "encrypted_password",  default: "", null: false
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",       default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "quiz_administrators", ["email"], name: "index_quiz_administrators_on_email", unique: true
 
 end
