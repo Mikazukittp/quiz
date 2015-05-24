@@ -129,6 +129,13 @@ class EventsController < ApplicationController
         end
     end
 
+    def set_url
+        event = Event.find_by(id: params[:id])
+        url_token = SecureRandom.urlsafe_base64
+        event.update(url_token:url_token)
+        render :json => event
+    end
+
     private
 
     def check_admin_user_exist
