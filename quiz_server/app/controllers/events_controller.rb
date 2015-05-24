@@ -129,10 +129,10 @@ class EventsController < ApplicationController
         end
     end
 
-    def set_url
+    def set_url_token
         event = Event.find_by(id: params[:id])
         return render_fault("存在しないイベントです") if event.nil?
-        event.set_url
+        event.set_url_token
         render :json => event
     end
 

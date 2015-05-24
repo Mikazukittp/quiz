@@ -21,7 +21,7 @@ respond_to :json
         )
 
         #イベントにURL_TOKENをセット
-        event.set_url
+        event.set_url_token
 
         render_sccess("支払いが完了しました")
         rescue WebPay::ErrorResponse::CardError => e

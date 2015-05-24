@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'events/set_url/:id' => 'events#set_url'
+  get 'events/set_url_token/:id' => 'events#set_url_token'
   get 'events/show_with_token/:url_token' => 'events#show_with_token'
   get 'events/start/:id' => 'events#start'
   get 'events/close/:id' => 'events#close'

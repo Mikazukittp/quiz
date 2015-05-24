@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
 
     default_scope ->{where(is_delete: false)}
 
-    def set_url
+    def set_url_token
       url_token = SecureRandom.urlsafe_base64
       self.update(url_token:url_token)
     end
