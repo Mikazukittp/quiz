@@ -115,8 +115,8 @@ class EventsController < ApplicationController
 
       aggregate_answers(event) #解答者の回答を集計する
 
-      answerers = event.answerers.order(total_times_answer_correctly: :desc)
-      .order(total_answer_time: :asc)
+      answerers = event.answerers.order(correct_answers: :desc)
+      .order(avarage_answer_time: :asc)
 
       give_rank(answerers)#点数順に並び替えた解答者にランクを付与する
 
@@ -159,7 +159,7 @@ class EventsController < ApplicationController
           end
         end
 
-        answerer.update(total_times_answer_correctly: points, total_answer_time: points>0? time/points : -1)
+        answerer.update(correct_answers: points, avarage_answer_time: points > 0 ? time/points : -1)
       end
     end
 
@@ -168,9 +168,9 @@ class EventsController < ApplicationController
     end
 
     def give_rank(answerers)
-      lowest_rank = answerers.where('total_times_answer_correctly > 0').count + 1
+      lowest_rank = answerers.where('correct_answers > 0').count + 1
       answerers.each.with_index(1) do |answerer,index|
-        if answerer.total_times_answer_correctly > 0
+        if answerer.correct_answers > 0
           answerer.update(rank: index)
         else
           answerer.update(rank: lowest_rank)
