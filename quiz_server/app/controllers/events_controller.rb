@@ -131,6 +131,7 @@ class EventsController < ApplicationController
 
     def set_url
         event = Event.find_by(id: params[:id])
+        return render_fault("存在しないイベントです") if event.nil?
         url_token = SecureRandom.urlsafe_base64
         event.update(url_token:url_token)
         render :json => event
