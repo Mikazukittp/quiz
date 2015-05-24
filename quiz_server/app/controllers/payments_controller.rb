@@ -20,17 +20,12 @@ respond_to :json
             customer: customer.id
         )
 
-        set_url_to_event(event)
+        #イベントにURL_TOKENをセット
+        event.set_url
 
         render_sccess("支払いが完了しました")
         rescue WebPay::ErrorResponse::CardError => e
         # エラーハンドリング。発生する例外の種類がいくつか用意されているので、内容に応じて処理を書く
         render_fault("パラメータが不正です")
-    end
-
-    def set_url_to_event(event)
-        #url = root_url(:only_path => false) + "answers/new/"
-        url_token = SecureRandom.urlsafe_base64
-        event.update(url_token:url_token)
     end
 end
