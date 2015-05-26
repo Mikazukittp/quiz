@@ -15,6 +15,7 @@ class AnswersController < ApplicationController
     end
 
     def create
+        return render_fault("一度しか回答できません") if answer_exists?(params[:answer][:question_id])
         attr = params.require(:answer).permit(:question_id,:choice_question_number)
         answer = Answer.new(attr)
         answer.answerer_id = @user.id
@@ -26,6 +27,10 @@ class AnswersController < ApplicationController
     end
 
     private
+
+    def answer_exists?(question_id)
+        Answer.find_by(answerer_id:@user.id,question_id:question_id)
+    end
 
     def check_user_token
         unless @user = Answerer.check(cookies[:quiz_user_token])
