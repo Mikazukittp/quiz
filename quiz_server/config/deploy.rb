@@ -20,7 +20,7 @@ set :repo_url, 'git@github.com:haijima/quiz.git'
 # set :log_level, :debug
 
 # Default value for :pty is false
-# set :pty, true
+set :pty, true
 
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
@@ -36,6 +36,18 @@ set :repo_url, 'git@github.com:haijima/quiz.git'
 
 namespace :deploy do
 
+  Rake::Task["deploy:check:directories"].clear
+
+  namespace :check do
+    desc '(overwrite) Check shared and release directories exist'
+    task :directories do
+      on release_roles :all do
+        execute :sudo, :mkdir, '-pv', shared_path, releases_path
+        execute :sudo, :chown, '-R', "#{fetch(:user)}:#{fetch(:group)}", deploy_to
+      end
+    end
+  end
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -45,4 +57,11 @@ namespace :deploy do
     end
   end
 
+end
+
+desc "テストタスクです"
+task :test do
+  on roles(:web) do
+    execute "pwd"
+  end
 end

@@ -9,7 +9,7 @@
 
 set :stage, :production
 set :rails_env, 'production'
-server 'ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com', user: 'ec2-user', roles: %w{web app db}
+server 'ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com', user: 'deploy', roles: %w{web app db}
 set :ssh_options, {
   keys: [File.expand_path('~/.ssh/quiz.pem')],
 }

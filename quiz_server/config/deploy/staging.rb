@@ -7,7 +7,10 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-
+server 'ec2-54-64-240-244.ap-northeast-1.compute.amazonaws.com', user: 'deploy', roles: %w{web}
+set :ssh_options, {
+  keys: [File.expand_path('~/.ssh/quiz.pem')],
+}
 
 # role-based syntax
 # ==================
