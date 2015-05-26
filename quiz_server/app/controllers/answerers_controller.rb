@@ -21,7 +21,10 @@ class AnswerersController < ApplicationController
     end
 
     def show
-        render :json => @user
+        render :json => { :user => @user,
+                          :answers => @user.answers,
+                          :questions => @user.event.questions
+                      }
     end
 
     def get_event
