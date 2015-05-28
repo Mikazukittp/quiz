@@ -8,7 +8,9 @@ class EventsController < ApplicationController
 
     def show
       event = Event.find_by(id: params[:id])
-      if check_admin_has_event(event)
+      return render_fault("存在しないイベントです") if event.nil?
+
+      if is_admins_event?(event)
         render :json => event
       else
         render_fault("存在しないeventです。")
@@ -43,7 +45,7 @@ class EventsController < ApplicationController
 
     def destroy
       event = Event.find_by(id: params[:id])
-      if event != nil && check_admin_has_event(event)
+      if event != nil && is_admins_event?(event)
         event.update_attributes(:is_delete => true )
         render_success("イベントの削除に成功しました")
       else
@@ -59,7 +61,7 @@ class EventsController < ApplicationController
 
     def next
       event = Event.find_by(id: params[:id])
-      if event != nil && check_admin_has_event(event)
+      if event != nil && is_admins_event?(event)
         question = event.questions.find_by(is_current: true)
         if question.nil?
           render :json => { :info => "event is over"}
@@ -130,8 +132,11 @@ class EventsController < ApplicationController
     end
 
     def set_url_token
-        event = Event.find_by(id: params[:id])
-        return render_fault("存在しないイベントです") if event.nil?
+        event = Event.find(params[:id])
+
+        return handle_404 unless is_admins_event?(event)
+        return render_fault("無効な操作です") unless event.is_free_plan? && event.is_paid?
+
         event.set_url_token
         render :json => event
     end
@@ -144,7 +149,7 @@ class EventsController < ApplicationController
       end
     end
 
-    def check_admin_has_event(event)
+    def is_admins_event?(event)
       event.admin_user_id === current_admin_user.id
     end
 

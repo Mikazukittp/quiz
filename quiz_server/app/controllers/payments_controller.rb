@@ -21,9 +21,13 @@ respond_to :json
         )
 
         #イベントにURL_TOKENをセット
-        event.set_url_token
+        token = event.set_url_token
 
-        render_sccess("支払いが完了しました")
+        render :json => { :success => true,
+                          :info => "決済処理が完了しました",
+                          :url_token => token
+                        }
+
         rescue WebPay::ErrorResponse::CardError => e
         # エラーハンドリング。発生する例外の種類がいくつか用意されているので、内容に応じて処理を書く
         render_fault("パラメータが不正です")
