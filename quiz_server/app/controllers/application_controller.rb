@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
     params[:authenticity_token] = form_authenticity_token
   end
 
+  def after_sign_out_path_for(resource)
+    '/admin'
+  end
+
   #トークンによる認証
   def authenticate_user_from_token!
     user = User.find_by(email: params[:email])
