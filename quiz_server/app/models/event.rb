@@ -10,7 +10,7 @@ class Event < ActiveRecord::Base
 
     def set_url_token
       url_token = SecureRandom.urlsafe_base64
-      self.update(url_token:url_token)
+      self.update(url_token:url_token, status: "ready")
     end
 
     def is_free_plan?

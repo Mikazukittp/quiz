@@ -86,4 +86,10 @@ class QuestionsController < ApplicationController
     def check_admin_has_question(question)
       question.event.admin_user_id === current_admin_user.id
     end
+
+    def order_questions(questions)
+      quesions.order(:question_number).each.with_index(1) do |question,index|
+        question.update(question_number: index)
+      end
+    end
 end
