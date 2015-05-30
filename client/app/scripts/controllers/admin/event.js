@@ -8,15 +8,40 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('AdminEventCtrl', function ($scope, $stateParams, $modal, events, questions, choices) {
+  .controller('AdminEventCtrl', function ($rootScope, $scope, $stateParams, $modal, events, questions, choices) {
 
     $scope.id = $stateParams.id;
+    $scope.choices = [];
     events.get({id: $scope.id}, function(data){
       $scope.event = data;
+      $scope.event.url = 'http://quiz.party/user/login/' + $scope.event.url_token;
     });
     questions.findByEventId({event_id: $scope.id}, function(data){
       $scope.questions = data;
+      $scope.questions.forEach(function(q, i){
+        choices.findByQuestionId({question_id: q.id}, function(data){
+          $scope.choices[i] = data;
+        })
+      });
     });
+
+    $scope.publishURL = function() {
+      events.publishURL({id: $scope.id}, function(data){
+        $scope.event = data;
+        $scope.event.url = 'http://quiz.party/user/login/'+data.url_token;
+      });
+    };
+
+    $scope.publishedToken = function() {
+      return $scope.event && $scope.event.url_token != null;
+    };
+
+    $scope.clearEventData = function() {
+      events.clear({id: $scope.id}, function(data){
+        console.log(data);
+        $rootScope.$broadcast('show-message', {message: data.info, type: 'success'});
+      });
+    };
 
     $scope.upsertQuestion = function(questionIndex) {
     var modalInstance;
@@ -81,6 +106,7 @@ angular.module('clientApp')
             }, function(data){
               console.log(data);
               $scope.questions.splice(questionIndex, 1, data.question);
+              $scope.choices.splice(questionIndex, 1, data.choices);
             });
           });
         });
