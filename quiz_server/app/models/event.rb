@@ -7,4 +7,17 @@ class Event < ActiveRecord::Base
     belongs_to :admin_user
 
     default_scope ->{where(is_delete: false)}
+
+    def set_url_token
+      url_token = SecureRandom.urlsafe_base64
+      self.update(url_token:url_token)
+    end
+
+    def is_free_plan?
+        self.course_id == 1
+    end
+
+    def is_paid?
+        self.url_token != ""
+    end
 end
