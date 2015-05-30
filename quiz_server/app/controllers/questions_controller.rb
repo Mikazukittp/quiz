@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
 
     def create
        attr = params.require(:question).permit(:sentence,
-            :points,:type_id)
+            :points,:question_type_id)
 
        event = Event.find_by(id: params[:question][:event_id])
        if event != nil && check_admin_has_event(event)
@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
 
     def update
        attr = params.require(:question).permit(:event_id,:sentence,
-            :points,:type_id)
+            :points,:question_type_id)
 
        question = Question.find(params[:id])
        if question !=nil && check_admin_has_question(question)
