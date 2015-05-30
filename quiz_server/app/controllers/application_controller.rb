@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
   # => トークンによる認証
   before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
 
+  # 例外ハンドル
+  rescue_from Exception,                        with: :handle_500
+  rescue_from ActiveRecord::RecordNotFound,     with: :handle_404
+  rescue_from ActionController::RoutingError,   with: :handle_404
+
   #　パラメータからtokenを取得するメソッド
   def get_token_from_response
     params[:authenticity_token] = form_authenticity_token

@@ -2,22 +2,28 @@ Rails.application.routes.draw do
   devise_for :quiz_administrators
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  #patch 'admin_users' => 'admin_users#update'
+  get 'events/set_url_token/:id' => 'events#set_url_token'
   get 'events/show_with_token/:url_token' => 'events#show_with_token'
   get 'events/start/:id' => 'events#start'
   get 'events/close/:id' => 'events#close'
   delete 'events/clear/:id' => 'events#clear'
   get 'events/next/:id' => 'events#next'
   resources :events, only: [:index, :show, :create, :destroy, :update]
+
   get 'choices/:id/is_correct' => 'choices#is_correct'
   resources :choices, only: [:index, :show, :destroy]
+
   resources :payments, only: [:create]
+
+  resources :questions, only: [:index, :show, :create, :destroy, :update]
+
   get 'answerers/get_question' => 'answerers#get_question'
   get 'answerers/get_event/:url_token' => 'answerers#get_event'
-  resources :questions, only: [:index, :show, :create, :destroy, :update]
   get 'answerers/score' => 'answerers#show'
   resources :answerers, only: [:index, :create, :show]
+
   resources :answers, only: [:index, :show, :update, :create]
+
   resources :courses, only: [:index, :show]
 
   devise_for :admin_users, controllers: { sessions: "session",
