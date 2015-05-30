@@ -1,41 +1,49 @@
-<!--
-<ol class="breadcrumb">
-  <li><a href="・">Home</a></li>
-  <li class="active">{{event.name}}</li>
-</ol>
- -->
-
-<h2>{{event.name}}</h2>
+<h2 class="pull-left">{{event.name}}</h2>
 
 <table class="table table-hover">
-  <!-- <tr><td>管理者</td><td>#{{event.admin_user_id}}</td></tr> -->
-  <!-- <tr><td>イベント名</td><td>{{event.name}}</td></tr> -->
   <tr><td>日時</td><td>{{event.event_date | date:'yyyy MM/dd'}}</td></tr>
   <tr><td>説明</td><td>{{event.description}}</td></tr>
-  <tr><td>URL</td><td><a href="{{event.url}}">{{event.url}}</a></td></tr>
+  <tr><td>URL</td><td>
+    <a ng-show="publishedToken()" href="{{event.url}}">{{event.url}}</a>
+    <a ng-hide="publishedToken()" ng-click="publishURL()">発行</a>
+  </td></tr>
 </table>
 
 <div class="btn btn-default" ng-click="clearEventData(event.id)">イベントの登録済みユーザを削除</div>
 
 <h3>問題一覧</h3>
-<a class="btn btn-default" ng-click="upsertQuestion()"><span class="glyphicon glyphicon-plus"></span>追加</a>
 
-<table class="table table-hover">
-  <thead>
-    <th>問題</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </thead>
-  <tbody>
-    <tr ng-repeat="q in questions">
-        <td>{{q.sentence}}</td>
-        <td><a href="/#/admin/question/{{id}}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-        <td><a href ng-click="upsertQuestion($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>
-        <td><a href ng-click="deleteQuestion($index)"><span class="glyphicon glyphicon-trash"></span></a></td>
-    </tr>
-  </tbody>
-</table>
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default" ng-repeat="q in questions | orderBy:'q.question_number'">
+    <div class="panel-heading" id="question{{$index}}">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}">
+          {{q.question_number}} : {{q.sentence}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{{$index}}" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ol>
+          <li ng-repeat="c in choices[$index] | orderBy:'c.choice_number'">
+            <span ng-class="{'correct-answer': c.correct_flag}">{{c.sentence}}</span>
+          </li>
+        </ol>
+        <a class="clickable pull-right" ng-click="upsertQuestion($index)">問題を編集</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="clickable" ng-click="upsertQuestion()">新規作成</a>
+      </h4>
+    </div>
+  </div>
+</div>
+
+<div class="btn btn-lg btn-primary pull-right" ui-sref="adminQuestion({eventId: event.id})">問題開始</div>
 
 <script type="text/ng-template" id="upsertQuestion.html">
   <div class="modal-header">
