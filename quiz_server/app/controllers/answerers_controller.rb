@@ -38,13 +38,12 @@ class AnswerersController < ApplicationController
 
     def get_question
         question = @user.event.questions.includes(:choices).find_by(is_current: true)
-        unless question.nil?
-            render :json => { :question => question,
-                              :choices => question.choices,
-                              :is_last => is_last?(question)  }
-        else
-            render_fault("イベントが開始されておりません")
-        end
+        return render_fault("イベントが開始されておりません") if question.nil?
+        return render_fault("質問は準備中です") if question.status == "prepared"
+        render :json => { :question => question,
+                          :choices => question.choices,
+                          :is_last => is_last?(question)
+                      }
     end
 
     private

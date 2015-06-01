@@ -21,61 +21,75 @@ class QuestionsController < ApplicationController
     end
 
     def create
-       attr = params.require(:question).permit(:sentence,
+      attr = params.require(:question).permit(:sentence,
             :points,:question_type_id)
 
-       event = Event.find_by(id: params[:question][:event_id])
-       if event != nil && check_admin_has_event(event)
-         question = event.questions.create(attr)
-         question.update_attributes(:question_number => (event.questions.order('question_number').last.question_number + 1) )
-         params[:choices].each do |choice|
-            question.choices.create(choice[1])
-         end
-         render :json => { :success => true,
-                          :info => "質問の作成に成功しました",
-                          :question => question,
-                          :choices => question.choices
-       }
-       else
-        render_fault("存在しないイベントです")
-       end
+      event = current_admin_user.events.find(params[:question][:event_id])
+
+      Question.transaction do
+        question = event.questions.create!(attr)
+          question.update!(question_number:
+          (event.questions.order('question_number').last.question_number + 1 ))
+        params[:choices].each do |choice|
+          question.choices.create!(choice[1])
+        end
+      end
+
+      render :json => { :success => true,
+                        :info => "質問の作成に成功しました",
+                        :question => question,
+                        :choices => question.choices
+                      }
     end
 
     def update
-       attr = params.require(:question).permit(:event_id,:sentence,
-            :points,:question_type_id)
+      attr = params.require(:question).permit(:event_id,:sentence,:points,:question_type_id)
 
-       question = Question.find(params[:id])
-       if question !=nil && check_admin_has_question(question)
-         question.update(attr)
-         params[:choices].each do |choices|
-           choice = question.choices.find_by(id: choices[1][:id])
-           if choice != nil
-             choice.update(choices[1])
-           else
-             render_fault("存在しないchoicesです")
-             return
-           end
-         end
-         render :json => { :success => true,
-                          :info => "質問の更新に成功しました",
-                          :question => question,
-                          :choices => question.choices
-         }
-       else
-         render_fault("存在しないquestionです")
-       end
+      question = current_admin_user.questions.find(params[:id])
+
+      Question.transaction do
+        question.update!(attr)
+        params[:choices].each do |choices|
+          choice = question.choices.find(choices[1][:id])
+          choice.update!(choices[1])
+        end
+      end
+
+      event = current_admin_user.events.find(question.event_id)
+      order_questions(event.questions)
+      render :json => { :success => true,
+                        :info => "質問の更新に成功しました",
+                        :question => question,
+                        :choices => question.choices
+                      }
     end
 
     def destroy
-      question = Question.find_by(id: params[:id])
-      if question != nil && check_admin_has_question(question)
-        question.update_attributes(:is_delete => true )
-        render_success("質問の削除に成功しました")
-      else
-        render_fault("存在しないquestionです")
-      end
+      question = current_admin_user.questions.find(params[:id])
+      question.update_attributes(:is_delete => true )
+      event = current_admin_user.events.find(question.event_id)
+      order_questions(event.questions)
+      render_success("質問の削除に成功しました")
     end
+
+    def start
+      question = current_admin_user.questions.find(params[:id])
+      question.update(status: "accepted")
+      render :json => { :success => true,
+                        :question => question,
+                        :choices => question.choices
+                      }
+    end
+
+    def end
+      question = current_admin_user.questions.find(params[:id])
+      question.update(status: "ended")
+      render :json => { :success => true,
+                        :question => question,
+                        :choices => question.choices
+                      }
+    end
+
 
     private
 
@@ -88,7 +102,7 @@ class QuestionsController < ApplicationController
     end
 
     def order_questions(questions)
-      quesions.order(:question_number).each.with_index(1) do |question,index|
+      questions.order(:question_number).each.with_index(1) do |question,index|
         question.update(question_number: index)
       end
     end

@@ -64,12 +64,12 @@ class EventsController < ApplicationController
       question = event.questions.find_by(is_current: true)
       return render_fault("イベントが開始されていません") if question.nil?
 
-      question.update_attributes(:is_current => false )
+      question.update(is_current: false)
       next_question = event.questions.find_by(question_number: question.question_number + 1)
 
       return render :json => { :is_last => true } if next_question.nil?
 
-      next_question.update_attributes(:is_current => true )
+      next_question.update(is_current: true, status: "prepared")
       render :json => { :question => next_question,
                         :choices => next_question.choices,
                       }

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   resources :payments, only: [:create]
 
+  get 'questions/start/:id' => 'questions#start'
+  get 'questions/end/:id' => 'questions#end'
   resources :questions, only: [:index, :show, :create, :destroy, :update]
 
   get 'answerers/get_question' => 'answerers#get_question'

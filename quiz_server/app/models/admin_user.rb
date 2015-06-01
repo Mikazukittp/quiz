@@ -6,6 +6,7 @@ class AdminUser < ActiveRecord::Base
          :confirmable
 
   has_many :events, dependent: :destroy
+  has_many :questions, through: :events
 
   # 認証トークンはユニークに。ただしnilは許可
   validates:authentication_token, uniqueness: true, allow_nil: true

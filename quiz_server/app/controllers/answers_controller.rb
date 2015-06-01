@@ -17,12 +17,15 @@ class AnswersController < ApplicationController
     def create
         return render_fault("一度しか回答できません") if answer_exists?(params[:answer][:question_id])
         attr = params.require(:answer).permit(:question_id,:choice_question_number)
+        question = Question.find(params[:answer][:question_id])
+        return render_fault("回答は受付中ではありません") unless question.status == "accepted"
+
         answer = Answer.new(attr)
         answer.answerer_id = @user.id
-        question = Question.find_by(id: params[:answer][:question_id])
         answer.answer_time = get_answer_time(question)
         answer.is_correct = is_correct?(question,params[:answer][:choice_question_number])
         answer.save!
+
         render :json => answer
     end
 
