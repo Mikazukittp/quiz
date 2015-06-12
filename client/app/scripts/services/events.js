@@ -56,6 +56,12 @@
         params: {
           controller: 'clear'
         }
+      },
+      publishURL: {
+        method: 'GET',
+        params: {
+          controller:'set_url_token'
+        }
       }
     });
 });
