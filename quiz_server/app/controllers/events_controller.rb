@@ -60,59 +60,39 @@ class EventsController < ApplicationController
     end
 
     def next
-      event = Event.find_by(id: params[:id])
-      if event != nil && is_admins_event?(event)
-        question = event.questions.find_by(is_current: true)
-        if question.nil?
-          render :json => { :info => "event is over"}
-        else
-          question.update_attributes(:is_current => false )
-          next_question = event.questions.where("question_number > ?", question.question_number).first
-          if next_question.nil?
-            render :json => { :is_last => true
-                          }
-          else
-            number = event.questions.where("question_number < ?", next_question.question_number).count + 1
-            next_question.update_attributes(:is_current => true )
-            render :json => { :question => next_question,
-                            :choices => next_question.choices,
-                            :number => number
-                            }
-          end
-        end
-      else
-        render_fault("存在しないイベントです")
-      end
+      event = return_admins_event(params[:id])
+      question = event.questions.find_by(is_current: true)
+      return render_fault("イベントが開始されていません") if question.nil?
+
+      question.update(is_current: false)
+      next_question = event.questions.find_by(question_number: question.question_number + 1)
+
+      return render :json => { :is_last => true } if next_question.nil?
+
+      next_question.update(is_current: true, status: "prepared")
+      render :json => { :question => next_question,
+                        :choices => next_question.choices,
+                      }
     end
 
     def start
-      event = current_admin_user.events
-      .includes(:questions).find_by(id: params[:id])
-      if event != nil
-        return render_fault("有効期限が切れています ") unless check_limit_date(event)
-        question = event.questions.order(:question_number).first
-        if question != nil
-          question.update_attributes(:is_current => true )
-          event.update(is_close: false)
-          render :json => { :question => question,
-                            :choices => question.choices,
-                            :number => 1
-                          }
-        else
-          render_fault("質問がまだ作成されていません")
-        end
-      else
-        render_fault("存在しないイベントです")
-      end
+      event = return_admins_event(params[:id])
+      return render_fault("有効期限が切れています ") unless check_limit_date(event)
+
+      question = event.questions.order(:question_number).first
+      return render_fault("質問がまだ作成されていません") if question.nil?
+
+      question.update_attributes(:is_current => true )
+      event.update(status: "started")
+      render :json => { :question => question,
+                        :choices => question.choices,
+                      }
     end
 
     def close
-      event = current_admin_user.events
-      .includes(:answerers, questions: :answers).find_by(id: params[:id])
+      event = return_admins_event(params[:id])
 
-      return render_fault("存在しないイベントです") if event.nil?
-
-      event.update(is_close: true)
+      event.update(status: "closed")
       event.questions.update_all(:is_current => false)
 
       aggregate_answers(event) #解答者の回答を集計する
@@ -123,6 +103,12 @@ class EventsController < ApplicationController
       give_rank(answerers)#点数順に並び替えた解答者にランクを付与する
 
       render :json => answerers
+    end
+
+    def publish
+      event = return_admins_event(params[:id])
+      event.update(status: "published")
+      render :json => event
     end
 
     def clear
@@ -149,6 +135,10 @@ class EventsController < ApplicationController
     end
 
     private
+
+    def return_admins_event(id)
+      current_admin_user.events.includes(:questions).find(params[:id])
+    end
 
     def check_admin_user_exist
       if current_admin_user == nil

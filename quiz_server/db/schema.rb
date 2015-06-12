@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524091759) do
+ActiveRecord::Schema.define(version: 20150530063354) do
 
   create_table "admin_users", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -113,18 +113,19 @@ ActiveRecord::Schema.define(version: 20150524091759) do
 
   create_table "events", force: true do |t|
     t.integer  "admin_user_id"
-    t.string   "name",          default: "",    null: false
-    t.datetime "event_date",                    null: false
-    t.datetime "limit_date",                    null: false
-    t.integer  "time_limit",    default: 60,    null: false
-    t.string   "url",                           null: false
+    t.string   "name",          default: "",         null: false
+    t.datetime "event_date",                         null: false
+    t.datetime "limit_date",                         null: false
+    t.integer  "time_limit",    default: 60,         null: false
+    t.string   "url",                                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete",     default: false, null: false
+    t.boolean  "is_delete",     default: false,      null: false
     t.integer  "course_id"
     t.string   "description"
     t.string   "url_token"
     t.boolean  "is_close",      default: true
+    t.string   "status",        default: "prepared"
   end
 
   create_table "oauth_access_grants", force: true do |t|
@@ -185,15 +186,16 @@ ActiveRecord::Schema.define(version: 20150524091759) do
   end
 
   create_table "questions", force: true do |t|
-    t.integer  "event_id",                         null: false
-    t.integer  "question_number",  default: 1,     null: false
-    t.string   "sentence",         default: "",    null: false
-    t.integer  "points",           default: 1,     null: false
-    t.integer  "question_type_id",                 null: false
-    t.boolean  "is_delete",        default: false, null: false
+    t.integer  "event_id",                              null: false
+    t.integer  "question_number",  default: 1,          null: false
+    t.string   "sentence",         default: "",         null: false
+    t.integer  "points",           default: 1,          null: false
+    t.integer  "question_type_id",                      null: false
+    t.boolean  "is_delete",        default: false,      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_current"
+    t.string   "status",           default: "prepared"
   end
 
   create_table "quiz_administrators", force: true do |t|
