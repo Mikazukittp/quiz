@@ -8,10 +8,16 @@ set :repo_url, 'git@github.com:haijima/quiz.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
- set :deploy_to, '/var/www/html/quiz2'
+set :deploy_to, '/var/www/html/quiz-party'
 
 # Default value for :scm is :git
- set :scm, :git
+set :scm, :git
+
+set :rbenv_type, :user # :system or :user
+set :rbenv_ruby, '2.2.1'
+#set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+#set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+#set :rbenv_roles, :all # default value
 
 # Default value for :format is :pretty
 # set :format, :pretty
@@ -48,6 +54,21 @@ namespace :deploy do
     end
   end
 
+  task :finished, :build_bower do
+    on release_roles :all do
+      execute :sudo, 'mkdir /var/www/html/quiz-party/current/client/dist'
+      execute :sudo, :chown, '-R', "deploy:admin-g", '/var/www/html/quiz-party/current/client/dist'
+      execute :sudo, 'mkdir /var/www/html/quiz-party/current/client/.tmp'
+      execute :sudo, :chown, '-R', "deploy:admin-g", '/var/www/html/quiz-party/current/client/.tmp'
+      execute "cp /var/www/html/bower.json /var/www/html/quiz-party/current/client/bower.json"
+      execute "cd /var/www/html/quiz-party/current/client; bower install"
+      execute "cd /var/www/html/quiz-party/current/client; sudo npm install"
+      execute "cp /var/www/html/quiz/client/deploy.sh /var/www/html/quiz-party/current/client/deploy.sh"
+      execute "cd /var/www/html/quiz-party/current/client; sudo sh /var/www/html/quiz-party/current/client/deploy.sh"
+      execute "htre"
+    end
+  end
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -56,7 +77,6 @@ namespace :deploy do
       # end
     end
   end
-
 end
 
 desc "テストタスクです"
