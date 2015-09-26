@@ -7,9 +7,15 @@
   <script type="text/javascript" src="views/util/jquery.flipcountdown.js"></script>
 
   <div ng-show="finish">
-    <ol ng-repeat="r in result | limitTo: 5">
+    <!-- <ol ng-repeat="r in result | limitTo: 5">
       <li class="rank"> 名前:{{r.name}}</li>
-    </ol>   
+    </ol>  -->
+    <ol>
+      <li class="rank"> 名前:テストユーザ</li>
+      <li class="rank"> 名前:テストユーザ2</li>
+      <li class="rank"> 名前:テストユーザ3</li>
+      <li class="rank"> 名前:テストユーザ4</li>
+    </ol>
   </div>
 
   <div ng-hide="finish">
@@ -31,7 +37,7 @@
          </div>
         </div>
        </div>
-      </div> 
+      </div>
 
      <div class="btn-group btn-group-justified" role="group" aria-label="...">
        <div class="btn-group" role="group">
