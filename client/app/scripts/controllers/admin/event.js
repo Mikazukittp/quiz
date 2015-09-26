@@ -65,7 +65,7 @@ angular.module('clientApp')
               event_id: $scope.id,
               sentence: result.sentence,
               points: 50,
-              type_id: 1
+              question_type_id: 1
             };
             var _choices = {
               choice1: {
@@ -125,7 +125,7 @@ angular.module('clientApp')
             event_id: $scope.id,
             sentence: result.sentence,
             points: 50,
-            type_id: 1
+            question_type_id: 1
           };
           var _choices = {
             choice1: {
