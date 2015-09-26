@@ -12,9 +12,11 @@ class ApplicationController < ActionController::Base
   before_action      :authenticate_user_from_token!, if: -> {params[:email].present?}
 
   # 例外ハンドル
-  rescue_from Exception,                        with: :handle_500
-  rescue_from ActiveRecord::RecordNotFound,     with: :handle_404
-  rescue_from ActionController::RoutingError,   with: :handle_404
+  if !Rails.env.development?
+    rescue_from Exception,                        with: :handle_500
+    rescue_from ActiveRecord::RecordNotFound,     with: :handle_404
+    rescue_from ActionController::RoutingError,   with: :handle_404
+  end
 
   #　パラメータからtokenを取得するメソッド
   def get_token_from_response

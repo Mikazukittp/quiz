@@ -26,10 +26,12 @@ class QuestionsController < ApplicationController
 
       event = current_admin_user.events.find(params[:question][:event_id])
 
+      question = event.questions.new(attr)
+
       Question.transaction do
-        question = event.questions.create!(attr)
-          question.update!(question_number:
-          (event.questions.order('question_number').last.question_number + 1 ))
+        question.question_number = event.questions.order('question_number').last.question_number + 1
+        question.save!
+
         params[:choices].each do |choice|
           question.choices.create!(choice[1])
         end
