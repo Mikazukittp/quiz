@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
     '/admin'
   end
 
+  def after_sign_in_path_for(resource)
+    events_path # ログイン後に遷移したいパス
+  end
+
   #トークンによる認証
   def authenticate_user_from_token!
     user = User.find_by(email: params[:email])

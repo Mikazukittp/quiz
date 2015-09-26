@@ -1,0 +1,199 @@
+.hero-unit {
+    position: relative;
+    padding: 30px 15px;
+    color: #F5F5F5;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    background: #4393B9;
+    background: #16A6B6;
+
+    .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline{
+        margin-left: 0px;
+    }
+}
+
+.message-bar {
+  position: absolute;
+  width: 100%;
+  padding: 10px 15px;
+  z-index: 9999;
+  .message {
+    float: left;
+  }
+  #close-btn {
+    float: right;
+  }
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.sidebar .nav.nav-header {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.event-card {
+  display: block;
+  position: relative;
+  font-size: 12px;
+  line-height: 12px;
+  background-color: #eee;
+  background: linear-gradient(#f8f8f8, #eee);
+  box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  &.active {
+    background: linear-gradient(#eee, #ddd);
+  }
+  &.add {
+    a {
+      min-height: 20px;
+    }
+  }
+  a {
+    display: block;
+    min-height: 60px;
+    padding: 10px 15px;
+    color: #333;
+    &:hover {
+      text-decoration: none;
+    }
+
+    p{
+      margin-bottom: 8px;
+      &.big-text {
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+
+    .event-date {
+      display: block;
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #333;
+      border-top: 16px solid #333;
+      border-radius: 2px;
+      .month {
+        position: absolute;
+        left: 9px;
+        top: -14px;
+        font-size: 8px;
+        color: #fff;
+      }
+      .date {
+        position: absolute;
+        left: 10px;
+        top: 4px;
+        font-size: 16px;
+      }
+    }
+
+    .event-name, .event-description {
+      position: relative;
+      left: 64px;
+      width: calc(100% - 64px);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .event-description {
+      margin-bottom: 0;
+    }
+
+  }
+}
+
+.correct-answer {
+  font-weight: bold;
+}
+
+ul.quizTable a {
+ display: block;
+ text-decoration:none;
+ color:#0e2236;
+}
+
+
+.circle-logo {
+ /* サイズ指定 */
+ width:175px;
+ height:175px;
+ /* 背景色 */
+ background-color:#34ac98;
+ /* 角を丸くする */
+ border-radius: 50%;
+ -webkit-border-radius: 50%;
+ -moz-border-radius: 50%;
+ margin: 0 auto;
+
+}
+
+.circle-info {
+  padding-top: 68px; /* 真ん中にまで文字を下ろす */
+}
+
+.circle-logo h1,
+.circle-logo p {
+ text-align: center; /* 中央寄せ */
+ color: #fff; /* 文字を白色に */
+ margin: 0; /* h1とpの余白をリセット */
+}
+
+/* あとは文字サイズや太字を指定 */
+.circle-logo h1 {font-size:40px;}
+.circle-logo p {font-size:10px; font-weight:bold;}
+
+.rank-info {
+ text-align:center;
+ margin-top:10px;
+}
+
+l {
+  counter-reset:num; /*カウントリセット*/
+  }
+.rank {
+  list-style:none; /*デフォルトナンバリングを消す*/
+  position:relative;
+  margin-top:25px;
+  padding:0;
+  line-height:15px; /*行間*/
+  *list-style-type: decimal; /*IE7用ハック*/
+  }
+.rank:before {
+  content:counter(num); /*カウンターのインデックスを挿入*/
+  counter-increment:num; /*ナンバリングを生成*/
+
+  /* ここから番号のスタイル */
+  position:absolute;
+  top:-15px; /*コンテンツの上へ*/
+  width:20px; /*幅*/
+  color:#fff; /*文字色*/
+  background:url(/views/util/img/ico_rank.png) no-repeat; /*背景*/
+  font-family: 'Federo', sans-serif; /*webフォント*/
+  font-size:80%;
+  text-align:center;
+  }
+
+.red {
+    color: red;
+}
+
+p.login-alert {
+    font-size: 10px;
+}

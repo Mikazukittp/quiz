@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
   def index
-    handle_404
+    redirect_to '/admin_users/sign_in'
+
   end
 end

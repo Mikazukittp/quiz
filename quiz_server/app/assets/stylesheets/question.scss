@@ -1,0 +1,40 @@
+ul.quizTable a {
+ display: block;
+ text-decoration:none;
+ color:#0e2236;
+}
+
+
+.circle-logo {
+ /* サイズ指定 */        
+ width:175px;
+ height:175px;
+ /* 背景色 */
+ background-color:#34ac98;
+ /* 角を丸くする */
+ border-radius: 50%;
+ -webkit-border-radius: 50%;
+ -moz-border-radius: 50%;
+ margin: 0 auto;  
+
+}
+
+.circle-info {
+ padding-top:30px; /* 真ん中にまで文字を下ろす */
+}
+
+.circle-logo h1,
+.circle-logo p {
+ text-align: center; /* 中央寄せ */
+ color: #fff; /* 文字を白色に */
+ margin: 0; /* h1とpの余白をリセット */
+}
+
+/* あとは文字サイズや太字を指定 */
+.circle-logo h1 {font-size:40px;}
+.circle-logo p {font-size:10px; font-weight:bold;}
+
+.rank-info {
+ text-align:center;
+ margin-top:10px;
+}
