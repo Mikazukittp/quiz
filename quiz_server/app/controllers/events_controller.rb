@@ -1,20 +1,14 @@
 class EventsController < ApplicationController
   before_action :check_admin_user_exist, except: :show_with_token
+  before_action :set_events, only: [:index, :show]
 
     def index
-        events = Event.where(admin_user_id: current_admin_user.id)
-        render :json => events
     end
 
     def show
-      event = Event.find_by(id: params[:id])
-      return render_fault("存在しないイベントです") if event.nil?
-
-      if is_admins_event?(event)
-        render :json => event
-      else
-        render_fault("存在しないeventです。")
-      end
+      @event = Event.find_by(id: params[:id])
+      @questions = @event.questions
+      render action: :index
     end
 
     def create
@@ -135,6 +129,10 @@ class EventsController < ApplicationController
     end
 
     private
+
+    def set_events
+      @events = Event.where(admin_user_id: current_admin_user.id)
+    end
 
     def return_admins_event(id)
       current_admin_user.events.includes(:questions).find(params[:id])

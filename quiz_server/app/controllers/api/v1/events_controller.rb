@@ -1,4 +1,4 @@
-class EventsController < ApplicationController
+class Api::V1::EventsController < ApplicationController
   before_action :check_admin_user_exist, except: :show_with_token
 
     def index

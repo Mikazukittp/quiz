@@ -1,0 +1,100 @@
+<div class="container-fluid">
+  <!-- イベント一覧 -->
+  <div class="row">
+    <nav class="sidebar sidebar-inverse col-sm-4 col-md-3">
+      <span class="nav nav-header">イベント一覧</span>
+      <ul class="nav nav-sidebar">
+        <% @events.each do |event| %>
+          <li class="event-card">
+            <%= link_to event do%>
+              <!-- カレンダー風アイコン -->
+              <p class="event-date">
+                <span class="month">May</span>
+                <span class="date">04</span>
+              </p>
+
+              <p class="event-name big-text"><%= event.name%></p>
+              <p class="event-description"><%= event.description%></p>
+            <% end %>
+          </li>
+        <% end %>
+          <!-- 新規イベント作成 -->
+          <li class="event-card add text-center">
+            <a href= "upsertEvent()">
+              <span class="glyphicon glyphicon-plus"></span>
+              新規イベント作成
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <% if @event %>
+
+        <div ui-view class="hidden-xs col-sm-offset-4 col-sm-8 col-md-offset-3 col-md-9">
+          <h2 class="pull-left"><%= @event.name%></h2>
+
+          <table class="table table-hover">
+            <tr><td>日時</td><td><%= @event.event_date%></td></tr>
+            <tr><td>説明</td><td><%= @event.description%></td></tr>
+            <tr><td>URL</td><td>
+              <% if @event.url? %>
+                <%= link_to @event.url%>
+              <% else %>
+                <%= link_to '発行', "hogehoge.com" %>
+              <% end %>
+            </td></tr>
+          </table>
+
+          <div class="btn btn-default">イベントの登録済みユーザを削除</div>
+
+          <h3>問題一覧</h3>
+
+
+          <div class="panel-group" id="accordion">
+            <% @questions.each do |question| %>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a class="collapsed">
+                      <%= question.sentence %>
+                    </a>
+                  </h4>
+                </div>
+                <div>
+                  <!-- <div class="panel-body">
+                    <ol>
+                      <li>
+                        <span class="correct-answer">フライパン</span>
+                      </li>
+                      <li>
+                        <span>フランスパン</span>
+                      </li>
+                      <li>
+                        <span>あんぱん</span>
+                      </li>
+                      <li>
+                        <span>焼きそばパン</span>
+                      </li>
+                    </ol>
+                    <a class="clickable pull-right" ng-click="upsertQuestion($index)">問題を編集</a>
+                  </div> -->
+                </div>
+              </div>
+            <% end %>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a class="clickable" ng-click="upsertQuestion()">新規作成</a>
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn btn-lg btn-primary pull-right" ui-sref="adminQuestion({eventId: event.id})">問題開始</div>
+
+        </div>
+      <% end %>
+    </div>
+
+  </div>
