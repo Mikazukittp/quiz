@@ -3,7 +3,7 @@
 <table class="table table-hover">
   <tr><td>日時</td><td>{{event.event_date | date:'yyyy MM/dd'}}</td></tr>
   <tr><td>説明</td><td>{{event.description}}</td></tr>
-  <tr><td>URL</td><td>
+  <tr><td>参加者配布用URL</td><td>
     <a ng-show="publishedToken()" href="{{event.url}}">{{event.url}}</a>
     <a ng-hide="publishedToken()" ng-click="publishURL()">発行</a>
   </td></tr>
