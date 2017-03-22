@@ -16,6 +16,8 @@ angular.module('clientApp')
       console.log(data);
       $scope.question = data.question
       $scope.choices = data.choices
+    },function(e){
+      console.log(e);
     });
 
     $scope.next = function() {
